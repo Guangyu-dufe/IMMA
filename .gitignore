@@ -1,0 +1,18 @@
+# Outputs
+Data_alignment_SD/SD/
+Data_alignment_SD/sd_meta.csv
+
+# LargeST
+Data_alignment_SD/ca_his_raw_*.h5
+
+# LargeST-Meta
+Data_alignment_SD/ca_meta.csv
+Data_alignment_SD/ca_rn_adj.npy
+
+# Events
+Data_alignment_SD/TrafficEvents_*.csv
+Data_alignment_SD/TrafficEvents_*.tar.gz
+
+# Large HTML files
+Data_alignment_SD/non_highway_and_sensors_map.html
+Data_alignment_SD/highway_and_sensors_map.html
