@@ -22,11 +22,12 @@ from torch_geometric.utils import to_dense_batch, k_hop_subgraph
 from utils import common_tools as ct
 from utils.my_math import masked_mae_np, masked_mape_np, masked_mse_np
 from utils.data_convert import generate_samples
-from src.model.model import Basic_Model
+from src.model.model import TrafficEvent
 from src.model.ewc import EWC
 from src.trafficDataset import TrafficDataset
 from src.model import detect
 from src.model import replay
+import torch.nn.functional as F
 
 result = {3:{"mae":{}, "mape":{}, "rmse":{}}, 6:{"mae":{}, "mape":{}, "rmse":{}}, 12:{"mae":{}, "mape":{}, "rmse":{}}}
 pin_memory = True
@@ -53,7 +54,7 @@ def load_best_model(args):
     if 'tcn2.weight' in state_dict:
         del state_dict['tcn2.weight']
         del state_dict['tcn2.bias']
-    model = Basic_Model(args)
+    model = TrafficEvent(args)
     model.load_state_dict(state_dict)
     model = model.to(args.device)
     return model, loss[0]
@@ -138,7 +139,7 @@ def train(inputs, args):
         else:
             model = gnn_model
     else:
-        gnn_model = Basic_Model(args).to(args.device)
+        gnn_model = TrafficEvent(args).to(args.device)
         model = gnn_model
 
     # Model Optimizer
@@ -151,6 +152,9 @@ def train(inputs, args):
 
     iters = len(train_loader)
     lowest_validation_loss = 1e7
+    classification_loss = 0
+    basic_loss = 0
+    event_loss = 0
     counter = 0
     patience = 5
     model.train()
@@ -167,17 +171,35 @@ def train(inputs, args):
             data = data.to(device, non_blocking=pin_memory)
             
             optimizer.zero_grad()
-            pred = model(data, args.sub_adj)
+
+            basic_features, event_features, logits = model(data, args.sub_adj)
           
             if args.strategy == "incremental" and args.year > args.begin_year:
                 pred, _ = to_dense_batch(pred, batch=data.batch)
                 data.y, _ = to_dense_batch(data.y, batch=data.batch)
                 pred = pred[:, args.mapping, :]
                 data.y = data.y[:, args.mapping, :]
-            loss = lossfunc(data.y, pred, reduction="mean")
+
+            # compute loss
+            predictions = torch.argmax(logits, dim=-1)  # [bs]
+            loss_basic = lossfunc(data.y, basic_features, reduction="none")
+            # loss_event = lossfunc(data.y, event_features, reduction="none")
+            loss_basic = loss_basic.reshape(len(predictions), -1 ,basic_features.shape[1]).mean(dim=1).mean(dim=1)
+            # loss_event = loss_event.reshape(len(logits), -1 ,event_features.shape[1]).mean(dim=1).mean(dim=1)
+
+            q3 = torch.quantile(loss_basic, 0.5)
+            loss_mask = torch.zeros_like(loss_basic, dtype=torch.long)
+            loss_mask[loss_basic > q3] = 1
+            loss_classification = F.cross_entropy(logits, loss_mask)
+            
+            loss = loss_classification + loss_basic.mean()
+
             if args.ewc and args.year > args.begin_year:
                 loss += model.compute_consolidation_loss()
             training_loss += float(loss)
+            classification_loss += float(loss_classification)
+            basic_loss += float(loss_basic[predictions==0].mean())
+            event_loss += float(loss_basic[predictions==1].mean())
             loss.backward()
             optimizer.step()
             
@@ -188,26 +210,40 @@ def train(inputs, args):
         else:
             total_time += (datetime.now() - start_time).total_seconds()
         use_time.append((datetime.now() - start_time).total_seconds())
-        training_loss = training_loss/cn 
- 
+        training_loss = training_loss/cn
+        basic_loss = basic_loss/cn
+        event_loss = event_loss/cn
+        classification_loss = classification_loss/cn
+
         # Validate Model
         validation_loss = 0.0
+        validation_basic_loss = 0.0
+        validation_event_loss = 0.0
         cn = 0
         with torch.no_grad():
             for batch_idx, data in enumerate(val_loader):
                 data = data.to(device,non_blocking=pin_memory)
-                pred = model(data, args.sub_adj)
+                basic_features, memory_features, logits = model(data, args.sub_adj)
                 if args.strategy == "incremental" and args.year > args.begin_year:
                     pred, _ = to_dense_batch(pred, batch=data.batch)
                     data.y, _ = to_dense_batch(data.y, batch=data.batch)
                     pred = pred[:, args.mapping, :]
                     data.y = data.y[:, args.mapping, :]
-                loss = masked_mae_np(data.y.cpu().data.numpy(), pred.cpu().data.numpy(), 0)
+                predictions = torch.argmax(logits, dim=-1)  # [bs]
+                loss_basic = lossfunc(data.y, basic_features, reduction="none")
+                loss_basic = loss_basic.reshape(len(predictions), -1 ,basic_features.shape[1]).mean(dim=1).mean(dim=1)
+                loss = masked_mae_np(data.y.cpu().data.numpy(), basic_features.cpu().data.numpy(), 0)
                 validation_loss += float(loss)
+                validation_basic_loss += float(loss_basic[predictions==0].mean())
+                validation_event_loss += float(loss_basic[predictions==1].mean())
                 cn += 1
-        validation_loss = float(validation_loss/cn)
         
-
+        validation_loss = float(validation_loss/cn)
+        validation_basic_loss = validation_basic_loss/cn
+        validation_event_loss = validation_event_loss/cn
+        # For any grouped data, the overall average must be less than or equal to the sum of the average values ​​of each group.
+        args.logger.info("[*]Train--basic_loss:{:.4f}, event_loss:{:.4f}, classification_loss:{:.4f}".format(basic_loss, event_loss, classification_loss))
+        args.logger.info("[*]Validation--basic_loss:{:.4f}, event_loss:{:.4f}".format(validation_basic_loss, validation_event_loss))
         args.logger.info(f"epoch:{epoch}, training loss:{training_loss:.4f} validation loss:{validation_loss:.4f}")
 
         # Early Stop
@@ -221,7 +257,7 @@ def train(inputs, args):
                 break
 
     best_model_path = osp.join(path, str(lowest_validation_loss)+".pkl")
-    best_model = Basic_Model(args)
+    best_model = TrafficEvent(args)
     best_model.load_state_dict(torch.load(best_model_path, args.device)["model_state_dict"])
     best_model = best_model.to(args.device)
     
@@ -235,24 +271,91 @@ def test_model(model, args, testset, pin_memory):
     model.eval()
     pred_ = []
     truth_ = []
-    loss = 0.0
+    test_loss = 0.0
+    test_basic_loss = 0.0
+    test_event_loss = 0.0
+    test_classification_loss = 0.0
     with torch.no_grad():
         cn = 0
+        pred_basic = []
+        truth_basic = []
+        pred_event = []
+        truth_event = []
         for data in testset:
             data = data.to(args.device, non_blocking=pin_memory)
-            pred = model(data, args.adj)
-            loss += func.mse_loss(data.y, pred, reduction="mean")
-            pred, _ = to_dense_batch(pred, batch=data.batch)
-            data.y, _ = to_dense_batch(data.y, batch=data.batch)
-            pred_.append(pred.cpu().data.numpy())
+            basic_features, memory_features, logits = model(data, args.sub_adj)
+            if args.strategy == "incremental" and args.year > args.begin_year:
+                pred, _ = to_dense_batch(pred, batch=data.batch)
+                data.y, _ = to_dense_batch(data.y, batch=data.batch)
+                pred = pred[:, args.mapping, :]
+                data.y = data.y[:, args.mapping, :]
+            predictions = torch.argmax(logits, dim=-1)  # [bs]
+            loss_basic = func.mse_loss(data.y, basic_features, reduction="none")
+            loss_basic = loss_basic.reshape(len(predictions), -1, basic_features.shape[1]).mean(dim=1).mean(dim=1)
+    
+            test_loss += float(loss_basic.mean())
+            test_basic_loss += float(loss_basic[predictions==0].mean())
+            test_event_loss += float(loss_basic[predictions==1].mean())
+            
+            # Save samples with prediction=0 and prediction=1 separately
+            basic_mask = predictions == 0
+            event_mask = predictions == 1
+            
+            # Get number of nodes per batch
+            nodes_per_batch = int(basic_features.shape[0] // len(predictions))
+            
+            # Reshape features and labels for batch grouping
+            features_reshaped = basic_features.reshape(len(predictions), nodes_per_batch, -1)
+            labels_reshaped = data.y.reshape(len(predictions), nodes_per_batch, -1)
+            
+            # Save predictions and ground truth for basic traffic and event traffic separately
+            if torch.any(basic_mask):
+                pred_basic.append(features_reshaped[basic_mask].cpu().data.numpy())
+                truth_basic.append(labels_reshaped[basic_mask].cpu().data.numpy())
+            
+            if torch.any(event_mask):
+                pred_event.append(features_reshaped[event_mask].cpu().data.numpy())
+                truth_event.append(labels_reshaped[event_mask].cpu().data.numpy())
+            
+            # Save all samples for overall evaluation
+            pred_.append(basic_features.cpu().data.numpy())
             truth_.append(data.y.cpu().data.numpy())
+            
             cn += 1
-        loss = loss/cn
-        args.logger.info("[*] loss:{:.4f}".format(loss))
+        
+        test_loss = test_loss/cn
+        test_basic_loss = test_basic_loss/cn
+        test_event_loss = test_event_loss/cn
+        
+        args.logger.info("[*]Test--basic_loss:{:.4f}, event_loss:{:.4f}, test_loss:{:.4f}".format(
+            test_basic_loss, test_event_loss, test_loss))
+        
+        # Process all samples for evaluation
         pred_ = np.concatenate(pred_, 0)
         truth_ = np.concatenate(truth_, 0)
-        mae = metric(truth_, pred_, args)
-        return loss
+        nodes_per_batch = int(basic_features.shape[0] // len(predictions))
+        pred_ = pred_.reshape(-1, nodes_per_batch, pred_.shape[1])
+        truth_ = truth_.reshape(-1, nodes_per_batch, truth_.shape[1])
+        
+        # Evaluate all samples
+        args.logger.info("[*] Evaluating all samples:")
+        mae_all = metric(truth_, pred_, args)
+        
+        # Evaluate basic traffic samples
+        if pred_basic:
+            pred_basic = np.concatenate(pred_basic, 0)
+            truth_basic = np.concatenate(truth_basic, 0)
+            args.logger.info("[*] Evaluating basic traffic samples (prediction=0):")
+            mae_basic = metric(truth_basic, pred_basic, args)
+        
+        # Evaluate event traffic samples
+        if pred_event:
+            pred_event = np.concatenate(pred_event, 0)
+            truth_event = np.concatenate(truth_event, 0)
+            args.logger.info("[*] Evaluating event traffic samples (prediction=1):")
+            mae_event = metric(truth_event, pred_event, args)
+        
+        return test_loss
 
 
 def metric(ground_truth, prediction, args):
@@ -351,7 +454,7 @@ def main(args):
                         (len(node_list), args.num_hops, args.subgraph.size(), args.graph_size))
             vars(args)["node_list"] = np.asarray(node_list)
 
-
+        
         # Skip the year when no nodes needed to be trained incrementally
         if args.strategy != "retrain" and year > args.begin_year and len(args.node_list) == 0:
             model, loss = load_best_model(args)
@@ -394,7 +497,7 @@ if __name__ == "__main__":
     parser.add_argument("--paral", type = int, default = 0)
     parser.add_argument("--gpuid", type = int, default = 5)
     parser.add_argument("--logname", type = str, default = "info")
-    parser.add_argument("--load_first_year", type = int, default = 1, help="0: training first year, 1: load from model path of first year")
+    parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
     parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-04-17-12:25:53.499043/2017/26.012.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     init(args)

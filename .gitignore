@@ -16,3 +16,13 @@ Data_alignment_SD/TrafficEvents_*.tar.gz
 # Large HTML files
 Data_alignment_SD/non_highway_and_sensors_map.html
 Data_alignment_SD/highway_and_sensors_map.html
+
+# data
+TrafficStream/data/*
+
+# logs
+TrafficStream/res/*
+
+
+!TrafficStream/res/SD/p3=0.5/
+!TrafficStream/res/SD/p3=0.75/
