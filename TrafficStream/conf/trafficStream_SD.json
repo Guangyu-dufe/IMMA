@@ -12,7 +12,7 @@
     "train": 1,
     "y_len": 12,
     "x_len": 12,
-    "data_process": 0,
+    "data_process": 1,
     "auto_test": 1,
     "raw_data_path": "data/SD/finaldata/",
     "save_data_path": "data/SD/FastData/",
@@ -49,5 +49,7 @@
 
     "replay": true,
     "replay_strategy": "random",
-    "repaly_num_samples": 300
+    "repaly_num_samples": 300,
+
+    "extra_feature": true
 }

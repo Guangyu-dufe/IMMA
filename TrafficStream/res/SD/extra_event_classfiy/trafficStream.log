@@ -1,0 +1,69 @@
+2025-04-26 03:01:41,986 - logger name:res/SD/trafficStream2025-04-26-03:01:41.985929/trafficStream.log
+2025-04-26 03:01:41,987 - params : {'conf': 'conf/trafficStream_SD.json', 'paral': 0, 'gpuid': 5, 'logname': 'trafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-04-17-12:25:53.499043/2017/26.012.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'time': '2025-04-26-03:01:41.985929', 'path': 'res/SD/trafficStream2025-04-26-03:01:41.985929', 'device': device(type='cuda', index=5), 'logger': <Logger __main__ (INFO)>}
+2025-04-26 03:02:26,998 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+2025-04-26 03:02:27,329 - [*] Year 2017 Dataset load!
+2025-04-26 03:02:27,332 - [*] Model parameter count: 8842
+2025-04-26 03:02:27,332 - [*] Year 2017 Training start
+2025-04-26 03:02:27,744 - node number torch.Size([91648, 24])
+2025-04-26 03:02:43,374 - [*]Train--basic_loss:4159.0807, event_loss:nan, classification_loss:0.3772
+2025-04-26 03:02:43,374 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:02:43,374 - epoch:0, training loss:9040.9193 validation loss:30.1236
+2025-04-26 03:02:58,229 - [*]Train--basic_loss:980.0647, event_loss:nan, classification_loss:0.3691
+2025-04-26 03:02:58,229 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:02:58,229 - epoch:1, training loss:2073.3324 validation loss:28.5095
+2025-04-26 03:03:13,280 - [*]Train--basic_loss:892.4543, event_loss:nan, classification_loss:0.3553
+2025-04-26 03:03:13,280 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:03:13,280 - epoch:2, training loss:1967.9321 validation loss:28.2960
+2025-04-26 03:03:28,257 - [*]Train--basic_loss:847.9240, event_loss:nan, classification_loss:0.3456
+2025-04-26 03:03:28,257 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:03:28,257 - epoch:3, training loss:1918.5637 validation loss:28.3264
+2025-04-26 03:03:43,342 - [*]Train--basic_loss:833.3705, event_loss:nan, classification_loss:0.3403
+2025-04-26 03:03:43,342 - [*]Validation--basic_loss:1143.0456, event_loss:nan
+2025-04-26 03:03:43,342 - epoch:4, training loss:1897.2942 validation loss:28.8622
+2025-04-26 03:03:58,543 - [*]Train--basic_loss:838.5943, event_loss:nan, classification_loss:0.3400
+2025-04-26 03:03:58,543 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:03:58,543 - epoch:5, training loss:1887.9006 validation loss:28.4435
+2025-04-26 03:04:13,714 - [*]Train--basic_loss:819.0601, event_loss:nan, classification_loss:0.3372
+2025-04-26 03:04:13,714 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:04:13,714 - epoch:6, training loss:1873.8438 validation loss:28.2728
+2025-04-26 03:04:28,937 - [*]Train--basic_loss:828.0364, event_loss:nan, classification_loss:0.3404
+2025-04-26 03:04:28,937 - [*]Validation--basic_loss:1034.9335, event_loss:nan
+2025-04-26 03:04:28,937 - epoch:7, training loss:1864.3016 validation loss:28.7013
+2025-04-26 03:04:43,981 - [*]Train--basic_loss:826.3284, event_loss:nan, classification_loss:0.3384
+2025-04-26 03:04:43,982 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:04:43,982 - epoch:8, training loss:1859.8440 validation loss:27.8096
+2025-04-26 03:04:59,013 - [*]Train--basic_loss:832.6501, event_loss:nan, classification_loss:0.3376
+2025-04-26 03:04:59,014 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:04:59,014 - epoch:9, training loss:1855.4475 validation loss:28.3252
+2025-04-26 03:05:14,278 - [*]Train--basic_loss:835.6098, event_loss:nan, classification_loss:0.3371
+2025-04-26 03:05:14,278 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:05:14,278 - epoch:10, training loss:1851.4327 validation loss:27.8221
+2025-04-26 03:05:29,494 - [*]Train--basic_loss:815.5851, event_loss:nan, classification_loss:0.3340
+2025-04-26 03:05:29,495 - [*]Validation--basic_loss:981.2609, event_loss:nan
+2025-04-26 03:05:29,495 - epoch:11, training loss:1845.9354 validation loss:28.9021
+2025-04-26 03:05:44,718 - [*]Train--basic_loss:818.1339, event_loss:nan, classification_loss:0.3323
+2025-04-26 03:05:44,718 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:05:44,718 - epoch:12, training loss:1839.5660 validation loss:28.5344
+2025-04-26 03:05:59,868 - [*]Train--basic_loss:817.7749, event_loss:nan, classification_loss:0.3335
+2025-04-26 03:05:59,868 - [*]Validation--basic_loss:1108.3619, event_loss:nan
+2025-04-26 03:05:59,868 - epoch:13, training loss:1840.4561 validation loss:28.4863
+2025-04-26 03:06:15,066 - [*]Train--basic_loss:826.2779, event_loss:nan, classification_loss:0.3332
+2025-04-26 03:06:15,066 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 03:06:15,066 - epoch:14, training loss:1839.4649 validation loss:28.5046
+2025-04-26 03:06:17,789 - [*]Test--basic_loss:nan, event_loss:nan, test_loss:1786.0820
+2025-04-26 03:06:18,176 - [*] Evaluating all samples:
+2025-04-26 03:06:18,176 - [*] year 2017, testing
+2025-04-26 03:06:20,448 - T:3	MAE	20.4989	RMSE	30.6001	MAPE	14.5213
+2025-04-26 03:06:24,045 - T:6	MAE	22.7584	RMSE	34.3460	MAPE	17.1766
+2025-04-26 03:06:29,489 - T:12	MAE	27.4030	RMSE	41.9806	MAPE	22.5089
+2025-04-26 03:06:29,757 - [*] Evaluating basic traffic samples (prediction=0):
+2025-04-26 03:06:29,757 - [*] year 2017, testing
+2025-04-26 03:06:30,667 - T:3	MAE	13.3572	RMSE	19.8574	MAPE	20.7845
+2025-04-26 03:06:32,193 - T:6	MAE	14.7346	RMSE	21.9084	MAPE	25.5355
+2025-04-26 03:06:34,554 - T:12	MAE	17.9810	RMSE	26.9558	MAPE	35.3471
+2025-04-26 03:06:34,907 - [*] Evaluating event traffic samples (prediction=1):
+2025-04-26 03:06:34,907 - [*] year 2017, testing
+2025-04-26 03:06:35,935 - T:3	MAE	25.8662	RMSE	36.6568	MAPE	9.8146
+2025-04-26 03:06:37,472 - T:6	MAE	28.7879	RMSE	41.2966	MAPE	10.8952
+2025-04-26 03:06:40,137 - T:12	MAE	34.4810	RMSE	50.4041	MAPE	12.8600
+2025-04-26 03:06:40,143 - Finished optimization, total time:193.42 s, best model:res/SD/trafficStream2025-04-26-03:01:41.985929/2017/27.8096.pkl

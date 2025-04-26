@@ -383,7 +383,9 @@ def main(args):
         graph = nx.from_numpy_array(np.load(osp.join(args.graph_path, str(year)+"_adj.npz"))["x"])
         vars(args)["graph_size"] = graph.number_of_nodes()
         vars(args)["year"] = year
-        inputs = generate_samples(31, osp.join(args.save_data_path, str(year)+'_30day'), np.load(osp.join(args.raw_data_path, str(year)+".npz"))["x"],
+        inputs = generate_samples(31, osp.join(args.save_data_path, str(year)+'_30day'), 
+                                  np.load(osp.join(args.raw_data_path, str(year)+".npz"))["x"],
+                                  np.load(osp.join(args.raw_data_path, str(year)+".npz"))["event_type_code"],
                                   graph, val_test_mix=True) \
             if args.data_process else np.load(osp.join(args.save_data_path, str(year)+"_30day.npz"), allow_pickle=True)
 

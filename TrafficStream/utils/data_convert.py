@@ -29,9 +29,10 @@ def generate_dataset(data, idx, x_len=12, y_len=12):
  
     return x, y
 
-def generate_samples(days, savepath, data,graph, train_rate=0.6, val_rate=0.2, test_rate=0.2, val_test_mix=False):
+def generate_samples(days, savepath, data, event, graph, train_rate=0.6, val_rate=0.2, test_rate=0.2, val_test_mix=False):
     # Spacial for LargeST, its need nan-to-num
     data = np.nan_to_num(data, nan=0.0, posinf=0.0, neginf=0.0)
+    event = np.nan_to_num(event, nan=0.0, posinf=0.0, neginf=0.0)
 
     edge_index = np.array(list(graph.edges)).T
     del graph
@@ -45,17 +46,30 @@ def generate_samples(days, savepath, data,graph, train_rate=0.6, val_rate=0.2, t
     train_x, train_y = generate_dataset(data, train_idx)
     val_x, val_y = generate_dataset(data, val_idx)
     test_x, test_y = generate_dataset(data, test_idx)
-    if val_test_mix:
-        val_test_x = np.concatenate((val_x, test_x), 0)
-        val_test_y = np.concatenate((val_y, test_y), 0)
-        val_test_idx = np.arange(val_x.shape[0]+test_x.shape[0])
-        np.random.shuffle(val_test_idx)
-        val_x, val_y = val_test_x[val_test_idx[:int(t*val_rate)]], val_test_y[val_test_idx[:int(t*val_rate)]]
-        test_x, test_y = val_test_x[val_test_idx[int(t*val_rate):]], val_test_y[val_test_idx[int(t*val_rate):]]
+    
+    train_event, _ = generate_dataset(event, train_idx)
+    val_event, _ = generate_dataset(event, val_idx)
+    test_event, _ = generate_dataset(event, test_idx)
+
+    
+
+    # if val_test_mix:
+    #     val_test_x = np.concatenate((val_x, test_x), 0)
+    #     val_test_y = np.concatenate((val_y, test_y), 0)
+    #     val_test_idx = np.arange(val_x.shape[0]+test_x.shape[0])
+    #     np.random.shuffle(val_test_idx)
+    #     val_x, val_y = val_test_x[val_test_idx[:int(t*val_rate)]], val_test_y[val_test_idx[:int(t*val_rate)]]
+    #     test_x, test_y = val_test_x[val_test_idx[int(t*val_rate):]], val_test_y[val_test_idx[int(t*val_rate):]]
 
     train_x = z_score(train_x)
     val_x = z_score(val_x)
     test_x = z_score(test_x)
+
+    train_x = np.concatenate((train_x, train_event), axis=1)
+    val_x = np.concatenate((val_x, val_event), axis=1)
+    test_x = np.concatenate((test_x, test_event), axis=1)
+
+    
     np.savez(savepath, train_x=train_x, train_y=train_y, val_x=val_x, val_y=val_y, test_x=test_x, test_y=test_y, edge_index=edge_index)
     data = {"train_x":train_x, "train_y":train_y, "val_x":val_x, "val_y":val_y, "test_x":test_x, "test_y":test_y, "edge_index":edge_index}
     return data
