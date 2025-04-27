@@ -72,9 +72,8 @@ class TrafficEvent(nn.Module):
         super(TrafficEvent, self).__init__()
         self.args = args
         
-        # 设置 extra_feature 属性
         self.extra_feature = True
-        args.extra_feature = self.extra_feature  # 确保传递给 Basic_Model
+        args.extra_feature = self.extra_feature
         
         self.basic_model = Basic_Model(args)
         # self.event_model = Basic_Model(args)
@@ -83,10 +82,8 @@ class TrafficEvent(nn.Module):
         self.memory_dim = args.gcn["in_channel"]
         self.memory = nn.Parameter(torch.randn(self.memory_size, self.memory_dim))
         
-        # 不管是否使用扩展特征，query_proj 都只接收原始维度的输入
         self.query_proj = nn.Linear(args.gcn["in_channel"], args.gcn["in_channel"])
         
-        # 使用类属性而不是局部变量
         if self.extra_feature:
             self.classifier = nn.Sequential(
                 nn.Linear(args.gcn["in_channel"] * (2+1), 128),
@@ -103,9 +100,8 @@ class TrafficEvent(nn.Module):
     def query_memory(self, x, adj):
         batch_size, N, feature_dim = x.shape
         
-        # 如果使用扩展特征，只取前一半用于内存查询
         if self.extra_feature:
-            # 只使用前一半特征进行查询
+    
             query_x = x[:, :, :self.args.gcn["in_channel"]]  # [bs, N, in_channel]
         else:
             query_x = x  # [bs, N, in_channel]
@@ -121,17 +117,10 @@ class TrafficEvent(nn.Module):
         
         memory_features = torch.matmul(attention, self.memory)  # [bs, in_channel]
         
-        # 对于分类，仍使用完整的特征
         x_avg = torch.mean(x, dim=1)  # [bs, feature_dim]
         
-        # 根据 extra_feature 构建不同的特征组合
-        if self.extra_feature:
-            # 使用三种特征：原始特征的前一半 + 内存特征 + 原始特征的前一半
-            x_front_half = x_avg[:, :self.args.gcn["in_channel"]]  # [bs, in_channel]
-            concat_features = torch.cat([x_front_half, memory_features, x_front_half], dim=-1)  # [bs, in_channel*3]
-        else:
-            concat_features = torch.cat([x_avg, memory_features], dim=-1)  # [bs, in_channel*2]
-        
+        concat_features = torch.cat([x_avg, memory_features], dim=-1)  # [bs, in_channel*3]
+
         logits = self.classifier(concat_features)  # [bs, 2]
         
         return memory_features, logits
@@ -139,32 +128,24 @@ class TrafficEvent(nn.Module):
     def forward(self, data, adj):
         N = adj.shape[0]
         batch_size = data.x.shape[0] // N
-        
-        # 重塑输入数据，适应不同的 extra_feature 设置
+
         if self.extra_feature:
             # 对于 extra_feature=True，输入特征维度是两倍
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))  # [bs, N, feature*2]
         else:
-            # 对于 extra_feature=False，使用原始特征维度
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]))  # [bs, N, feature]
         
-        # 内存查询模块 - 仅使用前一半特征进行查询，但在分类时使用特征组合
         memory_features, logits = self.query_memory(x, adj)
         
-        # 为 basic_model 准备数据，只保留前一半特征
         if self.extra_feature:
-            # 创建一个新的数据容器，只包含前一半特征
             from types import SimpleNamespace
             basic_data = SimpleNamespace()
             
-            # 只提取前一半特征维度 [bs*N, in_channel]
             reshaped_x = data.x.reshape(-1, self.args.gcn["in_channel"]*2)
             basic_data.x = reshaped_x[:, :self.args.gcn["in_channel"]]
         else:
-            # 不需要特殊处理，直接使用原始数据
             basic_data = data
     
-        # 调用 basic_model 的 feature 方法处理前一半特征
         basic_features = self.basic_model.feature(basic_data, adj)
         
         return basic_features, memory_features, logits

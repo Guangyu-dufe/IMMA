@@ -1,0 +1,138 @@
+2025-04-26 14:17:50,551 - logger name:res/SD/trafficStream2025-04-26-14:17:50.550135/trafficStream.log
+2025-04-26 14:17:50,551 - params : {'conf': 'conf/trafficStream_SD.json', 'paral': 0, 'gpuid': 5, 'logname': 'trafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-04-17-12:25:53.499043/2017/26.012.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'time': '2025-04-26-14:17:50.550135', 'path': 'res/SD/trafficStream2025-04-26-14:17:50.550135', 'device': device(type='cuda', index=5), 'logger': <Logger __main__ (INFO)>}
+2025-04-26 14:17:50,580 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+2025-04-26 14:18:04,070 - [*] Year 2017 Dataset load!
+2025-04-26 14:18:04,073 - [*] Model parameter count: 5891
+2025-04-26 14:18:04,074 - [*] Year 2017 Training start
+2025-04-26 14:18:04,373 - node number torch.Size([91648, 24])
+2025-04-26 14:18:21,448 - [*]Train--basic_loss:4075.4922, event_loss:13780.1263, classification_loss:0.3129
+2025-04-26 14:18:21,448 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:18:21,448 - epoch:0, training loss:8937.1737 validation loss:30.1632
+2025-04-26 14:18:37,441 - [*]Train--basic_loss:921.4817, event_loss:3300.6220, classification_loss:0.2942
+2025-04-26 14:18:37,442 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:18:37,442 - epoch:1, training loss:2070.0442 validation loss:29.1161
+2025-04-26 14:18:53,107 - [*]Train--basic_loss:843.3302, event_loss:3132.6214, classification_loss:0.2759
+2025-04-26 14:18:53,108 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:18:53,108 - epoch:2, training loss:1965.2555 validation loss:28.6205
+2025-04-26 14:19:09,046 - [*]Train--basic_loss:809.7486, event_loss:3051.0367, classification_loss:0.2594
+2025-04-26 14:19:09,046 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:19:09,046 - epoch:3, training loss:1916.6901 validation loss:28.7927
+2025-04-26 14:19:24,847 - [*]Train--basic_loss:807.5004, event_loss:3016.1185, classification_loss:0.2616
+2025-04-26 14:19:24,847 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:19:24,847 - epoch:4, training loss:1901.6515 validation loss:28.3360
+2025-04-26 14:19:40,714 - [*]Train--basic_loss:806.0875, event_loss:2998.4708, classification_loss:0.2553
+2025-04-26 14:19:40,714 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:19:40,714 - epoch:5, training loss:1884.5681 validation loss:28.2263
+2025-04-26 14:19:56,741 - [*]Train--basic_loss:802.7804, event_loss:2969.3527, classification_loss:0.2503
+2025-04-26 14:19:56,741 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:19:56,741 - epoch:6, training loss:1872.7829 validation loss:29.2495
+2025-04-26 14:20:12,865 - [*]Train--basic_loss:803.1553, event_loss:2961.4981, classification_loss:0.2456
+2025-04-26 14:20:12,865 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:20:12,865 - epoch:7, training loss:1864.3609 validation loss:28.1815
+2025-04-26 14:20:28,667 - [*]Train--basic_loss:804.1748, event_loss:2949.8697, classification_loss:0.2502
+2025-04-26 14:20:28,667 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:20:28,668 - epoch:8, training loss:1860.4889 validation loss:28.3542
+2025-04-26 14:20:44,652 - [*]Train--basic_loss:801.1719, event_loss:2935.8260, classification_loss:0.2480
+2025-04-26 14:20:44,652 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:20:44,652 - epoch:9, training loss:1852.7918 validation loss:28.1583
+2025-04-26 14:21:00,687 - [*]Train--basic_loss:803.6641, event_loss:2934.2072, classification_loss:0.2473
+2025-04-26 14:21:00,687 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:21:00,687 - epoch:10, training loss:1849.5444 validation loss:28.6667
+2025-04-26 14:21:16,267 - [*]Train--basic_loss:802.3540, event_loss:2923.9394, classification_loss:0.2487
+2025-04-26 14:21:16,267 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:21:16,267 - epoch:11, training loss:1849.8874 validation loss:29.9358
+2025-04-26 14:21:32,112 - [*]Train--basic_loss:805.0392, event_loss:2922.6182, classification_loss:0.2446
+2025-04-26 14:21:32,112 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:21:32,113 - epoch:12, training loss:1847.3831 validation loss:28.0240
+2025-04-26 14:21:47,830 - [*]Train--basic_loss:798.2577, event_loss:2914.2096, classification_loss:0.2457
+2025-04-26 14:21:47,830 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:21:47,830 - epoch:13, training loss:1837.4903 validation loss:28.2473
+2025-04-26 14:22:03,649 - [*]Train--basic_loss:797.1365, event_loss:2916.8863, classification_loss:0.2464
+2025-04-26 14:22:03,649 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:22:03,649 - epoch:14, training loss:1838.3942 validation loss:27.8477
+2025-04-26 14:22:19,905 - [*]Train--basic_loss:786.1307, event_loss:2830.9359, classification_loss:0.2426
+2025-04-26 14:22:19,906 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:22:19,906 - epoch:15, training loss:1785.2825 validation loss:28.3522
+2025-04-26 14:22:35,833 - [*]Train--basic_loss:784.9917, event_loss:2753.8873, classification_loss:0.2506
+2025-04-26 14:22:35,833 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:22:35,833 - epoch:16, training loss:1746.3266 validation loss:27.7131
+2025-04-26 14:22:51,788 - [*]Train--basic_loss:774.7171, event_loss:2732.7193, classification_loss:0.2420
+2025-04-26 14:22:51,789 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:22:51,789 - epoch:17, training loss:1728.5215 validation loss:27.6151
+2025-04-26 14:23:07,716 - [*]Train--basic_loss:772.4541, event_loss:2709.0919, classification_loss:0.2449
+2025-04-26 14:23:07,717 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:23:07,717 - epoch:18, training loss:1715.0654 validation loss:27.7197
+2025-04-26 14:23:23,603 - [*]Train--basic_loss:775.7073, event_loss:2710.7394, classification_loss:0.2506
+2025-04-26 14:23:23,603 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:23:23,603 - epoch:19, training loss:1715.2893 validation loss:27.6806
+2025-04-26 14:23:39,513 - [*]Train--basic_loss:766.1709, event_loss:2694.9409, classification_loss:0.2425
+2025-04-26 14:23:39,514 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:23:39,514 - epoch:20, training loss:1703.8271 validation loss:27.3398
+2025-04-26 14:23:55,685 - [*]Train--basic_loss:767.5839, event_loss:2690.8961, classification_loss:0.2387
+2025-04-26 14:23:55,685 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:23:55,685 - epoch:21, training loss:1700.6645 validation loss:27.1425
+2025-04-26 14:24:11,918 - [*]Train--basic_loss:762.5886, event_loss:2671.7899, classification_loss:0.2441
+2025-04-26 14:24:11,918 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:24:11,918 - epoch:22, training loss:1693.6139 validation loss:26.6805
+2025-04-26 14:24:28,079 - [*]Train--basic_loss:765.5209, event_loss:2682.5446, classification_loss:0.2431
+2025-04-26 14:24:28,079 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:24:28,079 - epoch:23, training loss:1695.7429 validation loss:26.9948
+2025-04-26 14:24:44,098 - [*]Train--basic_loss:760.4258, event_loss:2669.6071, classification_loss:0.2440
+2025-04-26 14:24:44,099 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:24:44,099 - epoch:24, training loss:1687.3048 validation loss:26.7899
+2025-04-26 14:25:00,127 - [*]Train--basic_loss:767.2620, event_loss:2675.4711, classification_loss:0.2413
+2025-04-26 14:25:00,127 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:25:00,127 - epoch:25, training loss:1693.6838 validation loss:26.9342
+2025-04-26 14:25:16,273 - [*]Train--basic_loss:764.3386, event_loss:2663.2439, classification_loss:0.2470
+2025-04-26 14:25:16,273 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:25:16,273 - epoch:26, training loss:1685.2936 validation loss:27.0148
+2025-04-26 14:25:32,273 - [*]Train--basic_loss:760.9659, event_loss:2655.8690, classification_loss:0.2434
+2025-04-26 14:25:32,273 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:25:32,273 - epoch:27, training loss:1681.0610 validation loss:26.6595
+2025-04-26 14:25:48,161 - [*]Train--basic_loss:758.7039, event_loss:2656.4881, classification_loss:0.2410
+2025-04-26 14:25:48,162 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:25:48,162 - epoch:28, training loss:1678.6507 validation loss:27.5298
+2025-04-26 14:26:04,218 - [*]Train--basic_loss:761.0630, event_loss:2656.1051, classification_loss:0.2411
+2025-04-26 14:26:04,218 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:26:04,218 - epoch:29, training loss:1680.7835 validation loss:27.0983
+2025-04-26 14:26:19,907 - [*]Train--basic_loss:755.8479, event_loss:2650.2517, classification_loss:0.2399
+2025-04-26 14:26:19,907 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:26:19,907 - epoch:30, training loss:1671.7116 validation loss:26.6090
+2025-04-26 14:26:36,315 - [*]Train--basic_loss:755.5294, event_loss:2639.4187, classification_loss:0.2423
+2025-04-26 14:26:36,315 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:26:36,315 - epoch:31, training loss:1670.6143 validation loss:26.9503
+2025-04-26 14:26:52,323 - [*]Train--basic_loss:754.0396, event_loss:2640.7838, classification_loss:0.2406
+2025-04-26 14:26:52,324 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:26:52,324 - epoch:32, training loss:1669.0950 validation loss:27.1245
+2025-04-26 14:27:08,610 - [*]Train--basic_loss:762.0105, event_loss:2647.7861, classification_loss:0.2444
+2025-04-26 14:27:08,610 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:27:08,610 - epoch:33, training loss:1675.0267 validation loss:27.0405
+2025-04-26 14:27:24,952 - [*]Train--basic_loss:758.0394, event_loss:2649.0280, classification_loss:0.2401
+2025-04-26 14:27:24,952 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:27:24,952 - epoch:34, training loss:1674.5675 validation loss:27.2366
+2025-04-26 14:27:41,037 - [*]Train--basic_loss:752.0217, event_loss:2641.8612, classification_loss:0.2396
+2025-04-26 14:27:41,037 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:27:41,037 - epoch:35, training loss:1668.7651 validation loss:26.6247
+2025-04-26 14:27:57,317 - [*]Train--basic_loss:755.1018, event_loss:2641.5310, classification_loss:0.2418
+2025-04-26 14:27:57,317 - [*]Validation--basic_loss:nan, event_loss:nan
+2025-04-26 14:27:57,318 - epoch:36, training loss:1669.4578 validation loss:27.0311
+2025-04-26 14:28:00,095 - [*]Test--basic_loss:nan, event_loss:nan, test_loss:1614.2595
+2025-04-26 14:28:00,491 - [*] Evaluating all samples:
+2025-04-26 14:28:00,491 - [*] year 2017, testing
+2025-04-26 14:28:02,782 - T:3	MAE	20.7280	RMSE	30.8672	MAPE	13.6303
+2025-04-26 14:28:06,433 - T:6	MAE	22.5837	RMSE	33.9680	MAPE	15.2725
+2025-04-26 14:28:12,008 - T:12	MAE	26.3028	RMSE	39.9357	MAPE	18.9153
+2025-04-26 14:28:12,286 - [*] Evaluating basic traffic samples (prediction=0):
+2025-04-26 14:28:12,286 - [*] year 2017, testing
+2025-04-26 14:28:13,272 - T:3	MAE	14.1488	RMSE	21.1744	MAPE	17.1036
+2025-04-26 14:28:14,888 - T:6	MAE	15.0086	RMSE	22.5281	MAPE	19.4553
+2025-04-26 14:28:17,350 - T:12	MAE	16.9997	RMSE	25.3668	MAPE	25.3290
+2025-04-26 14:28:17,700 - [*] Evaluating event traffic samples (prediction=1):
+2025-04-26 14:28:17,700 - [*] year 2017, testing
+2025-04-26 14:28:18,719 - T:3	MAE	25.9117	RMSE	36.7452	MAPE	10.8939
+2025-04-26 14:28:20,249 - T:6	MAE	28.5515	RMSE	40.7797	MAPE	11.9773
+2025-04-26 14:28:22,899 - T:12	MAE	33.6287	RMSE	48.4163	MAPE	13.8618
+2025-04-26 14:28:22,904 - Finished optimization, total time:486.96 s, best model:res/SD/trafficStream2025-04-26-14:17:50.550135/2017/26.609.pkl
+2025-04-26 14:28:22,969 - [*] Year 2018 load from data/SD/FastData/2018_30day.npz
+2025-04-26 14:28:23,035 - Secure SignIn[*] load from res/SD/trafficStream2025-04-26-14:17:50.550135/2017/26.609.pkl
+2025-04-26 14:28:23,044 - [*] replay node number 64
