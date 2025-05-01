@@ -26,7 +26,6 @@ class Basic_Model(nn.Module):
     def forward(self, data, adj):
         N = adj.shape[0]
         
-        # 不考虑 extra_feature，假设输入的 data.x 已经是正确的维度 [bs*N, in_channel]
         x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, feature]
             
         x = F.relu(self.gcn1(x, adj))                              # [bs, N, feature]
@@ -38,7 +37,6 @@ class Basic_Model(nn.Module):
         x = self.gcn2(x, adj)                                      # [bs, N, feature]
         x = x.reshape((-1, self.args.gcn["out_channel"]))          # [bs * N, feature]
         
-        # 直接使用原始输入进行残差连接
         x = x + data.x
             
         x = self.fc(self.activation(x))
@@ -49,7 +47,6 @@ class Basic_Model(nn.Module):
     def feature(self, data, adj):
         N = adj.shape[0]
         
-        # 不考虑 extra_feature，假设输入的 data.x 已经是正确的维度 [bs*N, in_channel]
         x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, feature]
             
         x = F.relu(self.gcn1(x, adj))                              # [bs, N, feature]
@@ -61,7 +58,6 @@ class Basic_Model(nn.Module):
         x = self.gcn2(x, adj)                                      # [bs, N, feature]
         x = x.reshape((-1, self.args.gcn["out_channel"]))          # [bs * N, feature]
         
-        # 直接使用原始输入进行残差连接
         x = x + data.x
             
         return x
@@ -121,7 +117,7 @@ class TrafficEvent(nn.Module):
         
         concat_features = torch.cat([x_avg, memory_features], dim=-1)  # [bs, in_channel*3]
 
-        logits = self.classifier(concat_features)  # [bs, 2]
+        logits = self.classifier(x_avg)  # [bs, 2]
         
         return memory_features, logits
         

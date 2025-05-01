@@ -187,7 +187,7 @@ def train(inputs, args):
             loss_basic = loss_basic.reshape(len(predictions), -1 ,basic_features.shape[1]).mean(dim=1).mean(dim=1)
             # loss_event = loss_event.reshape(len(logits), -1 ,event_features.shape[1]).mean(dim=1).mean(dim=1)
 
-            q3 = torch.quantile(loss_basic, 0.5)
+            q3 = torch.quantile(loss_basic, 0.75)
             loss_mask = torch.zeros_like(loss_basic, dtype=torch.long)
             loss_mask[loss_basic > q3] = 1
             loss_classification = F.cross_entropy(logits, loss_mask)
