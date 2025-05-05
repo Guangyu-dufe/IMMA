@@ -70,7 +70,7 @@ class TrafficEvent(nn.Module):
         
         self.extra_feature = True
         args.extra_feature = self.extra_feature
-        
+        self.momentum = 0.995
         self.basic_model = Basic_Model(args)
         # self.event_model = Basic_Model(args)
         
@@ -92,34 +92,68 @@ class TrafficEvent(nn.Module):
                 nn.ReLU(),
                 nn.Linear(128, 2)
             )
+        
+        # create momentum models
+        self.basic_model_m = Basic_Model(args)
+        self.model_pairs = [[self.basic_model, self.basic_model_m]]
+        
+        self.copy_params()
 
+    '''
+    copied from albef 
+    https://github.com/salesforce/ALBEF/blob/main/models/model_pretrain.py
+    '''
+
+    @torch.no_grad()    
+    def copy_params(self):
+        for model_pair in self.model_pairs:           
+            for param, param_m in zip(model_pair[0].parameters(), model_pair[1].parameters()):
+                param_m.data.copy_(param.data)  # initialize
+                param_m.requires_grad = False  # not update by gradient    
+
+            
+    @torch.no_grad()        
+    def _momentum_update(self,sim):
+
+        # momentum = 0.9 + 0.05 * (sim - 0.5) * 10 
+        # momentum = torch.clamp(momentum, min=0.8, max=0.999)  
+
+        base_momentum = 0.9
+        momentum = 1 - (1 - base_momentum) * np.exp(-5 * sim.detach().cpu().numpy())
+        momentum = np.clip(momentum, 0.8, 0.999)
+
+        # momentum = 0.995
+        
+        for model_pair in self.model_pairs:           
+            for param, param_m in zip(model_pair[0].parameters(), model_pair[1].parameters()):
+                param_m.data = param_m.data * momentum + param.data * (1. - momentum)
+                
+    
     def query_memory(self, x, adj):
         batch_size, N, feature_dim = x.shape
         
         if self.extra_feature:
-    
             query_x = x[:, :, :self.args.gcn["in_channel"]]  # [bs, N, in_channel]
         else:
             query_x = x  # [bs, N, in_channel]
-            
+
         query_x_flat = query_x.reshape(-1, query_x.shape[-1])  # [bs*N, in_channel]
         query = self.query_proj(query_x_flat)  # [bs*N, in_channel]
         query = query.reshape(batch_size, N, self.args.gcn["in_channel"])  # [bs, N, in_channel]
-        
         query_avg = torch.mean(query, dim=1)  # [bs, in_channel]
-        
+
         energy = torch.matmul(query_avg, self.memory.t())  # [bs, memory_size]
         attention = torch.softmax(energy, dim=-1)  # [bs, memory_size]
-        
         memory_features = torch.matmul(attention, self.memory)  # [bs, in_channel]
         
-        x_avg = torch.mean(x, dim=1)  # [bs, feature_dim]
-        
-        concat_features = torch.cat([x_avg, memory_features], dim=-1)  # [bs, in_channel*3]
 
-        logits = self.classifier(x_avg)  # [bs, 2]
-        
-        return memory_features, logits
+        cos_similarity = F.cosine_similarity(query_avg, memory_features, dim=1).unsqueeze(1)  # [bs, 1]
+
+        x_avg = torch.mean(x, dim=1)  # [bs, feature_dim]
+        concat_features = torch.cat([x_avg, memory_features], dim=-1)  # [bs, in_channel*3]
+        logits = self.classifier(concat_features)  # [bs, 2]
+        # self.args.logger.info(f"cos_similarity: {cos_similarity[:5]}")
+        return cos_similarity.mean(), logits
         
     def forward(self, data, adj):
         N = adj.shape[0]
@@ -131,7 +165,7 @@ class TrafficEvent(nn.Module):
         else:
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]))  # [bs, N, feature]
         
-        memory_features, logits = self.query_memory(x, adj)
+        similarity, logits = self.query_memory(x, adj)
         
         if self.extra_feature:
             from types import SimpleNamespace
@@ -141,7 +175,14 @@ class TrafficEvent(nn.Module):
             basic_data.x = reshaped_x[:, :self.args.gcn["in_channel"]]
         else:
             basic_data = data
-    
+
+        # get momentum features
+        with torch.no_grad():
+            self._momentum_update(similarity)
+            basic_features_m = self.basic_model_m.feature(basic_data, adj) 
+        basic_features_m = basic_features_m.requires_grad_(True)  
+
         basic_features = self.basic_model.feature(basic_data, adj)
         
-        return basic_features, memory_features, logits
+        return basic_features, basic_features_m, similarity, logits
+    

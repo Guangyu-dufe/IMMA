@@ -1,0 +1,65 @@
+2025-05-05 08:42:11,949 - logger name:res/SD/trafficStream2025-05-05-08:42:11.948012/trafficStream.log
+2025-05-05 08:42:11,949 - params : {'conf': 'conf/trafficStream_SD.json', 'paral': 0, 'gpuid': 5, 'logname': 'trafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-04-17-12:25:53.499043/2017/26.012.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'time': '2025-05-05-08:42:11.948012', 'path': 'res/SD/trafficStream2025-05-05-08:42:11.948012', 'device': device(type='cuda', index=5), 'logger': <Logger __main__ (INFO)>}
+2025-05-05 08:42:11,977 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+2025-05-05 08:42:25,215 - [*] Year 2017 Dataset load!
+2025-05-05 08:42:25,220 - [*] Model parameter count: 8842
+2025-05-05 08:42:25,220 - [*] Classifier parameter count: 4994
+2025-05-05 08:42:25,220 - [*] Year 2017 Training start
+2025-05-05 08:42:25,588 - node number torch.Size([91648, 24])
+2025-05-05 08:42:43,713 - epoch:0, training loss:11769.0349 validation loss:33.1856, moco loss:1438.7704
+2025-05-05 08:43:01,623 - epoch:1, training loss:2104.0323 validation loss:29.0211, moco loss:8.2268
+2025-05-05 08:43:19,530 - epoch:2, training loss:1957.4841 validation loss:28.1635, moco loss:12.3958
+2025-05-05 08:43:37,577 - epoch:3, training loss:1915.8283 validation loss:28.7207, moco loss:15.2988
+2025-05-05 08:43:55,695 - epoch:4, training loss:1897.4524 validation loss:28.2117, moco loss:1.9343
+2025-05-05 08:44:13,712 - epoch:5, training loss:1882.0207 validation loss:28.3991, moco loss:29.3678
+2025-05-05 08:44:31,681 - epoch:6, training loss:1870.3933 validation loss:28.1682, moco loss:24.9968
+2025-05-05 08:44:49,870 - epoch:7, training loss:1861.8543 validation loss:28.0119, moco loss:20.0801
+2025-05-05 08:45:07,916 - epoch:8, training loss:1854.9408 validation loss:27.7974, moco loss:5.7207
+2025-05-05 08:45:25,692 - epoch:9, training loss:1848.6050 validation loss:28.1504, moco loss:22.0882
+2025-05-05 08:45:43,743 - epoch:10, training loss:1842.2652 validation loss:27.8384, moco loss:7.9113
+2025-05-05 08:46:01,932 - epoch:11, training loss:1808.8268 validation loss:27.5832, moco loss:1.8500
+2025-05-05 08:46:20,098 - epoch:12, training loss:1760.8165 validation loss:27.0603, moco loss:15.5292
+2025-05-05 08:46:38,297 - epoch:13, training loss:1731.4093 validation loss:27.1941, moco loss:3.5686
+2025-05-05 08:46:56,470 - epoch:14, training loss:1717.5069 validation loss:27.0183, moco loss:17.6701
+2025-05-05 08:47:14,609 - epoch:15, training loss:1711.2804 validation loss:28.0097, moco loss:4.8414
+2025-05-05 08:47:32,768 - epoch:16, training loss:1703.6072 validation loss:27.3971, moco loss:25.8261
+2025-05-05 08:47:50,886 - epoch:17, training loss:1700.4293 validation loss:27.3924, moco loss:4.7378
+2025-05-05 08:48:08,862 - epoch:18, training loss:1695.7735 validation loss:27.5786, moco loss:12.4832
+2025-05-05 08:48:26,781 - epoch:19, training loss:1689.9761 validation loss:26.7288, moco loss:4.6326
+2025-05-05 08:48:44,826 - epoch:20, training loss:1691.1058 validation loss:26.6950, moco loss:4.9394
+2025-05-05 08:49:02,886 - epoch:21, training loss:1687.6832 validation loss:27.0278, moco loss:4.4501
+2025-05-05 08:49:21,026 - epoch:22, training loss:1686.7696 validation loss:27.0124, moco loss:37.4287
+2025-05-05 08:49:39,071 - epoch:23, training loss:1686.8040 validation loss:27.1380, moco loss:4.9368
+2025-05-05 08:49:57,262 - epoch:24, training loss:1680.6526 validation loss:27.0583, moco loss:15.2226
+2025-05-05 08:50:15,261 - epoch:25, training loss:1681.7252 validation loss:26.7638, moco loss:10.3999
+2025-05-05 08:50:33,328 - epoch:26, training loss:1684.8214 validation loss:26.5761, moco loss:8.3317
+2025-05-05 08:50:51,252 - epoch:27, training loss:1677.5998 validation loss:26.8125, moco loss:11.7382
+2025-05-05 08:51:09,396 - epoch:28, training loss:1681.0309 validation loss:26.5876, moco loss:35.7537
+2025-05-05 08:51:27,336 - epoch:29, training loss:1678.8462 validation loss:27.9387, moco loss:5.0793
+2025-05-05 08:51:45,421 - epoch:30, training loss:1678.1157 validation loss:26.6334, moco loss:9.2630
+2025-05-05 08:52:03,403 - epoch:31, training loss:1681.8994 validation loss:27.6927, moco loss:25.1263
+2025-05-05 08:52:21,478 - epoch:32, training loss:1674.4633 validation loss:27.1160, moco loss:7.5332
+2025-05-05 08:52:24,551 - [*]Test--basic_loss:1101.2617, event_loss:nan, test_loss:1622.8532
+2025-05-05 08:52:24,929 - [*] Evaluating all samples:
+2025-05-05 08:52:24,929 - [*] year 2017, testing
+2025-05-05 08:52:27,195 - T:3	MAE	20.0118	RMSE	29.9026	MAPE	13.0367
+2025-05-05 08:52:30,812 - T:6	MAE	22.1920	RMSE	33.4399	MAPE	14.7886
+2025-05-05 08:52:36,320 - T:12	MAE	26.3790	RMSE	40.0570	MAPE	18.8397
+2025-05-05 08:52:36,769 - [*] Evaluating basic traffic samples (prediction=0):
+2025-05-05 08:52:36,769 - [*] year 2017, testing
+2025-05-05 08:52:38,309 - T:3	MAE	16.9993	RMSE	25.3168	MAPE	14.0936
+2025-05-05 08:52:40,797 - T:6	MAE	18.4979	RMSE	27.6146	MAPE	15.9749
+2025-05-05 08:52:44,790 - T:12	MAE	21.4559	RMSE	32.0188	MAPE	20.6343
+2025-05-05 08:52:44,962 - [*] Evaluating event traffic samples (prediction=1):
+2025-05-05 08:52:44,962 - [*] year 2017, testing
+2025-05-05 08:52:45,452 - T:3	MAE	27.9404	RMSE	39.5045	MAPE	10.2554
+2025-05-05 08:52:46,191 - T:6	MAE	31.9141	RMSE	45.3236	MAPE	11.6667
+2025-05-05 08:52:47,355 - T:12	MAE	39.3310	RMSE	55.9369	MAPE	14.1155
+2025-05-05 08:52:47,360 - Finished optimization, total time:477.80 s, best model:res/SD/trafficStream2025-05-05-08:42:11.948012/2017/26.5761.pkl
+2025-05-05 08:52:47,427 - [*] Year 2018 load from data/SD/FastData/2018_30day.npz
+2025-05-05 08:52:47,453 - Secure SignIn[*] load from res/SD/trafficStream2025-05-05-08:42:11.948012/2017/26.5761.pkl
+2025-05-05 08:52:47,463 - [*] replay node number 64
+2025-05-05 08:52:52,805 - number of increase nodes:61, nodes after 2 hop:torch.Size([518]), total nodes this year 716
+2025-05-05 08:53:15,684 - [*] Year 2018 Dataset load!
+2025-05-05 08:53:15,684 - Secure SignIn[*] load from res/SD/trafficStream2025-05-05-08:42:11.948012/2017/26.5761.pkl
+2025-05-05 08:53:15,691 - [*] EWC! lambda 0.000100
