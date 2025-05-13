@@ -54,16 +54,8 @@ def load_best_model(args):
     if 'tcn2.weight' in state_dict:
         del state_dict['tcn2.weight']
         del state_dict['tcn2.bias']
-    model = TrafficEvent(args).to(args.device)
-
-    # very not safe, and it's only for 2017 year
-    x = torch.randn(128*args.subgraph.size(0), 24).to(args.device)
-    adj = torch.randn(args.subgraph.size(0), args.subgraph.size(0)).to(args.device)
-
-    data = Data(x=x)
-    model(data, adj)
-
-    model.load_state_dict(state_dict, strict=False)
+    model = TrafficEvent(args)
+    model.load_state_dict(state_dict)
     model = model.to(args.device)
     return model, loss[0]
 
@@ -214,8 +206,7 @@ def train(inputs, args):
 
             loss_basic_m = lossfunc(basic_features, basic_features_m, reduction="mean")
             
-            loss = loss_basic.mean() + loss_basic_m*0.3 
-            # + loss_basic_m*0.3 + loss_classification
+            loss = loss_classification + loss_basic.mean()
 
             if args.ewc and args.year > args.begin_year:
                 loss += model.compute_consolidation_loss()
@@ -547,8 +538,8 @@ if __name__ == "__main__":
     parser.add_argument("--paral", type = int, default = 0)
     parser.add_argument("--gpuid", type = int, default = 5)
     parser.add_argument("--logname", type = str, default = "info")
-    parser.add_argument("--load_first_year", type = int, default = 1, help="0: training first year, 1: load from model path of first year")
-    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-11-06:49:36.255974/2017/25.7452.pkl", help='specify a pretrained model root')
+    parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
+    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/linear-moco/2017/26.5761.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     init(args)
     seed_set(13)

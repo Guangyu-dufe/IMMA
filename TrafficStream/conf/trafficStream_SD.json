@@ -31,6 +31,10 @@
         "dilation": 1
     },
 
+    "classifier":{
+        "hidden_dim": 128
+    },
+
 
     "logname": "trafficStream",
 
@@ -51,5 +55,8 @@
     "replay_strategy": "random",
     "repaly_num_samples": 300,
 
-    "extra_feature": true
+    "extra_feature": true,
+
+    "momentum_type": "linear",
+    "memory_size": 32
 }

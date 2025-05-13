@@ -6,12 +6,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from model.gcn_conv import BatchGCNConv
+from model.GraphWaveNet import GWNET
 
-
-class Basic_Model(nn.Module):
+class Basic_Model_org(nn.Module):
     """Some Information about Basic_Model"""
     def __init__(self, args):
-        super(Basic_Model, self).__init__()
+        super(Basic_Model_org, self).__init__()
         self.dropout = args.dropout
         
         self.gcn1 = BatchGCNConv(args.gcn["in_channel"], args.gcn["hidden_channel"], bias=True, gcn=False)
@@ -62,6 +62,26 @@ class Basic_Model(nn.Module):
             
         return x
 
+class Basic_Model(nn.Module):
+    def __init__(self, args):
+        super(Basic_Model, self).__init__()
+        self.args = args
+        self.gwnet = GWNET(device=args.device)
+        
+    def forward(self, data, adj):
+         N = adj.shape[0]
+         x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, T]
+         x = x.unsqueeze(1) # (B, C, N, T)
+         x = self.gwnet(x)
+         x = x.reshape((-1, self.args.gcn["out_channel"]))
+         return x
+    def feature(self, data, adj):
+         N = adj.shape[0]
+         x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, T]
+         x.unsqueeze(1) # (B, C, N, T)
+         x = self.gwnet(x)
+         x = x.reshape((-1, self.args.gcn["out_channel"]))
+         return x
 
 class TrafficEvent(nn.Module):
     def __init__(self, args):
@@ -70,7 +90,6 @@ class TrafficEvent(nn.Module):
         
         self.extra_feature = True
         args.extra_feature = self.extra_feature
-        self.momentum = 0.995
         self.basic_model = Basic_Model(args)
         # self.event_model = Basic_Model(args)
         
@@ -82,15 +101,15 @@ class TrafficEvent(nn.Module):
         
         if self.extra_feature:
             self.classifier = nn.Sequential(
-                nn.Linear(args.gcn["in_channel"] * (2+1), 128),
+                nn.Linear(args.gcn["in_channel"] * (2+1), args.classifier["hidden_dim"]),
                 nn.ReLU(),
-                nn.Linear(128, 2)
+                nn.Linear(args.classifier["hidden_dim"], 2)
             )
         else:
             self.classifier = nn.Sequential(
-                nn.Linear(args.gcn["in_channel"] * 2, 128),
+                nn.Linear(args.gcn["in_channel"] * 2, args.classifier["hidden_dim"]),
                 nn.ReLU(),
-                nn.Linear(128, 2)
+                nn.Linear(args.classifier["hidden_dim"], 2)
             )
         
         # create momentum models
@@ -113,20 +132,28 @@ class TrafficEvent(nn.Module):
 
             
     @torch.no_grad()        
-    def _momentum_update(self,sim):
+    def _momentum_update(self, sim):
+        if sim:
+            if self.args.momentum_type == "linear":
+                momentum = 0.9 + 0.05 * (sim - 0.5) * 10 
+                momentum = torch.clamp(momentum, min=0.8, max=0.999) 
+                # self.args.logger.info(f"momentum: {momentum}")
+            elif self.args.momentum_type == "expo":
+                base_momentum = 0.9
+                momentum = 1 - (1 - base_momentum) * np.exp(-5 * sim.detach().cpu().numpy())
+                momentum = np.clip(momentum, 0.8, 0.999)
+            elif self.args.momentum_type == "constant":
+                momentum = 0.995
+            else:
+                raise ValueError(f"momentum_type {self.args.momentum_type} not supported")
 
-        # momentum = 0.9 + 0.05 * (sim - 0.5) * 10 
-        # momentum = torch.clamp(momentum, min=0.8, max=0.999)  
-
-        base_momentum = 0.9
-        momentum = 1 - (1 - base_momentum) * np.exp(-5 * sim.detach().cpu().numpy())
-        momentum = np.clip(momentum, 0.8, 0.999)
-
-        # momentum = 0.995
+            for model_pair in self.model_pairs:           
+                for param, param_m in zip(model_pair[0].parameters(), model_pair[1].parameters()):
+                    param_m.data = param_m.data * momentum + param.data * (1. - momentum)
+        else:
+            # self.args.logger.info("No momentum update in EWC")
+            pass
         
-        for model_pair in self.model_pairs:           
-            for param, param_m in zip(model_pair[0].parameters(), model_pair[1].parameters()):
-                param_m.data = param_m.data * momentum + param.data * (1. - momentum)
                 
     
     def query_memory(self, x, adj):
@@ -179,10 +206,10 @@ class TrafficEvent(nn.Module):
         # get momentum features
         with torch.no_grad():
             self._momentum_update(similarity)
-            basic_features_m = self.basic_model_m.feature(basic_data, adj) 
+            basic_features_m = self.basic_model_m(basic_data, adj) 
         basic_features_m = basic_features_m.requires_grad_(True)  
 
-        basic_features = self.basic_model.feature(basic_data, adj)
+        basic_features = self.basic_model(basic_data, adj)
         
         return basic_features, basic_features_m, similarity, logits
     

@@ -1,0 +1,57 @@
+2025-05-11 06:49:36,257 - logger name:res/SD/trafficStream2025-05-11-06:49:36.255974/trafficStream.log
+2025-05-11 06:49:36,257 - params : {'conf': 'conf/trafficStream_SD.json', 'paral': 0, 'gpuid': 5, 'logname': 'trafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/linear-moco/2017/26.5761.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'classifier': {'hidden_dim': 128}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'time': '2025-05-11-06:49:36.255974', 'path': 'res/SD/trafficStream2025-05-11-06:49:36.255974', 'device': device(type='cuda', index=5), 'logger': <Logger __main__ (INFO)>}
+2025-05-11 06:49:36,284 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch_geometric/deprecation.py:26: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+2025-05-11 06:49:49,382 - [*] Year 2017 Dataset load!
+2025-05-11 06:49:49,402 - [*] Model parameter count: 277994
+2025-05-11 06:49:49,403 - [*] Year 2017 Training start
+2025-05-11 06:49:49,755 - node number torch.Size([91648, 24])
+2025-05-11 06:59:31,347 - epoch:0, training loss:22930.5999 validation loss:61.9225, moco loss:52227.4141
+2025-05-11 07:09:13,439 - epoch:1, training loss:15032.9968 validation loss:53.6718, moco loss:27144.6367
+2025-05-11 07:18:58,327 - epoch:2, training loss:8073.1088 validation loss:46.9412, moco loss:16460.8809
+2025-05-11 07:28:40,362 - epoch:3, training loss:4326.5700 validation loss:33.8574, moco loss:6288.5674
+2025-05-11 07:38:22,502 - epoch:4, training loss:2571.9017 validation loss:31.0138, moco loss:2441.9521
+2025-05-11 07:48:02,988 - epoch:5, training loss:1860.4232 validation loss:28.8307, moco loss:1384.7476
+2025-05-11 07:57:45,078 - epoch:6, training loss:1550.0122 validation loss:28.5084, moco loss:628.2242
+2025-05-11 08:07:26,430 - epoch:7, training loss:1407.7066 validation loss:28.0765, moco loss:86.1433
+2025-05-11 08:17:08,157 - epoch:8, training loss:1387.6936 validation loss:29.0776, moco loss:413.6764
+2025-05-11 08:26:50,353 - epoch:9, training loss:1325.1474 validation loss:31.0377, moco loss:227.2932
+2025-05-11 08:36:32,366 - epoch:10, training loss:1329.2189 validation loss:27.5252, moco loss:68.0987
+2025-05-11 08:46:14,465 - epoch:11, training loss:1304.2652 validation loss:26.9122, moco loss:165.6228
+2025-05-11 08:55:56,447 - epoch:12, training loss:1287.9272 validation loss:26.7627, moco loss:132.6614
+2025-05-11 09:05:38,316 - epoch:13, training loss:1259.4223 validation loss:27.1385, moco loss:107.2031
+2025-05-11 09:15:20,376 - epoch:14, training loss:1278.0732 validation loss:27.1387, moco loss:69.8401
+2025-05-11 09:25:02,360 - epoch:15, training loss:1257.5856 validation loss:26.9592, moco loss:292.4625
+2025-05-11 09:34:44,195 - epoch:16, training loss:1252.9117 validation loss:27.0872, moco loss:72.0571
+2025-05-11 09:44:25,873 - epoch:17, training loss:1250.6601 validation loss:27.4366, moco loss:60.7528
+2025-05-11 09:54:07,859 - epoch:18, training loss:1238.7506 validation loss:26.5147, moco loss:56.1634
+2025-05-11 10:03:49,759 - epoch:19, training loss:1241.3841 validation loss:26.7359, moco loss:69.3889
+2025-05-11 10:13:31,841 - epoch:20, training loss:1230.9774 validation loss:27.4800, moco loss:72.2718
+2025-05-11 10:23:13,040 - epoch:21, training loss:1237.0688 validation loss:26.8050, moco loss:63.4547
+2025-05-11 10:32:54,944 - epoch:22, training loss:1219.2107 validation loss:26.7165, moco loss:62.6575
+2025-05-11 10:42:37,194 - epoch:23, training loss:1222.9845 validation loss:27.3565, moco loss:69.2758
+2025-05-11 10:52:19,232 - epoch:24, training loss:1225.6895 validation loss:26.4016, moco loss:66.7454
+2025-05-11 11:02:00,927 - epoch:25, training loss:1206.9838 validation loss:26.7363, moco loss:70.0772
+2025-05-11 11:11:42,815 - epoch:26, training loss:1225.0940 validation loss:29.5496, moco loss:288.1392
+2025-05-11 11:21:24,885 - epoch:27, training loss:1210.6596 validation loss:26.4968, moco loss:60.4105
+2025-05-11 11:31:06,973 - epoch:28, training loss:1210.0991 validation loss:26.9466, moco loss:47.9414
+2025-05-11 11:40:49,078 - epoch:29, training loss:1211.4402 validation loss:27.1434, moco loss:50.7438
+2025-05-11 11:50:31,084 - epoch:30, training loss:1202.4213 validation loss:25.7452, moco loss:57.8053
+2025-05-11 12:00:12,992 - epoch:31, training loss:1207.5606 validation loss:28.0473, moco loss:92.4923
+2025-05-11 12:09:54,984 - epoch:32, training loss:1214.6047 validation loss:26.6124, moco loss:81.6285
+2025-05-11 12:19:37,003 - epoch:33, training loss:1191.7331 validation loss:25.9559, moco loss:54.9194
+2025-05-11 12:29:19,166 - epoch:34, training loss:1207.5796 validation loss:26.3226, moco loss:55.1852
+2025-05-11 12:39:01,399 - epoch:35, training loss:1196.1564 validation loss:27.4868, moco loss:52.8196
+2025-05-11 12:48:43,444 - epoch:36, training loss:1198.1854 validation loss:26.6456, moco loss:43.7512
+Traceback (most recent call last):
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 550, in <module>
+    main(args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 512, in main
+    train(inputs, args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 287, in train
+    best_model.load_state_dict(torch.load(best_model_path, args.device)["model_state_dict"])
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 2593, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for TrafficEvent:
+	Unexpected key(s) in state_dict: "basic_model.gwnet.nodevec1", "basic_model.gwnet.nodevec2", "basic_model_m.gwnet.nodevec1", "basic_model_m.gwnet.nodevec2". 
