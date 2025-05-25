@@ -28,3 +28,7 @@ Oline_Baselines/data/*
 
 # logs
 Oline_Baselines/res/*
+
+Offline_Baselines/data/*
+
+Offline_Baselines/logs/*

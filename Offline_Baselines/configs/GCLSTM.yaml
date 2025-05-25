@@ -1,0 +1,207 @@
+METRLA:
+  num_nodes: 207
+  in_steps: 12
+  out_steps: 12
+
+  lr: 0.001
+  weight_decay: 0
+  milestones: [12, 50]
+  clip_grad: 0
+  batch_size: 64
+  max_epochs: 200
+
+  pass_device: True
+
+  model_args:
+    num_nodes: 207
+    input_dim: 1
+    output_dim: 1
+    horizon: 12
+    rnn_units: 64
+    num_layers: 1
+    cheb_k: 3
+    adj_path: "../data/METRLA/adj_mx.pkl"
+    adj_type: "doubletransition"
+    device: null # will be updated
+
+PEMSBAY:
+  num_nodes: 325
+  in_steps: 12
+  out_steps: 12
+
+  lr: 0.001
+  weight_decay: 0
+  milestones: [12, 50]
+  clip_grad: 0
+  batch_size: 64
+  max_epochs: 200
+
+  pass_device: True
+
+  model_args:
+    num_nodes: 325
+    input_dim: 1
+    output_dim: 1
+    horizon: 12
+    rnn_units: 64
+    num_layers: 1
+    cheb_k: 3
+    adj_path: "../data/PEMSBAY/adj_mx_bay.pkl"
+    adj_type: "doubletransition"
+    device: null # will be updated
+    
+PEMS03:
+  num_nodes: 358
+  in_steps: 12
+  out_steps: 12
+
+  lr: 0.001
+  weight_decay: 0
+  milestones: [12, 50]
+  clip_grad: 0
+  batch_size: 64
+  max_epochs: 200
+
+  pass_device: True
+
+  model_args:
+    num_nodes: 358
+    input_dim: 1
+    output_dim: 1
+    horizon: 12
+    rnn_units: 64
+    num_layers: 1
+    cheb_k: 3
+    adj_path: "../data/PEMS03/adj_PEMS03.pkl"
+    adj_type: "doubletransition"
+    device: null
+
+PEMS04:
+  num_nodes: 307
+  in_steps: 12
+  out_steps: 12
+
+  lr: 0.001
+  weight_decay: 0
+  milestones: [12, 50]
+  clip_grad: 0
+  batch_size: 64
+  max_epochs: 200
+
+  pass_device: True
+
+  model_args:
+    num_nodes: 307
+    input_dim: 1
+    output_dim: 1
+    horizon: 12
+    rnn_units: 64
+    num_layers: 1
+    cheb_k: 3
+    adj_path: "../data/PEMS04/adj_PEMS04.pkl"
+    adj_type: "doubletransition"
+    device: null
+
+PEMS07:
+  num_nodes: 883
+  in_steps: 12
+  out_steps: 12
+
+  lr: 0.001
+  weight_decay: 0
+  milestones: [12, 50]
+  clip_grad: 0
+  batch_size: 64
+  max_epochs: 200
+
+  pass_device: True
+
+  model_args:
+    num_nodes: 883
+    input_dim: 1
+    output_dim: 1
+    horizon: 12
+    rnn_units: 64
+    num_layers: 1
+    cheb_k: 3
+    adj_path: "../data/PEMS07/adj_PEMS07.pkl"
+    adj_type: "doubletransition"
+    device: null
+
+PEMS08:
+  num_nodes: 170
+  in_steps: 12
+  out_steps: 12
+
+  lr: 0.001
+  weight_decay: 0
+  milestones: [12, 50]
+  clip_grad: 0
+  batch_size: 64
+  max_epochs: 200
+
+  pass_device: True
+
+  model_args:
+    num_nodes: 170
+    input_dim: 1
+    output_dim: 1
+    horizon: 12
+    rnn_units: 64
+    num_layers: 1
+    cheb_k: 3
+    adj_path: "../data/PEMS08/adj_PEMS08.pkl"
+    adj_type: "doubletransition"
+    device: null
+
+PEMSD7M:
+  num_nodes: 228
+  in_steps: 12
+  out_steps: 12
+
+  lr: 0.001
+  weight_decay: 0
+  milestones: [12, 50]
+  clip_grad: 0
+  batch_size: 64
+  max_epochs: 200
+
+  pass_device: True
+
+  model_args:
+    num_nodes: 228
+    input_dim: 1
+    output_dim: 1
+    horizon: 12
+    rnn_units: 64
+    num_layers: 1
+    cheb_k: 3
+    adj_path: "../data/PEMSD7M/adj_PEMSD7M_distance.pkl"
+    adj_type: "doubletransition"
+    device: null
+
+PEMSD7L:
+  num_nodes: 1026
+  in_steps: 12
+  out_steps: 12
+
+  lr: 0.001
+  weight_decay: 0
+  milestones: [12, 50]
+  clip_grad: 0
+  batch_size: 64
+  max_epochs: 200
+
+  pass_device: True
+
+  model_args:
+    num_nodes: 1026
+    input_dim: 1
+    output_dim: 1
+    horizon: 12
+    rnn_units: 64
+    num_layers: 1
+    cheb_k: 3
+    adj_path: "../data/PEMSD7L/adj_PEMSD7L_distance.pkl"
+    adj_type: "doubletransition"
+    device: null
