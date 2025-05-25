@@ -72,14 +72,14 @@ class Basic_Model(nn.Module):
          N = adj.shape[0]
          x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, T]
          x = x.unsqueeze(1) # (B, C, N, T)
-         x = self.gwnet(x)
+         x = self.gwnet(x,adj)
          x = x.reshape((-1, self.args.gcn["out_channel"]))
          return x
     def feature(self, data, adj):
          N = adj.shape[0]
          x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, T]
-         x.unsqueeze(1) # (B, C, N, T)
-         x = self.gwnet(x)
+         x = x.unsqueeze(1) # (B, C, N, T)
+         x = self.gwnet(x,adj)
          x = x.reshape((-1, self.args.gcn["out_channel"]))
          return x
 
@@ -90,7 +90,7 @@ class TrafficEvent(nn.Module):
         
         self.extra_feature = True
         args.extra_feature = self.extra_feature
-        self.basic_model = Basic_Model(args)
+        self.basic_model = Basic_Model_org(args)
         # self.event_model = Basic_Model(args)
         
         self.memory_size = args.memory_size if hasattr(args, 'memory_size') else 32
@@ -113,7 +113,7 @@ class TrafficEvent(nn.Module):
             )
         
         # create momentum models
-        self.basic_model_m = Basic_Model(args)
+        self.basic_model_m = Basic_Model_org(args)
         self.model_pairs = [[self.basic_model, self.basic_model_m]]
         
         self.copy_params()

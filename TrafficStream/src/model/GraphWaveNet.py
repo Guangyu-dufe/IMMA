@@ -166,6 +166,7 @@ class GWNET(nn.Module):
         self.addaptadj = addaptadj
         self.node_dim = node_dim
         self.device = device
+        self.init_adj = False
 
         self.filter_convs = nn.ModuleList()
         self.gate_convs = nn.ModuleList()
@@ -230,7 +231,7 @@ class GWNET(nn.Module):
                 receptive_field += additional_scope
                 additional_scope *= 2
                 if self.gcn_bool:
-                    self.gconv.append(gcn(dilation_channels,residual_channels,dropout,support_len=self.supports_len))
+                    self.gconv.append(gcn(dilation_channels,residual_channels,dropout,support_len=self.supports_len+1))
 
 
 
@@ -248,7 +249,7 @@ class GWNET(nn.Module):
 
 
 
-    def forward(self, input): # ! (B, C, N, T)
+    def forward(self, input,adj): # ! (B, C, N, T)
         
         in_len = input.size(3)
         num_nodes = input.size(2)
@@ -262,6 +263,10 @@ class GWNET(nn.Module):
 
         # calculate the current adaptive adj matrix once per iteration
         new_supports = None
+        if not self.init_adj:
+            self.init_adj = True
+            self.supports.append(adj)
+
         if self.gcn_bool and self.addaptadj and self.supports is not None:
             if self.nodevec1 is None or self.nodevec1.size(0) != num_nodes:
                 self.nodevec1 = nn.Parameter(torch.randn(num_nodes, self.node_dim, device=input.device), requires_grad=True)
@@ -275,7 +280,9 @@ class GWNET(nn.Module):
             new_supports.append(adp)
         elif self.supports is not None:
             new_supports = [support.to(input.device) for support in self.supports]
-        
+
+
+       
         # WaveNet layers
         for i in range(self.blocks * self.layers):
 
@@ -325,7 +332,7 @@ class GWNET(nn.Module):
 
         x = F.relu(skip)
         x = F.relu(self.end_conv_1(x))
-        x = self.end_conv_2(x) # 这里不用 permute 回去 维度顺序是正好对的
+        x = self.end_conv_2(x) 
         x = x.squeeze(-1)
         x = x.permute(0, 2, 1)
         return x

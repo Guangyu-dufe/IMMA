@@ -57,8 +57,8 @@ def load_best_model(args):
     model = TrafficEvent(args).to(args.device)
 
     # very not safe, and it's only for 2017 year
-    x = torch.randn(128*args.subgraph.size(0), 24).to(args.device)
-    adj = torch.randn(args.subgraph.size(0), args.subgraph.size(0)).to(args.device)
+    x = torch.randn(128*args.graph_size, 24).to(args.device)
+    adj = torch.randn(args.graph_size, args.graph_size).to(args.device)
 
     data = Data(x=x)
     model(data, adj)
@@ -224,6 +224,7 @@ def train(inputs, args):
             basic_loss += float(loss_basic[predictions==0].mean())
             event_loss += float(loss_basic[predictions==1].mean())
             loss.backward()
+            # args.logger.info('run first item successfully')
 
 
             optimizer.step()
@@ -292,6 +293,7 @@ def train(inputs, args):
 
     best_model_path = osp.join(path, str(lowest_validation_loss)+".pkl")
     best_model = TrafficEvent(args)
+
     best_model.load_state_dict(torch.load(best_model_path, args.device)["model_state_dict"])
     best_model = best_model.to(args.device)
     
@@ -382,26 +384,26 @@ def test_model(model, args, testset, pin_memory):
         
         # Evaluate all samples
         args.logger.info("[*] Evaluating all samples:")
-        mae_all = metric(truth_, pred_, args)
+        mae_all = metric(True, truth_, pred_, args)
         
         # Evaluate basic traffic samples
         if pred_basic:
             pred_basic = np.concatenate(pred_basic, 0)
             truth_basic = np.concatenate(truth_basic, 0)
             args.logger.info("[*] Evaluating basic traffic samples (prediction=0):")
-            mae_basic = metric(truth_basic, pred_basic, args)
+            mae_basic = metric(False, truth_basic, pred_basic, args)
         
         # Evaluate event traffic samples
         if pred_event:
             pred_event = np.concatenate(pred_event, 0)
             truth_event = np.concatenate(truth_event, 0)
             args.logger.info("[*] Evaluating event traffic samples (prediction=1):")
-            mae_event = metric(truth_event, pred_event, args)
+            mae_event = metric(False, truth_event, pred_event, args)
         
         return test_loss
 
 
-def metric(ground_truth, prediction, args):
+def metric(flag, ground_truth, prediction, args):
     global result
     pred_time = [3,6,12]
     args.logger.info("[*] year {}, testing".format(args.year))
@@ -410,9 +412,10 @@ def metric(ground_truth, prediction, args):
         rmse = masked_mse_np(ground_truth[:, :, :i], prediction[:, :, :i], 0) ** 0.5
         mape = masked_mape_np(ground_truth[:, :, :i], prediction[:, :, :i], 0)
         args.logger.info("T:{:d}\tMAE\t{:.4f}\tRMSE\t{:.4f}\tMAPE\t{:.4f}".format(i,mae,rmse,mape))
-        result[i]["mae"][args.year] = mae
-        result[i]["mape"][args.year] = mape
-        result[i]["rmse"][args.year] = rmse
+        if flag:
+            result[i]["mae"][args.year] = mae
+            result[i]["mape"][args.year] = mape
+            result[i]["rmse"][args.year] = rmse
     return mae
 
 
@@ -547,8 +550,8 @@ if __name__ == "__main__":
     parser.add_argument("--paral", type = int, default = 0)
     parser.add_argument("--gpuid", type = int, default = 5)
     parser.add_argument("--logname", type = str, default = "info")
-    parser.add_argument("--load_first_year", type = int, default = 1, help="0: training first year, 1: load from model path of first year")
-    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-11-06:49:36.255974/2017/25.7452.pkl", help='specify a pretrained model root')
+    parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
+    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-13-07:40:17.495815/2017/25.0437.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     init(args)
     seed_set(13)

@@ -23,6 +23,8 @@ TrafficStream/data/*
 # logs
 TrafficStream/res/*
 
+# data
+Oline_Baselines/data/*
 
-!TrafficStream/res/SD/p3=0.5/
-!TrafficStream/res/SD/p3=0.75/
+# logs
+Oline_Baselines/res/*

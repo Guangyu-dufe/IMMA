@@ -55,3 +55,281 @@ Traceback (most recent call last):
     raise RuntimeError(
 RuntimeError: Error(s) in loading state_dict for TrafficEvent:
 	Unexpected key(s) in state_dict: "basic_model.gwnet.nodevec1", "basic_model.gwnet.nodevec2", "basic_model_m.gwnet.nodevec1", "basic_model_m.gwnet.nodevec2". 
+2025-05-13 07:15:07,850 - logger name:res/SD/trafficStream2025-05-13-07:15:07.849734/trafficStream.log
+2025-05-13 07:15:07,851 - params : {'conf': 'conf/trafficStream_SD.json', 'paral': 0, 'gpuid': 5, 'logname': 'trafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-11-06:49:36.255974/2017/25.7452.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'classifier': {'hidden_dim': 128}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'time': '2025-05-13-07:15:07.849734', 'path': 'res/SD/trafficStream2025-05-13-07:15:07.849734', 'device': device(type='cuda', index=5), 'logger': <Logger __main__ (INFO)>}
+2025-05-13 07:15:07,878 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch_geometric/deprecation.py:26: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+2025-05-13 07:15:21,054 - [*] Year 2017 Dataset load!
+2025-05-13 07:15:21,075 - [*] Model parameter count: 277994
+2025-05-13 07:15:21,075 - [*] Year 2017 Training start
+2025-05-13 07:15:21,478 - node number torch.Size([91648, 24])
+Traceback (most recent call last):
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 558, in <module>
+    main(args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 520, in main
+    train(inputs, args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 190, in train
+    basic_features, basic_features_m, similarity, logits = model(data, args.sub_adj)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/model.py", line 209, in forward
+    basic_features_m = self.basic_model_m(basic_data, adj) 
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/model.py", line 75, in forward
+    x = self.gwnet(x,adj)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 322, in forward
+    x = self.gconv[i](x, new_supports)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 131, in forward
+    h = self.mlp(h)
+        ^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 109, in forward
+    return self.mlp(x)
+           ^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+           ^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [32, 96, 1, 1], expected input[128, 160, 716, 12] to have 96 channels, but got 160 channels instead
+2025-05-13 07:26:42,448 - logger name:res/SD/trafficStream2025-05-13-07:26:42.447389/trafficStream.log
+2025-05-13 07:26:42,448 - params : {'conf': 'conf/trafficStream_SD.json', 'paral': 0, 'gpuid': 5, 'logname': 'trafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-11-06:49:36.255974/2017/25.7452.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'classifier': {'hidden_dim': 128}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'time': '2025-05-13-07:26:42.447389', 'path': 'res/SD/trafficStream2025-05-13-07:26:42.447389', 'device': device(type='cuda', index=5), 'logger': <Logger __main__ (INFO)>}
+2025-05-13 07:26:42,476 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch_geometric/deprecation.py:26: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+2025-05-13 07:26:56,191 - [*] Year 2017 Dataset load!
+2025-05-13 07:26:56,212 - [*] Model parameter count: 277994
+2025-05-13 07:26:56,213 - [*] Year 2017 Training start
+2025-05-13 07:26:56,694 - node number torch.Size([91648, 24])
+Traceback (most recent call last):
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 558, in <module>
+    main(args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 520, in main
+    train(inputs, args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 190, in train
+    basic_features, basic_features_m, similarity, logits = model(data, args.sub_adj)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/model.py", line 209, in forward
+    basic_features_m = self.basic_model_m(basic_data, adj) 
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/model.py", line 75, in forward
+    x = self.gwnet(x,adj)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 323, in forward
+    x = self.gconv[i](x, new_supports)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 131, in forward
+    h = self.mlp(h)
+        ^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 109, in forward
+    return self.mlp(x)
+           ^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+           ^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [32, 96, 1, 1], expected input[128, 160, 716, 12] to have 96 channels, but got 160 channels instead
+2025-05-13 07:29:26,799 - logger name:res/SD/trafficStream2025-05-13-07:29:26.798568/trafficStream.log
+2025-05-13 07:29:26,799 - params : {'conf': 'conf/trafficStream_SD.json', 'paral': 0, 'gpuid': 5, 'logname': 'trafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-11-06:49:36.255974/2017/25.7452.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'classifier': {'hidden_dim': 128}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'time': '2025-05-13-07:29:26.798568', 'path': 'res/SD/trafficStream2025-05-13-07:29:26.798568', 'device': device(type='cuda', index=5), 'logger': <Logger __main__ (INFO)>}
+2025-05-13 07:29:26,828 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch_geometric/deprecation.py:26: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+2025-05-13 07:29:39,922 - [*] Year 2017 Dataset load!
+2025-05-13 07:29:39,942 - [*] Model parameter count: 277994
+2025-05-13 07:29:39,943 - [*] Year 2017 Training start
+2025-05-13 07:29:40,305 - node number torch.Size([91648, 24])
+Traceback (most recent call last):
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 558, in <module>
+    main(args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 520, in main
+    train(inputs, args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 190, in train
+    basic_features, basic_features_m, similarity, logits = model(data, args.sub_adj)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/model.py", line 209, in forward
+    basic_features_m = self.basic_model_m(basic_data, adj) 
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/model.py", line 75, in forward
+    x = self.gwnet(x,adj)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 323, in forward
+    x = self.gconv[i](x, new_supports)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 131, in forward
+    h = self.mlp(h)
+        ^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/ANATS/TrafficStream/src/model/GraphWaveNet.py", line 109, in forward
+    return self.mlp(x)
+           ^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 554, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/conv.py", line 549, in _conv_forward
+    return F.conv2d(
+           ^^^^^^^^^
+RuntimeError: Given groups=1, weight of size [32, 96, 1, 1], expected input[128, 160, 716, 12] to have 96 channels, but got 160 channels instead
+2025-05-13 07:40:17,496 - logger name:res/SD/trafficStream2025-05-13-07:40:17.495815/trafficStream.log
+2025-05-13 07:40:17,497 - params : {'conf': 'conf/trafficStream_SD.json', 'paral': 0, 'gpuid': 5, 'logname': 'trafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-11-06:49:36.255974/2017/25.7452.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'classifier': {'hidden_dim': 128}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'time': '2025-05-13-07:40:17.495815', 'path': 'res/SD/trafficStream2025-05-13-07:40:17.495815', 'device': device(type='cuda', index=5), 'logger': <Logger __main__ (INFO)>}
+2025-05-13 07:40:17,524 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch_geometric/deprecation.py:26: UserWarning: 'data.DataLoader' is deprecated, use 'loader.DataLoader' instead
+  warnings.warn(out)
+2025-05-13 07:40:30,790 - [*] Year 2017 Dataset load!
+2025-05-13 07:40:30,811 - [*] Model parameter count: 294378
+2025-05-13 07:40:30,811 - [*] Year 2017 Training start
+2025-05-13 07:40:31,167 - node number torch.Size([91648, 24])
+2025-05-13 07:51:53,115 - epoch:0, training loss:3695.9140 validation loss:33.4781, moco loss:222.5983
+2025-05-13 08:03:15,235 - epoch:1, training loss:1511.3155 validation loss:33.5651, moco loss:91.7192
+2025-05-13 08:14:38,452 - epoch:2, training loss:1377.5168 validation loss:29.7044, moco loss:124.5017
+2025-05-13 08:26:03,099 - epoch:3, training loss:1330.0229 validation loss:28.7224, moco loss:76.2035
+2025-05-13 08:37:28,259 - epoch:4, training loss:1271.9099 validation loss:29.7845, moco loss:105.9490
+2025-05-13 08:48:54,515 - epoch:5, training loss:1239.5064 validation loss:29.0291, moco loss:86.1294
+2025-05-13 09:00:19,362 - epoch:6, training loss:1213.0855 validation loss:29.4330, moco loss:77.7773
+2025-05-13 09:11:39,022 - epoch:7, training loss:1190.4754 validation loss:27.5000, moco loss:151.2645
+2025-05-13 09:23:05,410 - epoch:8, training loss:1189.7298 validation loss:27.0965, moco loss:144.7319
+2025-05-13 09:34:27,166 - epoch:9, training loss:1137.5529 validation loss:28.1130, moco loss:270.8576
+2025-05-13 09:45:52,704 - epoch:10, training loss:1122.2176 validation loss:26.1890, moco loss:80.9208
+2025-05-13 09:57:15,697 - epoch:11, training loss:1111.4506 validation loss:27.2173, moco loss:143.7800
+2025-05-13 10:08:41,580 - epoch:12, training loss:1093.7034 validation loss:26.3157, moco loss:89.6122
+2025-05-13 10:20:00,190 - epoch:13, training loss:1087.4674 validation loss:26.9253, moco loss:95.1256
+2025-05-13 10:31:23,173 - epoch:14, training loss:1073.9546 validation loss:26.9880, moco loss:97.8214
+2025-05-13 10:42:44,582 - epoch:15, training loss:1057.7194 validation loss:25.8616, moco loss:82.3799
+2025-05-13 10:54:03,096 - epoch:16, training loss:1048.1364 validation loss:25.8264, moco loss:121.8562
+2025-05-13 11:05:25,533 - epoch:17, training loss:1045.3115 validation loss:25.9892, moco loss:92.6802
+2025-05-13 11:16:47,413 - epoch:18, training loss:1033.2134 validation loss:26.1284, moco loss:166.6685
+2025-05-13 11:28:08,813 - epoch:19, training loss:1032.2700 validation loss:26.4185, moco loss:134.5432
+2025-05-13 11:39:29,206 - epoch:20, training loss:1023.0142 validation loss:27.9001, moco loss:146.1081
+2025-05-13 11:50:54,426 - epoch:21, training loss:1063.6949 validation loss:26.1291, moco loss:89.0817
+2025-05-13 12:02:19,152 - epoch:22, training loss:1001.3646 validation loss:25.2605, moco loss:94.7165
+2025-05-13 12:13:41,540 - epoch:23, training loss:992.8560 validation loss:25.6947, moco loss:136.3662
+2025-05-13 12:25:05,647 - epoch:24, training loss:1021.8813 validation loss:25.9987, moco loss:81.9640
+2025-05-13 12:36:30,558 - epoch:25, training loss:1003.4766 validation loss:25.8918, moco loss:92.4502
+2025-05-13 12:47:54,400 - epoch:26, training loss:984.7120 validation loss:25.0437, moco loss:108.1147
+2025-05-13 12:59:18,676 - epoch:27, training loss:1003.0029 validation loss:25.7291, moco loss:93.5500
+2025-05-13 13:10:40,832 - epoch:28, training loss:983.7072 validation loss:25.7987, moco loss:79.7055
+2025-05-13 13:22:04,318 - epoch:29, training loss:990.4656 validation loss:25.1201, moco loss:103.4480
+2025-05-13 13:33:22,674 - epoch:30, training loss:969.7831 validation loss:25.8030, moco loss:79.7073
+2025-05-13 13:44:45,475 - epoch:31, training loss:978.9110 validation loss:25.4748, moco loss:133.0930
+2025-05-13 13:56:04,324 - epoch:32, training loss:1500.8565 validation loss:29.5640, moco loss:48.6601
+Traceback (most recent call last):
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 559, in <module>
+    main(args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 521, in main
+    train(inputs, args)
+  File "/home/bd2/ANATS/TrafficStream/main_moco.py", line 296, in train
+    best_model.load_state_dict(torch.load(best_model_path, args.device)["model_state_dict"])
+  File "/home/bd2/miniconda3/envs/ANATS/lib/python3.12/site-packages/torch/nn/modules/module.py", line 2593, in load_state_dict
+    raise RuntimeError(
+RuntimeError: Error(s) in loading state_dict for TrafficEvent:
+	Unexpected key(s) in state_dict: "basic_model.gwnet.nodevec1", "basic_model.gwnet.nodevec2", "basic_model_m.gwnet.nodevec1", "basic_model_m.gwnet.nodevec2". 
