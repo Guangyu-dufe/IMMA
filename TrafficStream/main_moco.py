@@ -213,9 +213,8 @@ def train(inputs, args):
 
 
             loss_basic_m = lossfunc(basic_features, basic_features_m, reduction="mean")
-            
             loss = loss_basic.mean() + loss_basic_m*0.3 
-            # + loss_basic_m*0.3 + loss_classification
+
 
             if args.ewc and args.year > args.begin_year:
                 loss += model.compute_consolidation_loss()
@@ -546,12 +545,12 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter)
-    parser.add_argument("--conf", type = str, default = "conf/trafficStream_SD.json")
+    parser.add_argument("--conf", type = str, default = "conf/all-com.json")
     parser.add_argument("--paral", type = int, default = 0)
-    parser.add_argument("--gpuid", type = int, default = 5)
+    parser.add_argument("--gpuid", type = int, default = 3)
     parser.add_argument("--logname", type = str, default = "info")
-    parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
-    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-13-07:40:17.495815/2017/25.0437.pkl", help='specify a pretrained model root')
+    parser.add_argument("--load_first_year", type = int, default = 1, help="0: training first year, 1: load from model path of first year")
+    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/all-com2025-05-26-12:20:16.113789/2017/25.9924.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     init(args)
     seed_set(13)

@@ -206,7 +206,7 @@ def train(inputs, args):
 
             loss_basic_m = lossfunc(basic_features, basic_features_m, reduction="mean")
             
-            loss = loss_classification + loss_basic.mean()
+            loss = loss_basic.mean() + loss_classification
 
             if args.ewc and args.year > args.begin_year:
                 loss += model.compute_consolidation_loss()
@@ -373,26 +373,26 @@ def test_model(model, args, testset, pin_memory):
         
         # Evaluate all samples
         args.logger.info("[*] Evaluating all samples:")
-        mae_all = metric(truth_, pred_, args)
+        mae_all = metric(True, truth_, pred_, args)
         
         # Evaluate basic traffic samples
         if pred_basic:
             pred_basic = np.concatenate(pred_basic, 0)
             truth_basic = np.concatenate(truth_basic, 0)
             args.logger.info("[*] Evaluating basic traffic samples (prediction=0):")
-            mae_basic = metric(truth_basic, pred_basic, args)
+            mae_basic = metric(False, truth_basic, pred_basic, args)
         
         # Evaluate event traffic samples
         if pred_event:
             pred_event = np.concatenate(pred_event, 0)
             truth_event = np.concatenate(truth_event, 0)
             args.logger.info("[*] Evaluating event traffic samples (prediction=1):")
-            mae_event = metric(truth_event, pred_event, args)
+            mae_event = metric(False, truth_event, pred_event, args)
         
         return test_loss
 
 
-def metric(ground_truth, prediction, args):
+def metric(flag,ground_truth, prediction, args):
     global result
     pred_time = [3,6,12]
     args.logger.info("[*] year {}, testing".format(args.year))
@@ -401,9 +401,10 @@ def metric(ground_truth, prediction, args):
         rmse = masked_mse_np(ground_truth[:, :, :i], prediction[:, :, :i], 0) ** 0.5
         mape = masked_mape_np(ground_truth[:, :, :i], prediction[:, :, :i], 0)
         args.logger.info("T:{:d}\tMAE\t{:.4f}\tRMSE\t{:.4f}\tMAPE\t{:.4f}".format(i,mae,rmse,mape))
-        result[i]["mae"][args.year] = mae
-        result[i]["mape"][args.year] = mape
-        result[i]["rmse"][args.year] = rmse
+        if flag:
+            result[i]["mae"][args.year] = mae
+            result[i]["mape"][args.year] = mape
+            result[i]["rmse"][args.year] = rmse
     return mae
 
 
@@ -534,7 +535,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter)
-    parser.add_argument("--conf", type = str, default = "conf/trafficStream_SD.json")
+    parser.add_argument("--conf", type = str, default = "conf/wo-moco.json")
     parser.add_argument("--paral", type = int, default = 0)
     parser.add_argument("--gpuid", type = int, default = 5)
     parser.add_argument("--logname", type = str, default = "info")

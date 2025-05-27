@@ -31,7 +31,7 @@
     },
     
 
-    "logname": "retrain_st_pems",
+    "logname": "retrain_st_sd",
     "init": false,
     "train": 1,
     "auto_test": 0,

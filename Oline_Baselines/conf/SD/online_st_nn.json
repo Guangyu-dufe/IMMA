@@ -30,7 +30,7 @@
         "dilation": 1
     },
 
-    "logname": "oneline_st_an_sd",
+    "logname": "online_st_nn_sd",
     "rank": 6,
 
     "train": 1,

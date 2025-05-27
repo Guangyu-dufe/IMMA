@@ -30,15 +30,15 @@
         "dilation": 1
     },
 
-    "logname": "online_st_an_sd",
+    "logname": "retrain_st_sd",
     "rank": 6,
 
     "train": 1,
 
     "strategy": "retrain",
     "init": true,
-    "increase": true,
-    "num_hops": 2,
+    "increase": false,
+    "num_hops": 0,
 
     "detect": false,
 

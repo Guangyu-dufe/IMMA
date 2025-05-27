@@ -381,6 +381,8 @@ def main(args):
                         if year in result[i][j]:
                             info+="{:.2f}\t".format(result[i][j][year])
             logger.info("{}\t{}\t".format(i,j) + info)
+        args.logger.info("\n\n")
+    
 
     for year in range(args.begin_year, args.end_year+1):
         if year in result:
@@ -390,11 +392,11 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter)
-    parser.add_argument("--conf", type = str, default = "conf/trafficStream_SD.json")
+    parser.add_argument("--conf", type = str, default = "conf/wo_extra_tags.json")
     parser.add_argument("--paral", type = int, default = 0)
     parser.add_argument("--gpuid", type = int, default = 5)
     parser.add_argument("--logname", type = str, default = "info")
-    parser.add_argument("--load_first_year", type = int, default = 1, help="0: training first year, 1: load from model path of first year")
+    parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
     parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-04-17-12:25:53.499043/2017/26.012.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     init(args)

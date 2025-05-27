@@ -36,17 +36,21 @@ class EWC(nn.Module):
             
             with torch.no_grad():
                 self.model._momentum_update(False)
-
-            if self.model.extra_feature:
+                
+            if self.model.args.extra_feature:
                 from types import SimpleNamespace
                 basic_data = SimpleNamespace()
-                reshaped_x = data.x.reshape(-1, self.model.args.gcn["in_channel"]*2)
-                basic_data.x = reshaped_x[:, :self.model.args.gcn["in_channel"]]
-                basic_data.batch = data.batch
+                basic_data.x = data.x.reshape(-1, self.model.args.gcn["in_channel"]*2)
             else:
-                basic_data = data
-            
-            basic_features = self.model.basic_model.feature(basic_data, self.adj)
+                from types import SimpleNamespace
+                basic_data = SimpleNamespace()
+                basic_data.x = data.x.reshape(-1, self.model.args.gcn["in_channel"]*2)[:, :self.model.args.gcn["in_channel"]]
+            basic_data.batch = data.batch
+
+            if self.model.args.expand:
+                basic_features = self.model.feature(basic_data, self.adj)
+            else:
+                basic_features = self.model.basic_model.feature(basic_data, self.adj)
             log_likelihood = lossfunc(data.y, basic_features, reduction='mean')
             
             grad_log_liklihood = autograd.grad(log_likelihood, trainable_params, 

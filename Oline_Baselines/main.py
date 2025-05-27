@@ -180,7 +180,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter)
-    parser.add_argument("--conf", type = str, default = "conf/SD/online_st_nn.json")
+    parser.add_argument("--conf", type = str, default = "conf/SD/retrain_st_sd.json")
     parser.add_argument("--seed", type = int, default = 42)
     parser.add_argument("--paral", type = int, default = 0)
     parser.add_argument("--gpuid", type = int, default = 2)

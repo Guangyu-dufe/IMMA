@@ -14,41 +14,75 @@ class Basic_Model_org(nn.Module):
         super(Basic_Model_org, self).__init__()
         self.dropout = args.dropout
         
-        self.gcn1 = BatchGCNConv(args.gcn["in_channel"], args.gcn["hidden_channel"], bias=True, gcn=False)
-        self.gcn2 = BatchGCNConv(args.gcn["hidden_channel"], args.gcn["out_channel"], bias=True, gcn=False)
-        self.tcn1 = nn.Conv1d(in_channels=args.tcn["in_channel"], out_channels=args.tcn["out_channel"], kernel_size=args.tcn["kernel_size"], \
-            dilation=args.tcn["dilation"], padding=int((args.tcn["kernel_size"]-1)*args.tcn["dilation"]/2))
+        if args.expand:
+            self.gcn1 = BatchGCNConv(args.gcn["in_channel"]*2, args.gcn["hidden_channel"], bias=True, gcn=False)
+            self.gcn2 = BatchGCNConv(args.gcn["hidden_channel"], args.gcn["out_channel"], bias=True, gcn=False)
+            self.tcn1 = nn.Conv1d(in_channels=args.tcn["in_channel"], out_channels=args.tcn["out_channel"], kernel_size=args.tcn["kernel_size"], \
+                dilation=args.tcn["dilation"], padding=int((args.tcn["kernel_size"]-1)*args.tcn["dilation"]/2))
+        else:
+            self.gcn1 = BatchGCNConv(args.gcn["in_channel"], args.gcn["hidden_channel"], bias=True, gcn=False)
+            self.gcn2 = BatchGCNConv(args.gcn["hidden_channel"], args.gcn["out_channel"], bias=True, gcn=False)
+            self.tcn1 = nn.Conv1d(in_channels=args.tcn["in_channel"], out_channels=args.tcn["out_channel"], kernel_size=args.tcn["kernel_size"], \
+                dilation=args.tcn["dilation"], padding=int((args.tcn["kernel_size"]-1)*args.tcn["dilation"]/2))
         self.fc = nn.Linear(args.gcn["out_channel"], args.y_len)
+
         self.activation = nn.GELU()
 
         self.args = args
 
     def forward(self, data, adj):
         N = adj.shape[0]
-        
-        x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, feature]
-            
-        x = F.relu(self.gcn1(x, adj))                              # [bs, N, feature]
-        x = x.reshape((-1, 1, self.args.gcn["hidden_channel"]))    # [bs * N, 1, feature]
+        if self.args.expand:
+            x = data.x.reshape((-1, N, self.args.gcn["in_channel"]*2))   # [bs, N, feature]
+                
+            x = F.relu(self.gcn1(x, adj))                              # [bs, N, feature]
+            x = x.reshape((-1, 1, self.args.gcn["hidden_channel"]))    # [bs * N, 1, feature]
 
-        x = self.tcn1(x)                                           # [bs * N, 1, feature]
+            x = self.tcn1(x)                                           # [bs * N, 1, feature]
 
-        x = x.reshape((-1, N, self.args.gcn["hidden_channel"]))    # [bs, N, feature]
-        x = self.gcn2(x, adj)                                      # [bs, N, feature]
-        x = x.reshape((-1, self.args.gcn["out_channel"]))          # [bs * N, feature]
-        
-        x = x + data.x
+            x = x.reshape((-1, N, self.args.gcn["hidden_channel"]))    # [bs, N, feature]
+            x = self.gcn2(x, adj)                                      # [bs, N, feature]
+            x = x.reshape((-1, self.args.gcn["out_channel"]))          # [bs * N, feature]
             
-        x = self.fc(self.activation(x))
-        x = F.dropout(x, p=self.dropout, training=self.training)
-        return x
+            x = x + data.x[..., :self.args.gcn["in_channel"]]
+                
+            x = self.fc(self.activation(x))
+            x = F.dropout(x, p=self.dropout, training=self.training)
+            return x
+        else:
+            x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, feature]
+                
+            x = F.relu(self.gcn1(x, adj))                              # [bs, N, feature]
+            x = x.reshape((-1, 1, self.args.gcn["hidden_channel"]))    # [bs * N, 1, feature]
+
+            x = self.tcn1(x)                                           # [bs * N, 1, feature]
+
+            x = x.reshape((-1, N, self.args.gcn["hidden_channel"]))    # [bs, N, feature]
+            x = self.gcn2(x, adj)                                      # [bs, N, feature]
+            x = x.reshape((-1, self.args.gcn["out_channel"]))          # [bs * N, feature]
+            
+            x = x + data.x
+                
+            x = self.fc(self.activation(x))
+            x = F.dropout(x, p=self.dropout, training=self.training)
+            return x
 
  
     def feature(self, data, adj):
         N = adj.shape[0]
+        if self.args.extra_feature:
+            x = data.x.reshape((-1, N, self.args.gcn["in_channel"]*2))[:, :, :self.args.gcn["in_channel"]]
+            data.x = data.x[..., :self.args.gcn["in_channel"]]
+        else:
+            x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))[:, :, :self.args.gcn["in_channel"]]   # [bs, N, feature]
         
-        x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   # [bs, N, feature]
-            
+        if self.args.expand and len(data.x.shape) == 2:
+            x = torch.cat([x, data.x[..., :self.args.gcn["in_channel"]].reshape(-1, N, self.args.gcn["in_channel"])], dim=-1)
+        elif self.args.expand:
+            x = torch.cat([x, data.x.reshape(-1, N, self.args.gcn["in_channel"])], dim=-1)
+        else:
+            pass
+
         x = F.relu(self.gcn1(x, adj))                              # [bs, N, feature]
         x = x.reshape((-1, 1, self.args.gcn["hidden_channel"]))    # [bs * N, 1, feature]
 
@@ -88,24 +122,28 @@ class TrafficEvent(nn.Module):
         super(TrafficEvent, self).__init__()
         self.args = args
         
-        self.extra_feature = True
-        args.extra_feature = self.extra_feature
+        self.extra_feature = args.extra_feature
         self.basic_model = Basic_Model_org(args)
         # self.event_model = Basic_Model(args)
         
         self.memory_size = args.memory_size if hasattr(args, 'memory_size') else 32
         self.memory_dim = args.gcn["in_channel"]
         self.memory = nn.Parameter(torch.randn(self.memory_size, self.memory_dim))
-        
-        self.query_proj = nn.Linear(args.gcn["in_channel"], args.gcn["in_channel"])
-        
+
+
+        nn.init.xavier_uniform_(self.memory)
+
         if self.extra_feature:
+            self.query_proj = nn.Linear(args.gcn["in_channel"], args.gcn["in_channel"])
+            self.extra_query_proj = nn.Linear(args.gcn["in_channel"], args.gcn["in_channel"])
+        
             self.classifier = nn.Sequential(
                 nn.Linear(args.gcn["in_channel"] * (2+1), args.classifier["hidden_dim"]),
                 nn.ReLU(),
                 nn.Linear(args.classifier["hidden_dim"], 2)
             )
         else:
+            self.query_proj = nn.Linear(args.gcn["in_channel"], args.gcn["in_channel"])
             self.classifier = nn.Sequential(
                 nn.Linear(args.gcn["in_channel"] * 2, args.classifier["hidden_dim"]),
                 nn.ReLU(),
@@ -144,12 +182,15 @@ class TrafficEvent(nn.Module):
                 momentum = np.clip(momentum, 0.8, 0.999)
             elif self.args.momentum_type == "constant":
                 momentum = 0.995
+            elif self.args.momentum_type == "wo":
+                pass
             else:
                 raise ValueError(f"momentum_type {self.args.momentum_type} not supported")
 
-            for model_pair in self.model_pairs:           
-                for param, param_m in zip(model_pair[0].parameters(), model_pair[1].parameters()):
-                    param_m.data = param_m.data * momentum + param.data * (1. - momentum)
+            if self.args.momentum_type != "wo":
+                for model_pair in self.model_pairs:           
+                    for param, param_m in zip(model_pair[0].parameters(), model_pair[1].parameters()):
+                        param_m.data = param_m.data * momentum + param.data * (1. - momentum)
         else:
             # self.args.logger.info("No momentum update in EWC")
             pass
@@ -160,14 +201,21 @@ class TrafficEvent(nn.Module):
         batch_size, N, feature_dim = x.shape
         
         if self.extra_feature:
-            query_x = x[:, :, :self.args.gcn["in_channel"]]  # [bs, N, in_channel]
-        else:
             query_x = x  # [bs, N, in_channel]
+            query_x_flat = query_x.reshape(-1, query_x.shape[-1])  # [bs*N, in_channel]
 
-        query_x_flat = query_x.reshape(-1, query_x.shape[-1])  # [bs*N, in_channel]
-        query = self.query_proj(query_x_flat)  # [bs*N, in_channel]
-        query = query.reshape(batch_size, N, self.args.gcn["in_channel"])  # [bs, N, in_channel]
-        query_avg = torch.mean(query, dim=1)  # [bs, in_channel]
+            query = self.query_proj(query_x_flat[..., :self.args.gcn["in_channel"]])  # [bs*N, in_channel*]
+            query = query + self.extra_query_proj(query_x_flat[..., self.args.gcn["in_channel"]:])  # [bs*N, in_channel]
+        
+            query = query.reshape(batch_size, N, self.args.gcn["in_channel"])  # [bs, N, in_channel*2]
+            query_avg = torch.mean(query, dim=1)  # [bs, in_channel*2]
+        else:
+            query_x = x[:, :, :self.args.gcn["in_channel"]]  # [bs, N, in_channel]
+            query_x_flat = query_x.reshape(-1, query_x.shape[-1])  # [bs*N, in_channel]
+            query = self.query_proj(query_x_flat)  # [bs*N, in_channel]
+            query = query.reshape(batch_size, N, self.args.gcn["in_channel"])  # [bs, N, in_channel]
+            query_avg = torch.mean(query, dim=1)  # [bs, in_channel]
+        
 
         energy = torch.matmul(query_avg, self.memory.t())  # [bs, memory_size]
         attention = torch.softmax(energy, dim=-1)  # [bs, memory_size]
@@ -180,7 +228,10 @@ class TrafficEvent(nn.Module):
         concat_features = torch.cat([x_avg, memory_features], dim=-1)  # [bs, in_channel*3]
         logits = self.classifier(concat_features)  # [bs, 2]
         # self.args.logger.info(f"cos_similarity: {cos_similarity[:5]}")
-        return cos_similarity.mean(), logits
+
+        node_memory_features = memory_features.unsqueeze(1).expand(-1, N, -1)  # [bs, N, in_channel]
+        
+        return cos_similarity.mean(), logits, node_memory_features
         
     def forward(self, data, adj):
         N = adj.shape[0]
@@ -190,26 +241,48 @@ class TrafficEvent(nn.Module):
             # 对于 extra_feature=True，输入特征维度是两倍
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))  # [bs, N, feature*2]
         else:
-            x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]))  # [bs, N, feature]
+            x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))[:, :, :self.args.gcn["in_channel"]]  # [bs, N, feature]
         
-        similarity, logits = self.query_memory(x, adj)
+        similarity, logits, node_memory_features = self.query_memory(x, adj)
         
-        if self.extra_feature:
-            from types import SimpleNamespace
-            basic_data = SimpleNamespace()
-            
-            reshaped_x = data.x.reshape(-1, self.args.gcn["in_channel"]*2)
-            basic_data.x = reshaped_x[:, :self.args.gcn["in_channel"]]
+        from types import SimpleNamespace
+        basic_data = SimpleNamespace()
+        if self.args.expand:
+            basic_data.x = torch.cat([data.x.reshape(-1, self.args.gcn["in_channel"]*2)[..., :self.args.gcn["in_channel"]], node_memory_features.reshape(-1,self.args.gcn["in_channel"])], dim=-1)
         else:
-            basic_data = data
+            basic_data.x = data.x.reshape(-1, self.args.gcn["in_channel"]*2)[:, :self.args.gcn["in_channel"]]
+
 
         # get momentum features
         with torch.no_grad():
             self._momentum_update(similarity)
-            basic_features_m = self.basic_model_m(basic_data, adj) 
+            basic_features_m = self.basic_model_m(basic_data, adj)
+        'this model do not need grads but the output need grads' 
         basic_features_m = basic_features_m.requires_grad_(True)  
 
         basic_features = self.basic_model(basic_data, adj)
         
+
         return basic_features, basic_features_m, similarity, logits
+    
+    def feature(self, data, adj):
+        N = adj.shape[0]
+        batch_size = data.x.shape[0] // N
+
+        if self.extra_feature:
+            # 对于 extra_feature=True，输入特征维度是两倍
+            x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))  # [bs, N, feature*2]
+        else:
+            x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))[:, :, :self.args.gcn["in_channel"]]  # [bs, N, feature]
+        
+        similarity, logits, node_memory_features = self.query_memory(x, adj)
+        
+        from types import SimpleNamespace
+        basic_data = SimpleNamespace()
+        if self.args.expand:
+            basic_data.x = torch.cat([data.x.reshape(-1, self.args.gcn["in_channel"]*2)[..., :self.args.gcn["in_channel"]], node_memory_features.reshape(-1,self.args.gcn["in_channel"])], dim=-1)
+        else:
+            basic_data.x = data.x.reshape(-1, self.args.gcn["in_channel"]*2)[:, :self.args.gcn["in_channel"]]
+        return self.basic_model.feature(basic_data, adj)
+
     
