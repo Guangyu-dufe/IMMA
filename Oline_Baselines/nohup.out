@@ -244,3 +244,21 @@
 2025-05-29 02:32:33,226 - year	2019	total_time	   57.4389	average_time	    5.7439	epoch	10
 2025-05-29 02:32:33,226 - year	2020	total_time	   66.1503	average_time	    5.5125	epoch	12
 2025-05-29 02:32:33,226 - total time: 240.1442
+Traceback (most recent call last):
+  File "/home/bd2/ANATS/Oline_Baselines/main.py", line 8, in <module>
+    from torch_geometric.loader import DataLoader
+  File "/home/bd2/miniconda3/lib/python3.12/site-packages/torch_geometric/__init__.py", line 4, in <module>
+    import torch_geometric.typing
+  File "/home/bd2/miniconda3/lib/python3.12/site-packages/torch_geometric/typing.py", line 10, in <module>
+    from torch import Tensor
+ImportError: cannot import name 'Tensor' from 'torch' (unknown location)
+2025-05-29 11:28:40,950 - logger name:log/SD/team-42/team.log
+2025-05-29 11:28:40,950 - params : {'conf': 'conf/SD/team.json', 'seed': 42, 'paral': 0, 'gpuid': 2, 'logname': 'team', 'method': 'TEAM', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Oline_Baselines/log/SD/TEAM-42/2017/51.0326.pkl', 'device': device(type='cuda', index=2), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 16, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'n_heads': 3, 'in_channels': 1, 'K': 3, 'nb_block': 1, 'nb_chev_filter': 64, 'nb_time_filter': 64, 'num_of_hours': 1, 'missing_value': 0.0, 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph', 'model_path': 'log/SD/', 'strategy': 'incremental', 'init': True, 'increase': True, 'decrease': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'original', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.001, 'replay': True, 'replay_strategy': 'distribution', 'replay_num_samples': 100, 'path': 'log/SD/team-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-05-29 11:28:40,978 - [*] Year 2017 load from data/SD/FastData/2017.npz
+2025-05-29 11:28:46,495 - [*] Year 2017 Dataset load!
+2025-05-29 11:28:46,568 - Total Parameters: 71948
+2025-05-29 11:28:46,568 - Trainable Parameters: 71948
+2025-05-29 11:28:46,568 - [*] Year 2017 Training start
+2025-05-29 11:28:46,917 - node number torch.Size([11280, 12])
+2025-05-29 11:31:13,604 - epoch:0, training loss:5221.2297 validation loss:62.2977
+2025-05-29 11:33:44,051 - epoch:1, training loss:5152.2649 validation loss:55.9722

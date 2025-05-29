@@ -5,8 +5,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from model.gcn_conv import BatchGCNConv
-from model.GraphWaveNet import GWNET
+from .gcn_conv import BatchGCNConv
+from .GraphWaveNet import GWNET
 
 class Basic_Model_org(nn.Module):
     """Some Information about Basic_Model"""
@@ -126,7 +126,7 @@ class TrafficEvent(nn.Module):
         self.basic_model = Basic_Model_org(args)
         # self.event_model = Basic_Model(args)
         
-        self.memory_size = args.memory_size if hasattr(args, 'memory_size') else 32
+        self.memory_size = args.memory_size
         self.memory_dim = args.gcn["in_channel"]
         self.memory = nn.Parameter(torch.randn(self.memory_size, self.memory_dim))
 
@@ -231,7 +231,7 @@ class TrafficEvent(nn.Module):
 
         node_memory_features = memory_features.unsqueeze(1).expand(-1, N, -1)  # [bs, N, in_channel]
         
-        return cos_similarity.mean(), logits, node_memory_features
+        return cos_similarity, logits, node_memory_features
         
     def forward(self, data, adj):
         N = adj.shape[0]
@@ -244,7 +244,9 @@ class TrafficEvent(nn.Module):
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))[:, :, :self.args.gcn["in_channel"]]  # [bs, N, feature]
         
         similarity, logits, node_memory_features = self.query_memory(x, adj)
-        
+        similarity = similarity.mean()
+
+
         from types import SimpleNamespace
         basic_data = SimpleNamespace()
         if self.args.expand:
@@ -259,6 +261,7 @@ class TrafficEvent(nn.Module):
             basic_features_m = self.basic_model_m(basic_data, adj)
         'this model do not need grads but the output need grads' 
         basic_features_m = basic_features_m.requires_grad_(True)  
+        
 
         basic_features = self.basic_model(basic_data, adj)
         
@@ -274,7 +277,7 @@ class TrafficEvent(nn.Module):
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))  # [bs, N, feature*2]
         else:
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))[:, :, :self.args.gcn["in_channel"]]  # [bs, N, feature]
-        
+    
         similarity, logits, node_memory_features = self.query_memory(x, adj)
         
         from types import SimpleNamespace

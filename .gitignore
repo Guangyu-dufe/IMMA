@@ -22,13 +22,16 @@ TrafficStream/data/*
 
 # logs
 TrafficStream/res/*
+TrafficStream/compute_loss.ipynb
 
 # data
-Oline_Baselines/data/*
+Online_Baselines/data/*
 
 # logs
-Oline_Baselines/res/*
+Online_Baselines/res/*
 
+# data
 Offline_Baselines/data/*
 
+# logs
 Offline_Baselines/logs/*

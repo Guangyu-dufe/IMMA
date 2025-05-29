@@ -213,7 +213,12 @@ def train(inputs, args):
 
 
             loss_basic_m = lossfunc(basic_features, basic_features_m, reduction="mean")
+
             loss = loss_basic.mean() + loss_basic_m*0.3 
+
+
+
+
 
 
             if args.ewc and args.year > args.begin_year:
@@ -316,9 +321,12 @@ def test_model(model, args, testset, pin_memory):
         truth_basic = []
         pred_event = []
         truth_event = []
+        import pandas as pd
+        test_results = []
+        
         for data in testset:
             data = data.to(args.device, non_blocking=pin_memory)
-            basic_features, basic_features_m, memory_features, logits = model(data, args.adj)
+            basic_features, basic_features_m, similarity, logits = model(data, args.adj)
 
             # only need for number of node is not same
             if args.strategy == "incremental" and args.year > args.begin_year:
@@ -334,6 +342,22 @@ def test_model(model, args, testset, pin_memory):
             loss_basic = loss_basic.reshape(len(predictions), -1, basic_features.shape[1]).mean(dim=1).mean(dim=1)
     
             test_loss += float(loss_basic.mean())
+
+            # mae = masked_mae_np(data.y.cpu().data.numpy(), basic_features.cpu().data.numpy(), 0)
+            # rmse = masked_mse_np(data.y.cpu().data.numpy(), basic_features.cpu().data.numpy(), 0) ** 0.5
+            # mape = masked_mape_np(data.y.cpu().data.numpy(), basic_features.cpu().data.numpy(), 0)
+
+            # y_true = data.y.cpu().data.numpy()
+            # y_pred = basic_features.cpu().data.numpy()
+            # smape = np.mean(2.0 * np.abs(y_pred - y_true) / (np.abs(y_pred) + np.abs(y_true) + 1e-10)) * 100
+            # test_results.append({
+            #     'similarity': similarity.item(),
+            #     'mae': mae,
+            #     'rmse': rmse, 
+            #     'mape': mape,
+            #     'wmape': smape
+            # })
+            
 
             if len(loss_basic[predictions==0]) > 0:
                 test_basic_loss += float(loss_basic[predictions==0].mean())
@@ -370,7 +394,12 @@ def test_model(model, args, testset, pin_memory):
         test_loss = test_loss/cn
         test_basic_loss = test_basic_loss/cn
         test_event_loss = test_event_loss/cn
-        
+
+        # # '''only for debug, remember to delete'''
+        # test_df = pd.DataFrame(test_results)
+        # test_df.to_csv(osp.join(args.path, f'test_results_{args.year}.csv'), index=False)
+
+
         args.logger.info("[*]Test--basic_loss:{:.4f}, event_loss:{:.4f}, test_loss:{:.4f}".format(
             test_basic_loss, test_event_loss, test_loss))
         
