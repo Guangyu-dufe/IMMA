@@ -154,7 +154,7 @@ class STLora_Model(nn.Module):
         
         x = self.tcn1(x)                                           # [bs * N, 1, feature]
         
-        x = x.reshape((-1, self.args.gcn["hidden_channel"]))    # [bs * N, feature]
+        x = x.reshape((-1, self.args.gcn["hidden_channel"]))    # [bs, N, feature]
         
         for lora_layer in self.lora_layers:
             x = lora_layer(x)
@@ -376,7 +376,6 @@ class STKEC_Model(nn.Module):
         return x
 
 
-
 class Universal_Model(nn.Module):
     def __init__(self, args):
         super(Universal_Model, self).__init__()
@@ -466,4 +465,60 @@ class Universal_Model(nn.Module):
             self.U = nn.Parameter(torch.cat([self.U, new_params], dim=0))
             
             self.num_nodes = new_num_nodes
+
+
+class PECPM_Model(nn.Module):
+    """PECPM Model with Pattern Expansion and Consolidation based on Pattern Matching"""
+    def __init__(self, args):
+        super(PECPM_Model, self).__init__()
+        self.args = args
+        self.dropout = args.dropout
+        self.gcn1 = BatchGCNConv(args.gcn["in_channel"], args.gcn["hidden_channel"], bias=True, gcn=False)
+        self.gcn2 = BatchGCNConv(args.gcn["hidden_channel"], args.gcn["out_channel"], bias=True, gcn=False)
+        self.tcn1 = nn.Conv1d(in_channels=args.tcn["in_channel"], out_channels=args.tcn["out_channel"], kernel_size=args.tcn["kernel_size"], \
+            dilation=args.tcn["dilation"], padding=int((args.tcn["kernel_size"]-1)*args.tcn["dilation"]/2))
+        self.fc = nn.Linear(args.gcn["out_channel"], args.y_len)
+        self.activation = nn.GELU()
+        
+        # Pattern memory bank for PECPM
+        self.memory = nn.Parameter(torch.FloatTensor(args.cluster, args.gcn["out_channel"]), requires_grad=True)
+        nn.init.xavier_uniform_(self.memory, gain=1.414)
+        
+    def forward(self, data, adj):
+        data.x = torch.nan_to_num(data.x, nan=0.0)
+        N = adj.shape[0]
+
+        x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))   
+        res_x = data.x.reshape(-1, self.args.gcn["out_channel"])
+
+        x = F.relu(self.gcn1(x, adj))                              
+        x = x.reshape((-1, 1, self.args.gcn["hidden_channel"]))    
+        x = self.tcn1(x)                                           
+        x = x.reshape((-1, N, self.args.gcn["hidden_channel"]))   
+        x = self.gcn2(x, adj)                                      
+        x = x.reshape((-1, self.args.gcn["out_channel"]))        
+
+        # Pattern matching attention mechanism
+        attention = torch.matmul(x, self.memory.transpose(0, 1))   
+        attention = F.softmax(attention, dim=1)                   
+        z = torch.matmul(attention, self.memory)                  
+
+        # Residual connection and final prediction
+        x = x + res_x + z                                     
+        x = self.fc(self.activation(x))                          
+        x = F.dropout(x, p=self.dropout, training=self.training)  
+
+        return x, attention
+
+    def feature(self, data, adj):
+        N = adj.shape[0]
+        x = data.x.reshape((-1, N, self.args.gcn["in_channel"]))  
+        x = F.relu(self.gcn1(x, adj))                             
+        x = x.reshape((-1, 1, self.args.gcn["hidden_channel"]))    
+        x = self.tcn1(x)                                          
+        x = x.reshape((-1, N, self.args.gcn["hidden_channel"]))    
+        x = self.gcn2(x, adj)                                      
+        x = x.reshape((-1, self.args.gcn["out_channel"]))         
+        x = x + data.x
+        return x
 
