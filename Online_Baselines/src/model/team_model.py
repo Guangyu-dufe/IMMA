@@ -50,10 +50,9 @@ class Spatial_Transformer_layer(nn.Module):
     Compute the output base on the asigned weight of Spatial Attention layer
     '''
     def __init__(self, DEVICE, in_channels, out_features, nheads = 1, alpha = 0.2):
-
         super(Spatial_Transformer_layer, self).__init__()
         self.D = out_features // nheads         # output of each attention head
-        self.attentions = [Spatial_Attention_layer(DEVICE, in_channels, self.D, alpha) for _ in range(nheads)]      # each head has heads * (B,N,out_features // nheads)
+        self.attentions = nn.ModuleList([Spatial_Attention_layer(DEVICE, in_channels, self.D, alpha) for _ in range(nheads)])
         self.out_att = Spatial_Attention_layer(DEVICE, nheads * self.D, out_features, alpha, concat = False)
 
     def forward(self, x):
@@ -72,11 +71,16 @@ class Spatial_Transformer_layer(nn.Module):
 class Temporal_Attention_layer(nn.Module):
     def __init__(self, DEVICE, in_channels, out_channels, num_of_timesteps):
         super(Temporal_Attention_layer, self).__init__()
-        self.U1 = nn.Parameter(torch.FloatTensor(in_channels, out_channels).to(DEVICE))              # ???
-        self.U2 = nn.Parameter(torch.FloatTensor(out_channels).to(DEVICE))                           # ???
+        self.U1 = nn.Parameter(torch.FloatTensor(in_channels, out_channels).to(DEVICE))
+        self.U2 = nn.Parameter(torch.FloatTensor(out_channels).to(DEVICE))
         self.U3 = nn.Parameter(torch.FloatTensor(in_channels).to(DEVICE))
         self.be = nn.Parameter(torch.FloatTensor(1, num_of_timesteps, num_of_timesteps).to(DEVICE))
         self.Ve = nn.Parameter(torch.FloatTensor(num_of_timesteps, num_of_timesteps).to(DEVICE))
+        nn.init.xavier_uniform_(self.U1.data)
+        nn.init.xavier_uniform_(self.U2.data)
+        nn.init.xavier_uniform_(self.U3.data)
+        nn.init.xavier_uniform_(self.Ve.data)
+        nn.init.zeros_(self.be.data)
 
     def forward(self, x):
         '''
@@ -86,12 +90,12 @@ class Temporal_Attention_layer(nn.Module):
         _, num_of_vertices, num_of_features, num_of_timesteps = x.shape
 
         lhs = torch.matmul(torch.matmul(x.permute(0, 3, 1, 2), self.U1), self.U2)
-        rhs = torch.matmul(self.U3, x)  # (F)(B,N,F,T)->(B, N, T)
-        product = torch.matmul(lhs, rhs)  # (B,T,N)(B,N,T)->(B,T,T)
-        E = torch.matmul(self.Ve, torch.sigmoid(product + self.be))  # (B, T, T)
+        rhs = torch.matmul(self.U3, x)
+        product = torch.matmul(lhs, rhs)
+        E = torch.matmul(self.Ve, torch.sigmoid(product + self.be))
         E_normalized = F.softmax(E, dim=1)
 
-        return E_normalized             # (B, T, T)
+        return E_normalized
 
 
 
@@ -303,78 +307,3 @@ def adj_to_edge_index(adj):
     
     return edge_index
 
-def test_model():
-    """测试TEAM模型的功能"""
-    # 设置设备
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"Using device: {device}")
-    
-    # 模型参数
-    nb_block = 2
-    in_channels = 1
-    K = 3
-    nb_chev_filter = 64
-    nb_time_filter = 64
-    time_strides = 1
-    num_for_predict = 12
-    len_input = 12
-    
-    # 创建模型
-    model = make_model(
-        DEVICE=device,
-        nb_block=nb_block,
-        in_channels=in_channels,
-        K=K,
-        nb_chev_filter=nb_chev_filter,
-        nb_time_filter=nb_time_filter,
-        time_strides=time_strides,
-        num_for_predict=num_for_predict,
-        len_input=len_input
-    )
-    print("Model created successfully")
-    
-    # 生成测试数据
-    batch_size = 32
-    num_nodes = 100
-    x = torch.randn(batch_size, num_nodes, in_channels, len_input).to(device)
-    
-    # 生成随机邻接矩阵并转换为边索引
-    adj = torch.rand(num_nodes, num_nodes) > 0.8  # 生成稀疏邻接矩阵
-    adj = adj.float()
-    adj = adj + adj.t()  # 确保对称
-    adj[adj > 0] = 1
-    print(f"\nAdjacency matrix shape: {adj.shape}")
-    print(f"Adjacency matrix density: {adj.sum() / (num_nodes * num_nodes):.3f}")
-    
-    edge_index = adj_to_edge_index(adj).to(device)
-    print(f"Edge index shape: {edge_index.shape}")
-    
-    # 前向传播测试
-    try:
-        output = model(x, edge_index)
-        print("\nForward pass successful")
-        print(f"Output shape: {output.shape}")
-    except Exception as e:
-        print("\nForward pass failed")
-        print(f"Error: {str(e)}")
-    
-    # 特征提取测试
-    try:
-        features = model.feature(x, edge_index)
-        print("\nFeature extraction successful")
-        print(f"Feature shape: {features.shape}")
-    except Exception as e:
-        print("\nFeature extraction failed")
-        print(f"Error: {str(e)}")
-    
-    # 测试模型参数
-    total_params = sum(p.numel() for p in model.parameters())
-    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print("\nModel parameters:")
-    print(f"Total parameters: {total_params:,}")
-    print(f"Trainable parameters: {trainable_params:,}")
-    
-    return model, x, edge_index, output
-
-if __name__ == "__main__":
-    test_model()

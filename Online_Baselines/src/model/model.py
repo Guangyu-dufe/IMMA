@@ -6,6 +6,7 @@ from model.gcn_conv import BatchGCNConv, ChebGraphConv
 from model.team_model import make_model
 import sys
 from torch_geometric.utils import dense_to_sparse
+from model.dlf_model import DSTG
 
 class MultiLayerPerceptron(nn.Module):
     """Multi-Layer Perceptron with residual links."""
@@ -542,8 +543,6 @@ class TEAM_Model(nn.Module):
             num_for_predict=args.y_len,
             len_input=args.x_len
         )
-        
-        self.cheb_polynomials = None
     
     def count_parameters(self):
         total_params = sum(p.numel() for p in self.parameters())
@@ -552,40 +551,8 @@ class TEAM_Model(nn.Module):
         self.args.logger.info(f"Total Parameters: {total_params}")
         self.args.logger.info(f"Trainable Parameters: {trainable_params}")
     
-    def _compute_cheb_polynomials(self, adj):
-        from utils.team_utils import scaled_Laplacian, cheb_polynomial
-        
-        if isinstance(adj, torch.Tensor):
-            adj_np = adj.cpu().numpy()
-        else:
-            adj_np = adj
-            
-        L_tilde = scaled_Laplacian(adj_np)
-        
-        K = getattr(self.args, 'K', 3)
-        cheb_polynomials = cheb_polynomial(L_tilde, K)
-    
-        cheb_polynomials_tensor = []
-        for poly in cheb_polynomials:
-            cheb_polynomials_tensor.append(torch.from_numpy(poly).float().to(self.args.device))
-        
-        return cheb_polynomials_tensor
-    
-    
-
     def _adj_to_edge_index(self, adj):
-        """将邻接矩阵转换为 PyTorch Geometric 接受的边索引格式.
-
-        使用 `torch_geometric.utils.dense_to_sparse` 来确保格式正确性.
-
-        Args:
-            adj: torch.Tensor or np.ndarray, shape (N, N) - 邻接矩阵.
-                可以是无权的 (0/1) 或有权的 (0/非零值).
-
-        Returns:
-            edge_index: torch.Tensor, shape (2, E) - 符合 torch_geometric 中
-                        COO 格式的边索引张量 (torch.long), 其中 E 是边的数量.
-        """
+        """将邻接矩阵转换为 PyTorch Geometric 接受的边索引格式."""
         if isinstance(adj, np.ndarray):
             adj = torch.from_numpy(adj)
 
@@ -605,14 +572,13 @@ class TEAM_Model(nn.Module):
         return edge_index.to(device)
     
     def forward(self, data, adj):
-        """
-        Forward pass adapted for the main framework
-        Args:
-            data: input data with shape [batch_size * N, feature_dim] 
-            adj: adjacency matrix [N, N]
-        Returns:
-            output with shape [batch_size * N, output_dim]
-        """
+        """Forward pass adapted for the main framework"""
+        # 确保所有输入都在正确的设备上
+        if hasattr(data, 'x'):
+            data.x = data.x.to(self.args.device)
+        if isinstance(adj, torch.Tensor):
+            adj = adj.to(self.args.device)
+            
         edge_index = self._adj_to_edge_index(adj)
         
         N = adj.shape[0]
@@ -623,12 +589,16 @@ class TEAM_Model(nn.Module):
         x = x.unsqueeze(-2)  # [batch_size, N, 1, T]
 
         output = self.team_model(x, edge_index)  # [batch_size, N, output_dim]
-
         output = output.reshape(-1, output.shape[-1])  # [batch_size * N, output_dim]
         
         return output
     
     def feature(self, data, adj):
+        if hasattr(data, 'x'):
+            data.x = data.x.to(self.args.device)
+        if isinstance(adj, torch.Tensor):
+            adj = adj.to(self.args.device)
+            
         edge_index = self._adj_to_edge_index(adj)
         
         N = adj.shape[0]
@@ -638,9 +608,73 @@ class TEAM_Model(nn.Module):
         x = data.x.reshape(batch_size, N, T)  # [batch_size, N, T]
         x = x.unsqueeze(-2)  # [batch_size, N, 1, T]
         
-        features = self.team_model(x, edge_index)
+        features = self.team_model.feature(x, edge_index)
         
         return features.reshape(-1, features.shape[-1])
 
 
+class DLF_Model(nn.Module):
+    """TEAM Model wrapper for integration with the main framework"""
+    def __init__(self, args):
+        super(DLF_Model, self).__init__()
+        self.args = args
+        self.dlf_model = DSTG(
+            dropout=args.dropout,
+            hidden_channels=args.hidden_channels,
+            dilation_channels=args.dilation_channels,
+            skip_channels=args.skip_channels,
+            end_channels=args.end_channels,
+            supports_len=args.supports_len,
+            kernel_size=args.kernel_size,
+            blocks=args.blocks,
+            layers=args.layers,
+            device=args.device,
+            input_dim = 1,
+            output_dim = 1,
+
+        )
+    
+    def count_parameters(self):
+        total_params = sum(p.numel() for p in self.parameters())
+        trainable_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
+        
+        self.args.logger.info(f"Total Parameters: {total_params}")
+        self.args.logger.info(f"Trainable Parameters: {trainable_params}")
+    
+    def forward(self, data, adj):
+        if hasattr(data, 'x'):
+            data.x = data.x.to(self.args.device)
+        if isinstance(adj, torch.Tensor):
+            adj = adj.to(self.args.device)
+            
+        
+        N = adj.shape[0]
+        batch_size = data.x.shape[0] // N
+        T = data.x.shape[1] 
+        
+        x = data.x.reshape(batch_size, N, T)  # [batch_size, N, T]
+        x = x.unsqueeze(-2).permute(0,3,1,2)  # [batch_size, N, 1, T]
+
+        output = self.dlf_model(x, [adj]).permute(0,2,1,3).squeeze(-1) # [batch_size,T, N, 1]
+        output = output.reshape(-1, output.shape[-1])  # [batch_size * N, output_dim]
+        
+        return output
+    
+    def feature(self, data, adj):
+        if hasattr(data, 'x'):
+            data.x = data.x.to(self.args.device)
+        if isinstance(adj, torch.Tensor):
+            adj = adj.to(self.args.device)
+            
+        N = adj.shape[0]
+        batch_size = data.x.shape[0] // N
+        T = data.x.shape[1] 
+        
+        x = data.x.reshape(batch_size, N, T)  # [batch_size, N, T]
+        x = x.unsqueeze(-2).permute(0,3,1,2)  # [batch_size, N, 1, T]
+
+        output = self.dlf_model(x, [adj]).permute(0,2,1,3).squeeze(-1) # [batch_size,T, N, 1]
+        output = output.reshape(-1, output.shape[-1])  # [batch_size * N, output_dim]
+        
+        return output
 

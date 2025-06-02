@@ -2,7 +2,7 @@
     "begin_year": 2017,
     "end_year": 2020,
     "dropout": 0.0,
-    "lr": 0.01,
+    "lr": 0.001,
     "batch_size": 16,
     "epoch": 100,
     "gpuid": 1,

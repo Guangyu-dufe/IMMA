@@ -9,7 +9,7 @@ from torch_geometric.loader import DataLoader
 from torch_geometric.utils import k_hop_subgraph
 
 from utils.data_convert import generate_samples
-from src.model.model import TrafficStream_Model, STKEC_Model, EAC_Model, Universal_Model, TEAM_Model
+from src.model.model import TrafficStream_Model, STKEC_Model, EAC_Model, Universal_Model, TEAM_Model, DLF_Model
 from dataer.SpatioTemporalDataset import SpatioTemporalDataset
 from model import detect_default
 from src.model import replay
@@ -95,7 +95,12 @@ def main(args):
                 node_list.extend(list(influence_node_list))
             
             if args.replay:  # Get sampling node
-                replay_node_list = replay.replay_node_selection(args,influence_node_score,topk, pre_data, cur_data, pre_graph, cur_graph)  # Select the replay node
+                if pre_graph.shape[1] > cur_graph.shape[1]:
+                    args.logger.warning("The number of data points in the previous year is greater than the current year, skipping replay.")
+                    args.replay_strategy = 'random'
+                    replay_node_list = replay.replay_node_selection(args,influence_node_score,topk, pre_data, cur_data, pre_graph, cur_graph)
+                else:
+                    replay_node_list = replay.replay_node_selection(args,influence_node_score,topk, pre_data, cur_data, pre_graph, cur_graph)  # Select the replay node
                 node_list.extend(list(replay_node_list))
             
             if args.logname == 'trafficStream_random':
@@ -183,14 +188,14 @@ if __name__ == "__main__":
     parser.add_argument("--conf", type = str, default = "conf/SD/team.json")
     parser.add_argument("--seed", type = int, default = 42)
     parser.add_argument("--paral", type = int, default = 0)
-    parser.add_argument("--gpuid", type = int, default = 2)
+    parser.add_argument("--gpuid", type = int, default = 1)
     parser.add_argument("--logname", type = str, default = "info")
     parser.add_argument("--method", type = str, default = "TEAM")
     parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
-    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/Oline_Baselines/log/SD/TEAM-42/2017/51.0326.pkl", help='specify a pretrained model root')
+    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/Online_Baselines/log/SD/team-42/2019/34.045.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     vars(args)["device"] = torch.device("cuda:{}".format(args.gpuid)) if torch.cuda.is_available() and args.gpuid != -1 else "cpu"
-    vars(args)["methods"] = {'TrafficStream': TrafficStream_Model, 'STKEC': STKEC_Model, 'EAC': EAC_Model, 'Universal': Universal_Model, 'TEAM': TEAM_Model} # , 'LSTM': LSTM_Model, 'MLP': MLP_Model, 'STLora': STLora_Model, 
+    vars(args)["methods"] = {'TrafficStream': TrafficStream_Model, 'STKEC': STKEC_Model, 'EAC': EAC_Model, 'Universal': Universal_Model, 'TEAM': TEAM_Model, 'DLF': DLF_Model} # , 'LSTM': LSTM_Model, 'MLP': MLP_Model, 'STLora': STLora_Model, 
     
     init(args)
     seed_anything(args.seed)
