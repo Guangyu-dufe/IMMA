@@ -37,3 +37,7 @@ Offline_Baselines/data/*
 Offline_Baselines/logs/*
 
 ./Clash
+
+./.git.bak
+
+./.idea
