@@ -323,3 +323,120 @@
 2025-06-02 01:24:28,234 - node number torch.Size([11280, 12])
 2025-06-02 01:26:54,276 - epoch:0, training loss:4979.5676 validation loss:33.0177
 2025-06-02 01:29:21,442 - epoch:1, training loss:1998.6516 validation loss:36.3522
+2025-06-02 01:31:47,504 - epoch:2, training loss:1955.6941 validation loss:31.9118
+2025-06-02 01:34:15,630 - epoch:3, training loss:1946.0439 validation loss:32.3946
+2025-06-02 01:36:42,166 - epoch:4, training loss:1917.2070 validation loss:32.2744
+2025-06-02 01:39:04,671 - epoch:5, training loss:1904.9939 validation loss:38.6732
+2025-06-02 01:41:32,167 - epoch:6, training loss:1893.2596 validation loss:34.0369
+2025-06-02 01:43:55,815 - epoch:7, training loss:1884.8124 validation loss:34.2177
+2025-06-02 01:46:24,601 - epoch:8, training loss:1868.5500 validation loss:34.8974
+2025-06-02 01:47:14,081 - [*] loss:1852.3949
+2025-06-02 01:47:14,747 - [*] year 2017, testing
+2025-06-02 01:47:19,136 - T:3	MAE	22.9463	RMSE	32.4929	MAPE	16.5591
+2025-06-02 01:47:27,811 - T:6	MAE	24.6977	RMSE	35.7780	MAPE	16.9448
+2025-06-02 01:47:56,610 - T:12	MAE	28.6516	RMSE	42.5720	MAPE	18.2432
+2025-06-02 01:47:56,611 - T:Avg	MAE	25.0682	RMSE	36.3078	MAPE	17.1384
+2025-06-02 01:47:56,613 - Finished optimization, total time:863.27 s, best model:log/SD/team-42/2017/31.9118.pkl
+2025-06-02 01:47:56,789 - [*] Year 2018 load from data/SD/FastData/2018.npz
+2025-06-02 01:47:56,820 - [*] load from log/SD/team-42/2017/31.9118.pkl
+2025-06-02 01:47:58,285 - number of increase nodes:137, nodes after 2 hop:torch.Size([620]), total nodes this year 708
+2025-06-02 01:48:06,785 - [*] Year 2018 Dataset load!
+2025-06-02 01:48:06,785 - [*] load from log/SD/team-42/2017/31.9118.pkl
+2025-06-02 01:48:06,793 - [*] EWC! lambda 0.001000
+2025-06-02 01:49:39,770 - Total Parameters: 71948
+2025-06-02 01:49:39,771 - Trainable Parameters: 71948
+2025-06-02 01:49:39,771 - [*] Year 2018 Training start
+2025-06-02 01:49:40,966 - node number torch.Size([9920, 12])
+2025-06-02 01:51:49,554 - epoch:0, training loss:1888.7280 validation loss:29.9726
+2025-06-02 01:54:06,500 - epoch:1, training loss:1885.8443 validation loss:30.5649
+2025-06-02 01:56:25,525 - epoch:2, training loss:1885.4710 validation loss:29.5849
+2025-06-02 01:58:49,020 - epoch:3, training loss:1895.4948 validation loss:34.9627
+2025-06-02 02:01:11,803 - epoch:4, training loss:1888.2290 validation loss:32.8229
+2025-06-02 02:03:33,596 - epoch:5, training loss:1893.6034 validation loss:30.7962
+2025-06-02 02:05:55,161 - epoch:6, training loss:1894.1057 validation loss:29.8961
+2025-06-02 02:08:13,659 - epoch:7, training loss:1898.6815 validation loss:29.7115
+2025-06-02 02:10:36,679 - epoch:8, training loss:1882.4778 validation loss:28.1663
+2025-06-02 02:12:59,912 - epoch:9, training loss:1887.0993 validation loss:31.4377
+2025-06-02 02:15:09,296 - epoch:10, training loss:1892.4514 validation loss:30.2745
+2025-06-02 02:17:30,789 - epoch:11, training loss:1896.5536 validation loss:30.8891
+2025-06-02 02:19:53,804 - epoch:12, training loss:1884.3618 validation loss:30.1356
+2025-06-02 02:22:08,571 - epoch:13, training loss:1885.4121 validation loss:30.8773
+2025-06-02 02:24:30,821 - epoch:14, training loss:1885.4688 validation loss:29.9249
+2025-06-02 02:25:22,766 - [*] loss:1781.0991
+2025-06-02 02:25:23,681 - [*] year 2018, testing
+2025-06-02 02:25:27,789 - T:3	MAE	20.7501	RMSE	30.6542	MAPE	16.8863
+2025-06-02 02:25:36,295 - T:6	MAE	23.0402	RMSE	34.4722	MAPE	18.2991
+2025-06-02 02:26:04,100 - T:12	MAE	27.5590	RMSE	41.5984	MAPE	21.9250
+2025-06-02 02:26:04,100 - T:Avg	MAE	23.3649	RMSE	34.9121	MAPE	18.7178
+2025-06-02 02:26:04,103 - Finished optimization, total time:1440.12 s, best model:log/SD/team-42/2018/28.1663.pkl
+2025-06-02 02:26:04,157 - [*] Year 2019 load from data/SD/FastData/2019.npz
+2025-06-02 02:26:04,185 - [*] load from log/SD/team-42/2018/28.1663.pkl
+2025-06-02 02:26:05,669 - number of increase nodes:142, nodes after 2 hop:torch.Size([584]), total nodes this year 716
+2025-06-02 02:26:14,059 - [*] Year 2019 Dataset load!
+2025-06-02 02:26:14,059 - [*] load from log/SD/team-42/2018/28.1663.pkl
+2025-06-02 02:26:14,067 - [*] EWC! lambda 0.001000
+2025-06-02 02:27:46,109 - Total Parameters: 71948
+2025-06-02 02:27:46,109 - Trainable Parameters: 71948
+2025-06-02 02:27:46,109 - [*] Year 2019 Training start
+2025-06-02 02:27:47,404 - node number torch.Size([9344, 12])
+2025-06-02 02:29:54,552 - epoch:0, training loss:1750.2411 validation loss:29.0250
+2025-06-02 02:32:14,852 - epoch:1, training loss:1732.8620 validation loss:28.6144
+2025-06-02 02:34:30,599 - epoch:2, training loss:1735.8886 validation loss:29.5773
+2025-06-02 02:36:47,338 - epoch:3, training loss:1740.7890 validation loss:28.7907
+2025-06-02 02:39:06,093 - epoch:4, training loss:1735.7045 validation loss:32.0419
+2025-06-02 02:41:17,197 - epoch:5, training loss:1744.9143 validation loss:29.2988
+2025-06-02 02:43:26,407 - epoch:6, training loss:1735.5141 validation loss:30.1184
+2025-06-02 02:45:44,618 - epoch:7, training loss:1744.1471 validation loss:29.0988
+2025-06-02 02:46:32,835 - [*] loss:1854.1050
+2025-06-02 02:46:33,598 - [*] year 2019, testing
+2025-06-02 02:46:37,784 - T:3	MAE	21.3695	RMSE	31.4780	MAPE	16.2417
+2025-06-02 02:46:46,526 - T:6	MAE	23.9712	RMSE	35.4467	MAPE	18.3083
+2025-06-02 02:47:14,233 - T:12	MAE	29.0106	RMSE	42.9614	MAPE	22.8440
+2025-06-02 02:47:14,234 - T:Avg	MAE	24.3518	RMSE	35.9675	MAPE	18.7397
+2025-06-02 02:47:14,236 - Finished optimization, total time:737.10 s, best model:log/SD/team-42/2019/28.6144.pkl
+2025-06-02 02:47:14,284 - [*] Year 2020 load from data/SD/FastData/2020.npz
+2025-06-02 02:47:14,315 - [*] load from log/SD/team-42/2019/28.6144.pkl
+2025-06-02 02:47:15,117 - The number of data points in the previous year is greater than the current year, skipping detection and replay.
+2025-06-02 02:47:15,117 - The number of data points in the previous year is greater than the current year, skipping replay.
+2025-06-02 02:47:15,172 - number of increase nodes:91, nodes after 2 hop:torch.Size([591]), total nodes this year 697
+2025-06-02 02:47:23,167 - [*] Year 2020 Dataset load!
+2025-06-02 02:47:23,167 - [*] load from log/SD/team-42/2019/28.6144.pkl
+2025-06-02 02:47:23,175 - [*] EWC! lambda 0.001000
+2025-06-02 02:48:56,010 - Total Parameters: 71948
+2025-06-02 02:48:56,010 - Trainable Parameters: 71948
+2025-06-02 02:48:56,010 - [*] Year 2020 Training start
+2025-06-02 02:48:57,381 - node number torch.Size([9456, 12])
+2025-06-02 02:51:18,523 - epoch:0, training loss:1955.9299 validation loss:31.0646
+2025-06-02 02:53:32,442 - epoch:1, training loss:1960.4324 validation loss:40.8191
+2025-06-02 02:55:51,774 - epoch:2, training loss:1975.5691 validation loss:34.3476
+2025-06-02 02:58:08,845 - epoch:3, training loss:1950.5559 validation loss:45.0986
+2025-06-02 03:00:26,730 - epoch:4, training loss:1966.4090 validation loss:45.5159
+2025-06-02 03:02:45,291 - epoch:5, training loss:1958.9281 validation loss:47.4049
+2025-06-02 03:05:05,062 - epoch:6, training loss:1945.7691 validation loss:36.5958
+2025-06-02 03:05:53,691 - [*] loss:3450.6313
+2025-06-02 03:05:54,384 - [*] year 2020, testing
+2025-06-02 03:05:59,444 - T:3	MAE	45.3529	RMSE	56.2832	MAPE	46.1551
+2025-06-02 03:06:08,789 - T:6	MAE	45.9451	RMSE	57.6292	MAPE	47.3197
+2025-06-02 03:06:37,754 - T:12	MAE	46.4781	RMSE	59.3995	MAPE	49.9741
+2025-06-02 03:06:37,754 - T:Avg	MAE	46.0437	RMSE	57.7519	MAPE	47.7208
+2025-06-02 03:06:37,757 - Finished optimization, total time:668.11 s, best model:log/SD/team-42/2020/31.0646.pkl
+2025-06-02 03:06:37,777 - 
+
+
+2025-06-02 03:06:37,778 - 3   	 MAE	     22.95	     20.75	     21.37	     45.35		   27.60
+2025-06-02 03:06:37,778 - 3   	RMSE	     32.49	     30.65	     31.48	     56.28		   37.73
+2025-06-02 03:06:37,778 - 3   	MAPE	     16.56	     16.89	     16.24	     46.16		   23.96
+2025-06-02 03:06:37,778 - 6   	 MAE	     24.70	     23.04	     23.97	     45.95		   29.41
+2025-06-02 03:06:37,778 - 6   	RMSE	     35.78	     34.47	     35.45	     57.63		   40.83
+2025-06-02 03:06:37,778 - 6   	MAPE	     16.94	     18.30	     18.31	     47.32		   25.22
+2025-06-02 03:06:37,778 - 12  	 MAE	     28.65	     27.56	     29.01	     46.48		   32.92
+2025-06-02 03:06:37,778 - 12  	RMSE	     42.57	     41.60	     42.96	     59.40		   46.63
+2025-06-02 03:06:37,778 - 12  	MAPE	     18.24	     21.92	     22.84	     49.97		   28.25
+2025-06-02 03:06:37,778 - Avg 	 MAE	     25.07	     23.36	     24.35	     46.04		   29.71
+2025-06-02 03:06:37,778 - Avg 	RMSE	     36.31	     34.91	     35.97	     57.75		   41.23
+2025-06-02 03:06:37,778 - Avg 	MAPE	     17.14	     18.72	     18.74	     47.72		   25.58
+2025-06-02 03:06:37,778 - year	2017	total_time	  863.2677	average_time	   95.9186	epoch	9
+2025-06-02 03:06:37,778 - year	2018	total_time	 1440.1246	average_time	   96.0083	epoch	15
+2025-06-02 03:06:37,778 - year	2019	total_time	  737.1050	average_time	   92.1381	epoch	8
+2025-06-02 03:06:37,778 - year	2020	total_time	  668.1076	average_time	   95.4440	epoch	7
+2025-06-02 03:06:37,778 - total time: 3708.6049
