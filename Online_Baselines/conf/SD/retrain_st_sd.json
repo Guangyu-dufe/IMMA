@@ -36,7 +36,7 @@
     "train": 1,
 
     "strategy": "retrain",
-    "init": true,
+    "init": false,
     "increase": false,
     "num_hops": 0,
 

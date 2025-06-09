@@ -1,0 +1,55 @@
+{
+    "begin_year": 2017,
+    "end_year": 2020,
+    "dropout": 0.0,
+    "lr": 0.01,
+    "batch_size": 32,
+    "epoch": 100,
+    "gpuid": 1,
+    "loss": "mse",
+    "activation": "relu",
+    "scheduler": "epo",
+    "y_len": 12,
+    "x_len": 12,
+    "data_process": 1,
+    "auto_test": 1,
+    "raw_data_path": "data/CA/finaldata/",
+    "save_data_path": "data/CA/FastData/",
+    "graph_path": "data/CA/graph/",
+    "model_path": "log/CA/",
+    "hidden_channels": 64,
+    "dilation_channels": 32,
+    "skip_channels": 32,
+    "end_channels": 32,
+    "supports_len": 2,
+    "kernel_size": 2,
+    "blocks": 4,
+    "layers": 2,
+    "method": "DLF",
+    "logname": "dlf",
+    "rank": 6,
+
+    "train": 1,
+
+
+    "strategy": "incremental",
+    "init": true,
+    "increase": true,
+    "num_hops": 2,
+
+    "detect": true,
+    "detect_strategy": "feature",
+
+    "ewc": true,
+    "ewc_strategy": "ewc",
+    "ewc_lambda": 0.0001,
+
+    "replay": true,
+    "replay_strategy": "random",
+    "replay_num_samples": 300,
+
+    "extra_feature": true,
+
+    "momentum_type": "linear",
+    "memory_size": 32
+}

@@ -1,5 +1,7 @@
 import sys, argparse, random, torch
 sys.path.append("src/")
+import setproctitle
+setproctitle.setproctitle("DONOT KILL PLS")
 
 import numpy as np
 import os.path as osp
@@ -139,7 +141,6 @@ def main(args):
             if len(info_list) > 0:
                 args.logger.info("{:<4}\t{}\t".format(i, j) + info + "\t{:>8.2f}".format(np.mean(info_list)))
 
-    # 打印总训练时间、每轮平均训练时间和训练轮数
     total_time = 0
     for year in range(args.begin_year, args.end_year+1):
         if year in args.result:
@@ -151,14 +152,14 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter)
-    parser.add_argument("--conf", type = str, default = "conf/SD/pecpm.json")
+    parser.add_argument("--conf", type = str, default = "conf/CA/pecpm.json")
     parser.add_argument("--seed", type = int, default = 42)
     parser.add_argument("--paral", type = int, default = 0)
-    parser.add_argument("--gpuid", type = int, default = 2)
+    parser.add_argument("--gpuid", type = int, default = 6)
     parser.add_argument("--logname", type = str, default = "pecpm")
     parser.add_argument("--method", type = str, default = "PECPM")
     parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
-    parser.add_argument("--first_year_model_path", type = str, default = "log/SD/pecpm-42/2017/31.5668.pkl", help='specify a pretrained model root')
+    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/Online_Baselines/log/CA/pecpm-42/2017/28.3891.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     vars(args)["device"] = torch.device("cuda:{}".format(args.gpuid)) if torch.cuda.is_available() and args.gpuid != -1 else "cpu"
     vars(args)["methods"] = {'TrafficStream': TrafficStream_Model, 'STKEC': STKEC_Model, 'PECPM': PECPM_Model}

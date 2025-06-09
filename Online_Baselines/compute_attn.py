@@ -139,7 +139,8 @@ if __name__ == "__main__":
         print(f"Processing year {year}")
         import os
         import os.path as osp
-        data = np.load(osp.join('/home/bd2/ANATS/Oline_Baselines/PECPM/data/SD/finaldata',str(year)+'.npz'))['x']
+        dataset = 'CA'
+        data = np.load(osp.join(f'/home/bd2/ANATS/Online_Baselines/data/{dataset}/finaldata',str(year)+'.npz'))['x']
         T, N = data.shape
         
         print(f"input data shape: {data.shape}")
@@ -147,8 +148,8 @@ if __name__ == "__main__":
         Q, patterns = compute_attention_labels(data, K=32, window_size=12, train_ratio=0.6)
         att_label = Q.reshape(-1,32)
         att_label = np.nan_to_num(att_label)
-        os.makedirs('data/SD/attetion', exist_ok=True)
+        os.makedirs(f'data/{dataset}/attetion', exist_ok=True)
         print(f"attention label shape: {att_label.shape}")
 
-        np.save(f'data/SD/attetion/{year}_attention.npy', att_label)
+        np.save(f'data/{dataset}/attetion/{year}_attention.npy', att_label)
         print(f"saved attention label for year {year}")

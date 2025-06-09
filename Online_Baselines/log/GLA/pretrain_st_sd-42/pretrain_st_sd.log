@@ -1,0 +1,87 @@
+2025-06-03 09:53:28,201 - logger name:log/GLA/pretrain_st_sd-42/pretrain_st_sd.log
+2025-06-03 09:53:28,201 - params : {'conf': 'conf/GLA/pretrain_st_sd.json', 'seed': 42, 'paral': 0, 'gpuid': 5, 'logname': 'pretrain_st_sd', 'method': 'TrafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=5), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GLA/finaldata/', 'save_data_path': 'data/GLA/FastData/', 'graph_path': 'data/GLA/graph/', 'model_path': 'log/GLA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'pretrain', 'init': True, 'increase': False, 'num_hops': 0, 'detect': False, 'ewc': False, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': False, 'path': 'log/GLA/pretrain_st_sd-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-04 05:14:27,954 - logger name:log/GLA/pretrain_st_sd-42/pretrain_st_sd.log
+2025-06-04 05:14:27,955 - params : {'conf': 'conf/GLA/pretrain_st_sd.json', 'seed': 42, 'paral': 0, 'gpuid': 5, 'logname': 'pretrain_st_sd', 'method': 'TrafficStream', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl', 'device': device(type='cuda', index=5), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GLA/finaldata/', 'save_data_path': 'data/GLA/FastData/', 'graph_path': 'data/GLA/graph/', 'model_path': 'log/GLA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'pretrain', 'init': True, 'increase': False, 'num_hops': 0, 'detect': False, 'ewc': False, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': False, 'path': 'log/GLA/pretrain_st_sd-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-04 05:15:30,142 - [*] Year 2017 load from data/GLA/FastData/2017.npz
+2025-06-04 05:15:30,501 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl
+2025-06-04 05:22:15,701 - logger name:log/GLA/pretrain_st_sd-42/pretrain_st_sd.log
+2025-06-04 05:22:15,701 - params : {'conf': 'conf/GLA/pretrain_st_sd.json', 'seed': 42, 'paral': 0, 'gpuid': 5, 'logname': 'pretrain_st_sd', 'method': 'TrafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl', 'device': device(type='cuda', index=5), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GLA/finaldata/', 'save_data_path': 'data/GLA/FastData/', 'graph_path': 'data/GLA/graph/', 'model_path': 'log/GLA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'pretrain', 'init': True, 'increase': False, 'num_hops': 0, 'detect': False, 'ewc': False, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': False, 'path': 'log/GLA/pretrain_st_sd-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-04 05:23:22,237 - [*] Year 2017 load from data/GLA/FastData/2017.npz
+2025-06-04 05:23:22,635 - [*] Year 2017 Dataset load!
+2025-06-04 05:23:22,640 - Total Parameters: 3308
+2025-06-04 05:23:22,640 - Trainable Parameters: 3308
+2025-06-04 05:23:22,640 - [*] Year 2017 Training start
+2025-06-04 05:23:24,634 - node number torch.Size([232960, 12])
+2025-06-04 05:23:38,533 - epoch:0, training loss:27562.5982 validation loss:53.7139
+2025-06-04 05:23:53,350 - epoch:1, training loss:4025.2004 validation loss:39.1351
+2025-06-04 05:24:07,925 - epoch:2, training loss:3110.2453 validation loss:35.3929
+2025-06-04 05:24:23,020 - epoch:3, training loss:2923.6204 validation loss:35.5533
+2025-06-04 05:24:40,300 - epoch:4, training loss:2856.6721 validation loss:35.1633
+2025-06-04 05:24:57,432 - epoch:5, training loss:2807.8297 validation loss:34.4115
+2025-06-04 05:25:15,778 - epoch:6, training loss:2761.4823 validation loss:34.3460
+2025-06-04 05:25:34,299 - epoch:7, training loss:2703.2010 validation loss:34.8162
+2025-06-04 05:25:52,476 - epoch:8, training loss:2679.7735 validation loss:35.8320
+2025-06-04 05:26:10,776 - epoch:9, training loss:2670.0497 validation loss:34.0532
+2025-06-04 05:26:29,102 - epoch:10, training loss:2659.0799 validation loss:36.7194
+2025-06-04 05:26:47,597 - epoch:11, training loss:2666.1964 validation loss:34.1698
+2025-06-04 05:27:06,299 - epoch:12, training loss:2651.7370 validation loss:33.9747
+2025-06-04 05:27:24,646 - epoch:13, training loss:2644.9780 validation loss:32.9984
+2025-06-04 05:27:42,988 - epoch:14, training loss:2639.3696 validation loss:33.6781
+2025-06-04 05:28:01,161 - epoch:15, training loss:2643.7436 validation loss:32.7259
+2025-06-04 05:28:19,269 - epoch:16, training loss:2633.3074 validation loss:32.9443
+2025-06-04 05:28:37,271 - epoch:17, training loss:2636.8075 validation loss:33.2857
+2025-06-04 05:28:55,489 - epoch:18, training loss:2636.5434 validation loss:33.4225
+2025-06-04 05:29:13,375 - epoch:19, training loss:2632.4780 validation loss:35.8333
+2025-06-04 05:29:31,972 - epoch:20, training loss:2627.8545 validation loss:33.1632
+2025-06-04 05:29:50,814 - epoch:21, training loss:2627.0005 validation loss:33.2578
+2025-06-04 05:29:56,532 - [*] loss:2616.6538
+2025-06-04 05:29:58,008 - [*] year 2017, testing
+2025-06-04 05:30:15,022 - T:3	MAE	23.2157	RMSE	36.1582	MAPE	10.5783
+2025-06-04 05:30:53,080 - T:6	MAE	25.9340	RMSE	40.3616	MAPE	12.2427
+2025-06-04 05:32:55,372 - T:12	MAE	31.1949	RMSE	48.2748	MAPE	15.8555
+2025-06-04 05:32:55,373 - T:Avg	MAE	26.3024	RMSE	40.8509	MAPE	12.6073
+2025-06-04 05:32:55,381 - Finished optimization, total time:166.29 s, best model:log/GLA/pretrain_st_sd-42/2017/32.7259.pkl
+2025-06-04 05:33:39,332 - [*] Year 2018 load from data/GLA/FastData/2018.npz
+2025-06-04 05:33:39,400 - [*] load from log/GLA/pretrain_st_sd-42/2017/32.7259.pkl
+2025-06-04 05:33:46,744 - [*] loss:2498.6086
+2025-06-04 05:33:47,907 - [*] year 2018, testing
+2025-06-04 05:34:00,733 - T:3	MAE	24.1836	RMSE	36.2215	MAPE	10.8913
+2025-06-04 05:34:27,280 - T:6	MAE	26.7646	RMSE	40.3202	MAPE	12.3987
+2025-06-04 05:35:59,464 - T:12	MAE	31.7961	RMSE	48.0467	MAPE	15.8556
+2025-06-04 05:35:59,464 - T:Avg	MAE	27.1233	RMSE	40.8073	MAPE	12.7804
+2025-06-04 05:35:59,472 - [*] No increasing nodes at year 2018, store model of the last year.
+2025-06-04 05:36:42,103 - [*] Year 2019 load from data/GLA/FastData/2019.npz
+2025-06-04 05:36:42,164 - [*] load from log/GLA/pretrain_st_sd-42/2018/32.7259.pkl
+2025-06-04 05:36:52,415 - [*] loss:2283.8237
+2025-06-04 05:36:53,644 - [*] year 2019, testing
+2025-06-04 05:37:06,045 - T:3	MAE	22.5730	RMSE	34.3386	MAPE	10.9100
+2025-06-04 05:37:32,929 - T:6	MAE	25.2834	RMSE	38.4827	MAPE	12.8796
+2025-06-04 05:39:01,835 - T:12	MAE	30.5253	RMSE	46.3436	MAPE	17.0392
+2025-06-04 05:39:01,836 - T:Avg	MAE	25.6585	RMSE	39.0011	MAPE	13.2843
+2025-06-04 05:39:01,844 - [*] No increasing nodes at year 2019, store model of the last year.
+2025-06-04 05:39:44,387 - [*] Year 2020 load from data/GLA/FastData/2020.npz
+2025-06-04 05:39:44,454 - [*] load from log/GLA/pretrain_st_sd-42/2019/32.7259.pkl
+2025-06-04 05:39:53,869 - [*] loss:3022.8169
+2025-06-04 05:39:55,169 - [*] year 2020, testing
+2025-06-04 05:40:07,809 - T:3	MAE	37.2095	RMSE	46.7488	MAPE	30.2950
+2025-06-04 05:40:35,057 - T:6	MAE	38.8474	RMSE	49.1754	MAPE	32.6746
+2025-06-04 05:42:06,599 - T:12	MAE	42.1382	RMSE	53.9584	MAPE	37.3570
+2025-06-04 05:42:06,599 - T:Avg	MAE	39.1363	RMSE	49.5363	MAPE	33.0869
+2025-06-04 05:42:06,608 - [*] No increasing nodes at year 2020, store model of the last year.
+2025-06-04 05:42:06,608 - 
+
+
+2025-06-04 05:42:06,608 - 3   	 MAE	     23.22	     24.18	     22.57	     37.21		   26.80
+2025-06-04 05:42:06,608 - 3   	RMSE	     36.16	     36.22	     34.34	     46.75		   38.37
+2025-06-04 05:42:06,608 - 3   	MAPE	     10.58	     10.89	     10.91	     30.30		   15.67
+2025-06-04 05:42:06,608 - 6   	 MAE	     25.93	     26.76	     25.28	     38.85		   29.21
+2025-06-04 05:42:06,608 - 6   	RMSE	     40.36	     40.32	     38.48	     49.18		   42.09
+2025-06-04 05:42:06,609 - 6   	MAPE	     12.24	     12.40	     12.88	     32.67		   17.55
+2025-06-04 05:42:06,609 - 12  	 MAE	     31.19	     31.80	     30.53	     42.14		   33.91
+2025-06-04 05:42:06,609 - 12  	RMSE	     48.27	     48.05	     46.34	     53.96		   49.16
+2025-06-04 05:42:06,609 - 12  	MAPE	     15.86	     15.86	     17.04	     37.36		   21.53
+2025-06-04 05:42:06,609 - Avg 	 MAE	     26.30	     27.12	     25.66	     39.14		   29.56
+2025-06-04 05:42:06,609 - Avg 	RMSE	     40.85	     40.81	     39.00	     49.54		   42.55
+2025-06-04 05:42:06,609 - Avg 	MAPE	     12.61	     12.78	     13.28	     33.09		   17.94
+2025-06-04 05:42:06,609 - year	2017	total_time	  166.2855	average_time	    7.5584	epoch	22
+2025-06-04 05:42:06,609 - total time: 166.2855

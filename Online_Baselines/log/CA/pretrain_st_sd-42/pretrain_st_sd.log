@@ -1,0 +1,63 @@
+2025-06-04 14:28:19,668 - logger name:log/CA/pretrain_st_sd-42/pretrain_st_sd.log
+2025-06-04 14:28:19,669 - params : {'conf': 'conf/CA/pretrain_st_sd.json', 'seed': 42, 'paral': 0, 'gpuid': 5, 'logname': 'pretrain_st_sd', 'method': 'TrafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl', 'device': device(type='cuda', index=5), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/CA/finaldata/', 'save_data_path': 'data/CA/FastData/', 'graph_path': 'data/CA/graph/', 'model_path': 'log/CA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'pretrain', 'init': True, 'increase': False, 'num_hops': 0, 'detect': False, 'ewc': False, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': False, 'path': 'log/CA/pretrain_st_sd-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-06 05:54:05,352 - logger name:log/CA/pretrain_st_sd-42/pretrain_st_sd.log
+2025-06-06 05:54:05,353 - params : {'conf': 'conf/CA/pretrain_st_sd.json', 'seed': 42, 'paral': 0, 'gpuid': 4, 'logname': 'pretrain_st_sd', 'method': 'TrafficStream', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/CA/trafficstream-42/2017/30.9248.pkl', 'device': device(type='cuda', index=4), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/CA/finaldata/', 'save_data_path': 'data/CA/FastData/', 'graph_path': 'data/CA/graph/', 'model_path': 'log/CA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'pretrain', 'init': True, 'increase': False, 'num_hops': 0, 'detect': False, 'ewc': False, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': False, 'path': 'log/CA/pretrain_st_sd-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-06 05:54:06,272 - [*] Year 2017 load from data/CA/FastData/2017.npz
+2025-06-06 05:54:07,102 - [*] load from /home/bd2/ANATS/Online_Baselines/log/CA/trafficstream-42/2017/30.9248.pkl
+2025-06-06 05:55:23,540 - [*] loss:2066.7861
+2025-06-06 05:55:30,409 - [*] year 2017, testing
+2025-06-06 05:56:27,444 - T:3	MAE	24.0046	RMSE	34.9756	MAPE	17.4856
+2025-06-06 05:58:16,046 - T:6	MAE	25.3250	RMSE	37.7974	MAPE	18.0012
+2025-06-06 06:08:21,665 - logger name:log/CA/pretrain_st_sd-42/pretrain_st_sd.log
+2025-06-06 06:08:21,665 - params : {'conf': 'conf/CA/pretrain_st_sd.json', 'seed': 42, 'paral': 0, 'gpuid': 4, 'logname': 'pretrain_st_sd', 'method': 'TrafficStream', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/CA/trafficstream-42/2017/30.9248.pkl', 'device': device(type='cuda', index=4), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/CA/finaldata/', 'save_data_path': 'data/CA/FastData/', 'graph_path': 'data/CA/graph/', 'model_path': 'log/CA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'pretrain', 'init': True, 'increase': False, 'num_hops': 0, 'detect': False, 'ewc': False, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': False, 'path': 'log/CA/pretrain_st_sd-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-06 06:08:22,558 - [*] Year 2017 load from data/CA/FastData/2017.npz
+2025-06-06 06:08:23,413 - [*] load from /home/bd2/ANATS/Online_Baselines/log/CA/trafficstream-42/2017/30.9248.pkl
+2025-06-06 06:09:38,437 - [*] loss:2066.7861
+2025-06-06 06:09:45,128 - [*] year 2017, testing
+2025-06-06 06:10:44,170 - T:3	MAE	24.0046	RMSE	34.9756	MAPE	17.4856
+2025-06-06 06:12:36,698 - T:6	MAE	25.3250	RMSE	37.7974	MAPE	18.0012
+2025-06-06 06:18:50,781 - T:12	MAE	29.1151	RMSE	44.7982	MAPE	20.0028
+2025-06-06 06:18:50,782 - T:Avg	MAE	25.8289	RMSE	38.5898	MAPE	18.3226
+2025-06-06 06:18:51,835 - [*] Year 2018 load from data/CA/FastData/2018.npz
+2025-06-06 06:18:52,458 - [*] load from /home/bd2/ANATS/Online_Baselines/log/CA/trafficstream-42/2017/30.9248.pkl
+2025-06-06 06:20:10,799 - [*] loss:2010.6511
+2025-06-06 06:20:18,108 - [*] year 2018, testing
+2025-06-06 06:21:16,487 - T:3	MAE	22.8545	RMSE	34.3953	MAPE	16.6209
+2025-06-06 06:23:07,980 - T:6	MAE	24.2659	RMSE	37.2540	MAPE	17.2779
+2025-06-06 06:29:41,182 - T:12	MAE	28.1658	RMSE	44.1059	MAPE	19.6508
+2025-06-06 06:29:41,182 - T:Avg	MAE	24.7675	RMSE	37.9893	MAPE	17.6448
+2025-06-06 06:29:41,211 - [*] No increasing nodes at year 2018, store model of the last year.
+2025-06-06 06:29:42,416 - [*] Year 2019 load from data/CA/FastData/2019.npz
+2025-06-06 06:29:43,068 - [*] load from log/CA/pretrain_st_sd-42/2018/3.pkl
+2025-06-06 06:31:03,571 - [*] loss:1808.9274
+2025-06-06 06:31:11,470 - [*] year 2019, testing
+2025-06-06 06:32:11,874 - T:3	MAE	21.1842	RMSE	32.3536	MAPE	15.9997
+2025-06-06 06:34:07,379 - T:6	MAE	22.6830	RMSE	35.2605	MAPE	16.7800
+2025-06-06 06:40:53,110 - T:12	MAE	26.7427	RMSE	42.1949	MAPE	19.5694
+2025-06-06 06:40:53,110 - T:Avg	MAE	23.2020	RMSE	36.0044	MAPE	17.2149
+2025-06-06 06:40:53,139 - [*] No increasing nodes at year 2019, store model of the last year.
+2025-06-06 06:40:54,361 - [*] Year 2020 load from data/CA/FastData/2020.npz
+2025-06-06 06:40:55,014 - [*] load from log/CA/pretrain_st_sd-42/2019/3.pkl
+2025-06-06 06:42:15,067 - [*] loss:2188.6775
+2025-06-06 06:42:22,594 - [*] year 2020, testing
+2025-06-06 06:43:22,723 - T:3	MAE	29.0211	RMSE	40.7519	MAPE	28.3824
+2025-06-06 06:45:17,322 - T:6	MAE	30.1985	RMSE	42.5398	MAPE	29.5198
+2025-06-06 06:51:44,988 - T:12	MAE	32.9558	RMSE	46.5922	MAPE	32.7412
+2025-06-06 06:51:44,989 - T:Avg	MAE	30.4967	RMSE	42.9112	MAPE	29.9232
+2025-06-06 06:51:45,017 - [*] No increasing nodes at year 2020, store model of the last year.
+2025-06-06 06:51:45,018 - 
+
+
+2025-06-06 06:51:45,018 - 3   	 MAE	     24.00	     22.85	     21.18	     29.02		   24.27
+2025-06-06 06:51:45,018 - 3   	RMSE	     34.98	     34.40	     32.35	     40.75		   35.62
+2025-06-06 06:51:45,018 - 3   	MAPE	     17.49	     16.62	     16.00	     28.38		   19.62
+2025-06-06 06:51:45,018 - 6   	 MAE	     25.32	     24.27	     22.68	     30.20		   25.62
+2025-06-06 06:51:45,018 - 6   	RMSE	     37.80	     37.25	     35.26	     42.54		   38.21
+2025-06-06 06:51:45,018 - 6   	MAPE	     18.00	     17.28	     16.78	     29.52		   20.39
+2025-06-06 06:51:45,018 - 12  	 MAE	     29.12	     28.17	     26.74	     32.96		   29.24
+2025-06-06 06:51:45,018 - 12  	RMSE	     44.80	     44.11	     42.19	     46.59		   44.42
+2025-06-06 06:51:45,018 - 12  	MAPE	     20.00	     19.65	     19.57	     32.74		   22.99
+2025-06-06 06:51:45,018 - Avg 	 MAE	     25.83	     24.77	     23.20	     30.50		   26.07
+2025-06-06 06:51:45,018 - Avg 	RMSE	     38.59	     37.99	     36.00	     42.91		   38.87
+2025-06-06 06:51:45,018 - Avg 	MAPE	     18.32	     17.64	     17.21	     29.92		   20.78
+2025-06-06 06:51:45,018 - total time: 0.0000

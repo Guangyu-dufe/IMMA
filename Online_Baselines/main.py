@@ -185,17 +185,17 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter)
-    parser.add_argument("--conf", type = str, default = "conf/SD/team.json")
+    parser.add_argument("--conf", type = str, default = "conf/CA/eac.json")
     parser.add_argument("--seed", type = int, default = 42)
     parser.add_argument("--paral", type = int, default = 0)
-    parser.add_argument("--gpuid", type = int, default = 1)
+    parser.add_argument("--gpuid", type = int, default = 4)
     parser.add_argument("--logname", type = str, default = "info")
-    parser.add_argument("--method", type = str, default = "TEAM")
-    parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
-    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/Online_Baselines/log/SD/team-42/2019/34.045.pkl", help='specify a pretrained model root')
+    parser.add_argument("--method", type = str, default = "EAC")
+    parser.add_argument("--load_first_year", type = int, default = 6, help="0: training first year, 1: load from model path of first year")
+    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/Online_Baselines/log/CA/team-42/2017/29.315.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     vars(args)["device"] = torch.device("cuda:{}".format(args.gpuid)) if torch.cuda.is_available() and args.gpuid != -1 else "cpu"
-    vars(args)["methods"] = {'TrafficStream': TrafficStream_Model, 'STKEC': STKEC_Model, 'EAC': EAC_Model, 'Universal': Universal_Model, 'TEAM': TEAM_Model, 'DLF': DLF_Model} # , 'LSTM': LSTM_Model, 'MLP': MLP_Model, 'STLora': STLora_Model, 
+    vars(args)["methods"] = {'TrafficStream': TrafficStream_Model,'EAC': EAC_Model, 'Universal': Universal_Model, 'TEAM': TEAM_Model, 'DLF': DLF_Model} # , 'LSTM': LSTM_Model, 'MLP': MLP_Model, 'STLora': STLora_Model, 
     
     init(args)
     seed_anything(args.seed)

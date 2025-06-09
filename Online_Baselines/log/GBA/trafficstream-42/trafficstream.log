@@ -1,0 +1,225 @@
+2025-06-03 09:02:22,175 - logger name:log/GBA/trafficstream-42/trafficstream.log
+2025-06-03 09:02:22,175 - params : {'conf': 'conf/GBA/trafficstream.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'trafficstream', 'method': 'TrafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2019/34.045.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/trafficstream-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:03:04,785 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:03:05,086 - [*] Year 2017 Dataset load!
+2025-06-03 09:03:05,091 - [*] Year 2017 Training start
+2025-06-03 09:03:06,336 - node number torch.Size([293632, 12])
+2025-06-03 09:03:25,800 - epoch:0, training loss:16396.3282 validation loss:47.9856
+2025-06-03 09:03:52,656 - logger name:log/GBA/trafficstream-42/trafficstream.log
+2025-06-03 09:03:52,656 - params : {'conf': 'conf/GBA/trafficstream.json', 'seed': 42, 'paral': 0, 'gpuid': 0, 'logname': 'trafficstream', 'method': 'TrafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2019/34.045.pkl', 'device': device(type='cuda', index=0), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/trafficstream-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:07:27,539 - logger name:log/GBA/trafficstream-42/trafficstream.log
+2025-06-03 09:07:27,539 - params : {'conf': 'conf/GBA/trafficstream.json', 'seed': 42, 'paral': 0, 'gpuid': 0, 'logname': 'trafficstream', 'method': 'TrafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2019/34.045.pkl', 'device': device(type='cuda', index=0), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/trafficstream-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:08:51,211 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:08:52,047 - [*] Year 2017 Dataset load!
+2025-06-03 09:08:52,054 - [*] Year 2017 Training start
+2025-06-03 09:08:52,999 - node number torch.Size([293632, 12])
+2025-06-03 09:09:11,779 - epoch:0, training loss:16396.3282 validation loss:47.9856
+2025-06-03 09:09:32,679 - epoch:1, training loss:2738.1846 validation loss:35.2383
+2025-06-03 09:09:54,742 - epoch:2, training loss:2198.9132 validation loss:33.4468
+2025-06-03 09:10:16,907 - epoch:3, training loss:2114.3922 validation loss:34.4024
+2025-06-03 09:10:38,977 - epoch:4, training loss:2083.2391 validation loss:35.0049
+2025-06-03 09:11:01,247 - epoch:5, training loss:2039.5095 validation loss:32.2186
+2025-06-03 09:11:24,213 - epoch:6, training loss:1997.3384 validation loss:33.0389
+2025-06-03 09:11:46,279 - epoch:7, training loss:1962.1166 validation loss:33.1921
+2025-06-03 09:12:09,015 - epoch:8, training loss:1953.7240 validation loss:33.5607
+2025-06-03 09:12:31,846 - epoch:9, training loss:1947.6575 validation loss:33.2057
+2025-06-03 09:12:54,384 - epoch:10, training loss:1946.4764 validation loss:35.2369
+2025-06-03 09:13:17,337 - epoch:11, training loss:1943.0056 validation loss:32.3416
+2025-06-03 09:13:24,485 - [*] loss:2038.3776
+2025-06-03 09:13:26,337 - [*] year 2017, testing
+2025-06-03 09:13:44,617 - T:3	MAE	24.0150	RMSE	35.6573	MAPE	18.0147
+2025-06-03 09:14:18,792 - T:6	MAE	25.4486	RMSE	38.3750	MAPE	18.8558
+2025-06-03 09:16:11,281 - T:12	MAE	29.4858	RMSE	45.0165	MAPE	21.8401
+2025-06-03 09:16:11,281 - T:Avg	MAE	25.9958	RMSE	39.1326	MAPE	19.3291
+2025-06-03 09:16:11,290 - Finished optimization, total time:121.60 s, best model:log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 09:17:40,358 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-03 09:17:40,462 - [*] load from log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 09:27:17,921 - logger name:log/GBA/trafficstream-42/trafficstream.log
+2025-06-03 09:27:17,921 - params : {'conf': 'conf/GBA/trafficstream.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'trafficstream', 'method': 'TrafficStream', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/trafficstream-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:28:08,756 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:28:09,089 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 09:28:17,493 - [*] loss:2038.3776
+2025-06-03 09:28:18,742 - [*] year 2017, testing
+2025-06-03 09:28:36,084 - T:3	MAE	24.0150	RMSE	35.6573	MAPE	18.0147
+2025-06-03 09:29:09,184 - T:6	MAE	25.4486	RMSE	38.3750	MAPE	18.8558
+2025-06-03 09:30:58,485 - T:12	MAE	29.4858	RMSE	45.0165	MAPE	21.8401
+2025-06-03 09:30:58,485 - T:Avg	MAE	25.9958	RMSE	39.1326	MAPE	19.3291
+2025-06-03 09:31:51,186 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-03 09:31:51,260 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 09:33:19,780 - logger name:log/GBA/trafficstream-42/trafficstream.log
+2025-06-03 09:33:19,780 - params : {'conf': 'conf/GBA/trafficstream.json', 'seed': 42, 'paral': 0, 'gpuid': 0, 'logname': 'trafficstream', 'method': 'TrafficStream', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=0), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/trafficstream-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:34:13,640 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:34:13,934 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 09:34:21,994 - [*] loss:2038.3776
+2025-06-03 09:34:23,351 - [*] year 2017, testing
+2025-06-03 09:34:41,655 - T:3	MAE	24.0150	RMSE	35.6573	MAPE	18.0147
+2025-06-03 09:35:15,968 - T:6	MAE	25.4486	RMSE	38.3750	MAPE	18.8558
+2025-06-03 09:37:13,466 - T:12	MAE	29.4858	RMSE	45.0165	MAPE	21.8401
+2025-06-03 09:37:13,467 - T:Avg	MAE	25.9958	RMSE	39.1326	MAPE	19.3291
+2025-06-03 09:38:22,754 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-03 09:38:22,855 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 09:38:36,861 - number of increase nodes:403, nodes after 2 hop:torch.Size([2165]), total nodes this year 2321
+2025-06-03 09:38:48,637 - [*] Year 2018 Dataset load!
+2025-06-03 09:38:48,637 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 09:38:48,642 - [*] EWC! lambda 0.000100
+2025-06-03 09:39:06,086 - [*] Year 2018 Training start
+2025-06-03 09:39:08,696 - node number torch.Size([277120, 12])
+2025-06-03 09:39:33,161 - epoch:0, training loss:2127.0766 validation loss:28.7638
+2025-06-03 09:40:00,289 - epoch:1, training loss:2050.8113 validation loss:28.2102
+2025-06-03 09:40:25,770 - epoch:2, training loss:2049.2174 validation loss:28.1568
+2025-06-03 09:40:53,069 - epoch:3, training loss:2054.2239 validation loss:28.4153
+2025-06-03 09:41:18,219 - epoch:4, training loss:2049.1668 validation loss:28.0966
+2025-06-03 09:41:46,062 - epoch:5, training loss:2045.7881 validation loss:27.9705
+2025-06-03 09:42:13,459 - epoch:6, training loss:2047.6225 validation loss:29.1199
+2025-06-03 09:42:42,194 - epoch:7, training loss:2040.8489 validation loss:28.0599
+2025-06-03 09:43:10,353 - epoch:8, training loss:2042.5291 validation loss:29.3033
+2025-06-03 09:43:38,081 - epoch:9, training loss:2049.3150 validation loss:31.2859
+2025-06-03 09:44:05,595 - epoch:10, training loss:2048.5776 validation loss:27.9143
+2025-06-03 09:44:32,853 - epoch:11, training loss:2038.3057 validation loss:28.7017
+2025-06-03 09:44:58,705 - epoch:12, training loss:2041.7791 validation loss:27.8875
+2025-06-03 09:45:23,625 - epoch:13, training loss:2053.5346 validation loss:29.2030
+2025-06-03 09:45:50,006 - epoch:14, training loss:2037.8474 validation loss:29.6445
+2025-06-03 09:46:16,402 - epoch:15, training loss:2042.2059 validation loss:27.8447
+2025-06-03 09:46:44,584 - epoch:16, training loss:2046.8204 validation loss:28.9583
+2025-06-03 09:47:11,766 - epoch:17, training loss:2047.2786 validation loss:29.0288
+2025-06-03 09:47:34,899 - epoch:18, training loss:2046.2895 validation loss:28.2031
+2025-06-03 09:47:53,650 - epoch:19, training loss:2041.6708 validation loss:28.9728
+2025-06-03 09:48:12,468 - epoch:20, training loss:2046.9968 validation loss:31.2414
+2025-06-03 09:48:31,996 - epoch:21, training loss:2045.6052 validation loss:27.9047
+2025-06-03 09:48:41,383 - [*] loss:2300.0154
+2025-06-03 09:48:48,074 - [*] year 2018, testing
+2025-06-03 09:48:57,970 - logger name:log/GBA/trafficstream-42/trafficstream.log
+2025-06-03 09:48:57,970 - params : {'conf': 'conf/GBA/trafficstream.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'trafficstream', 'method': 'TrafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/trafficstream-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:49:37,034 - T:3	MAE	22.7494	RMSE	36.3323	MAPE	16.1500
+2025-06-03 10:09:30,724 - logger name:log/GBA/trafficstream-42/trafficstream.log
+2025-06-03 10:09:30,724 - params : {'conf': 'conf/GBA/trafficstream.json', 'seed': 42, 'paral': 0, 'gpuid': 0, 'logname': 'trafficstream', 'method': 'TrafficStream', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=0), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/trafficstream-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 10:10:21,138 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 10:10:21,660 - [*] Year 2017 Dataset load!
+2025-06-03 10:10:21,663 - [*] Year 2017 Training start
+2025-06-03 10:10:22,841 - node number torch.Size([293632, 12])
+2025-06-03 10:10:42,667 - epoch:0, training loss:16396.3282 validation loss:47.9856
+2025-06-03 10:11:02,190 - epoch:1, training loss:2738.1846 validation loss:35.2383
+2025-06-03 10:11:21,889 - epoch:2, training loss:2198.9132 validation loss:33.4468
+2025-06-03 10:11:41,773 - epoch:3, training loss:2114.3922 validation loss:34.4024
+2025-06-03 10:12:02,543 - epoch:4, training loss:2083.2391 validation loss:35.0049
+2025-06-03 10:12:22,743 - epoch:5, training loss:2039.5095 validation loss:32.2186
+2025-06-03 10:12:43,152 - epoch:6, training loss:1997.3384 validation loss:33.0389
+2025-06-03 10:13:03,172 - epoch:7, training loss:1962.1166 validation loss:33.1921
+2025-06-03 10:13:23,371 - epoch:8, training loss:1953.7240 validation loss:33.5607
+2025-06-03 10:13:43,430 - epoch:9, training loss:1947.6575 validation loss:33.2057
+2025-06-03 10:14:03,593 - epoch:10, training loss:1946.4764 validation loss:35.2369
+2025-06-03 10:14:23,749 - epoch:11, training loss:1943.0056 validation loss:32.3416
+2025-06-03 10:14:30,746 - [*] loss:2038.3776
+2025-06-03 10:14:32,803 - [*] year 2017, testing
+2025-06-03 10:14:49,813 - T:3	MAE	24.0150	RMSE	35.6573	MAPE	18.0147
+2025-06-03 10:15:26,958 - T:6	MAE	25.4486	RMSE	38.3750	MAPE	18.8558
+2025-06-03 10:17:14,222 - T:12	MAE	29.4858	RMSE	45.0165	MAPE	21.8401
+2025-06-03 10:17:14,222 - T:Avg	MAE	25.9958	RMSE	39.1326	MAPE	19.3291
+2025-06-03 10:17:14,231 - Finished optimization, total time:120.79 s, best model:log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 10:18:15,952 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-03 10:18:16,059 - [*] load from log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 10:18:28,559 - number of increase nodes:403, nodes after 2 hop:torch.Size([2165]), total nodes this year 2321
+2025-06-03 10:18:40,131 - [*] Year 2018 Dataset load!
+2025-06-03 10:18:40,131 - [*] load from log/GBA/trafficstream-42/2017/32.2186.pkl
+2025-06-03 10:18:40,135 - [*] EWC! lambda 0.000100
+2025-06-03 10:18:51,987 - [*] Year 2018 Training start
+2025-06-03 10:18:53,920 - node number torch.Size([277120, 12])
+2025-06-03 10:19:09,364 - epoch:0, training loss:2128.5618 validation loss:30.9004
+2025-06-03 10:19:26,847 - epoch:1, training loss:2079.3594 validation loss:30.1991
+2025-06-03 10:19:44,223 - epoch:2, training loss:2095.1512 validation loss:30.3789
+2025-06-03 10:20:01,859 - epoch:3, training loss:2081.2294 validation loss:28.8971
+2025-06-03 10:20:19,308 - epoch:4, training loss:2071.3162 validation loss:30.3464
+2025-06-03 10:20:36,953 - epoch:5, training loss:2080.7461 validation loss:28.7163
+2025-06-03 10:20:54,562 - epoch:6, training loss:2078.4318 validation loss:30.5800
+2025-06-03 10:21:12,061 - epoch:7, training loss:2073.9126 validation loss:29.4259
+2025-06-03 10:21:29,433 - epoch:8, training loss:2075.0368 validation loss:31.6780
+2025-06-03 10:21:46,960 - epoch:9, training loss:2075.1078 validation loss:27.8276
+2025-06-03 10:22:04,667 - epoch:10, training loss:2081.1298 validation loss:29.7827
+2025-06-03 10:22:22,597 - epoch:11, training loss:2079.6189 validation loss:29.1730
+2025-06-03 10:22:40,224 - epoch:12, training loss:2075.6742 validation loss:30.9012
+2025-06-03 10:22:58,126 - epoch:13, training loss:2071.8071 validation loss:28.7522
+2025-06-03 10:23:16,521 - epoch:14, training loss:2082.4271 validation loss:30.0851
+2025-06-03 10:23:34,147 - epoch:15, training loss:2079.8057 validation loss:27.7298
+2025-06-03 10:23:51,756 - epoch:16, training loss:2075.9885 validation loss:29.2711
+2025-06-03 10:24:09,437 - epoch:17, training loss:2074.4301 validation loss:29.0523
+2025-06-03 10:24:27,190 - epoch:18, training loss:2075.7495 validation loss:28.5546
+2025-06-03 10:24:44,891 - epoch:19, training loss:2077.5259 validation loss:29.4254
+2025-06-03 10:25:02,523 - epoch:20, training loss:2073.0379 validation loss:29.0513
+2025-06-03 10:25:20,016 - epoch:21, training loss:2086.2680 validation loss:28.3291
+2025-06-03 10:25:28,358 - [*] loss:2330.0906
+2025-06-03 10:25:29,680 - [*] year 2018, testing
+2025-06-03 10:25:43,746 - T:3	MAE	24.1399	RMSE	37.4808	MAPE	19.8262
+2025-06-03 10:26:11,487 - T:6	MAE	26.2713	RMSE	40.7818	MAPE	22.0630
+2025-06-03 10:27:46,644 - T:12	MAE	30.6284	RMSE	47.1598	MAPE	27.0516
+2025-06-03 10:27:46,644 - T:Avg	MAE	26.6410	RMSE	41.2375	MAPE	22.5852
+2025-06-03 10:27:46,653 - Finished optimization, total time:243.37 s, best model:log/GBA/trafficstream-42/2018/27.7298.pkl
+2025-06-03 10:28:36,007 - [*] Year 2019 load from data/GBA/FastData/2019.npz
+2025-06-03 10:28:36,106 - [*] load from log/GBA/trafficstream-42/2018/27.7298.pkl
+2025-06-03 10:28:51,949 - number of increase nodes:403, nodes after 2 hop:torch.Size([2125]), total nodes this year 2352
+2025-06-03 10:29:12,021 - [*] Year 2019 Dataset load!
+2025-06-03 10:29:12,021 - [*] load from log/GBA/trafficstream-42/2018/27.7298.pkl
+2025-06-03 10:29:12,024 - [*] EWC! lambda 0.000100
+2025-06-03 10:29:24,986 - [*] Year 2019 Training start
+2025-06-03 10:29:28,128 - node number torch.Size([272000, 12])
+2025-06-03 10:29:44,700 - epoch:0, training loss:1976.7708 validation loss:29.0145
+2025-06-03 10:30:04,308 - epoch:1, training loss:1945.7999 validation loss:30.2995
+2025-06-03 10:30:24,047 - epoch:2, training loss:1948.5790 validation loss:30.9588
+2025-06-03 10:30:43,838 - epoch:3, training loss:1946.1159 validation loss:30.5732
+2025-06-03 10:31:03,235 - epoch:4, training loss:1948.0758 validation loss:31.0134
+2025-06-03 10:31:23,347 - epoch:5, training loss:1949.6962 validation loss:30.0223
+2025-06-03 10:31:42,970 - epoch:6, training loss:1948.8948 validation loss:31.4377
+2025-06-03 10:31:52,820 - [*] loss:1932.9552
+2025-06-03 10:31:54,437 - [*] year 2019, testing
+2025-06-03 10:32:10,187 - T:3	MAE	21.7072	RMSE	33.3290	MAPE	15.0804
+2025-06-03 10:32:40,096 - T:6	MAE	23.7338	RMSE	36.8149	MAPE	16.8023
+2025-06-03 10:34:17,951 - T:12	MAE	28.0101	RMSE	43.5188	MAPE	20.9535
+2025-06-03 10:34:17,952 - T:Avg	MAE	24.1234	RMSE	37.2956	MAPE	17.2931
+2025-06-03 10:34:17,960 - Finished optimization, total time:84.75 s, best model:log/GBA/trafficstream-42/2019/29.0145.pkl
+2025-06-03 10:35:06,376 - [*] Year 2020 load from data/GBA/FastData/2020.npz
+2025-06-03 10:35:06,465 - [*] load from log/GBA/trafficstream-42/2019/29.0145.pkl
+2025-06-03 10:35:24,312 - number of increase nodes:382, nodes after 2 hop:torch.Size([2160]), total nodes this year 2352
+2025-06-03 10:35:38,963 - [*] Year 2020 Dataset load!
+2025-06-03 10:35:38,963 - [*] load from log/GBA/trafficstream-42/2019/29.0145.pkl
+2025-06-03 10:35:38,966 - [*] EWC! lambda 0.000100
+2025-06-03 10:35:53,170 - [*] Year 2020 Training start
+2025-06-03 10:35:57,793 - node number torch.Size([276480, 12])
+2025-06-03 10:36:15,456 - epoch:0, training loss:1735.6312 validation loss:30.0171
+2025-06-03 10:36:37,707 - epoch:1, training loss:1687.9725 validation loss:29.8366
+2025-06-03 10:37:00,104 - epoch:2, training loss:1691.1686 validation loss:29.6089
+2025-06-03 10:37:22,481 - epoch:3, training loss:1694.4773 validation loss:30.8947
+2025-06-03 10:37:44,883 - epoch:4, training loss:1694.4021 validation loss:30.9918
+2025-06-03 10:38:07,318 - epoch:5, training loss:1695.0984 validation loss:31.1625
+2025-06-03 10:38:29,788 - epoch:6, training loss:1697.1168 validation loss:27.6704
+2025-06-03 10:38:52,267 - epoch:7, training loss:1692.8592 validation loss:30.7213
+2025-06-03 10:39:14,518 - epoch:8, training loss:1694.8864 validation loss:32.0560
+2025-06-03 10:39:37,033 - epoch:9, training loss:1702.3816 validation loss:29.2166
+2025-06-03 10:39:59,519 - epoch:10, training loss:1695.7198 validation loss:31.1116
+2025-06-03 10:40:21,978 - epoch:11, training loss:1697.4532 validation loss:32.7763
+2025-06-03 10:40:44,541 - epoch:12, training loss:1696.5835 validation loss:28.9270
+2025-06-03 10:40:57,118 - [*] loss:1876.4414
+2025-06-03 10:40:58,764 - [*] year 2020, testing
+2025-06-03 10:41:14,131 - T:3	MAE	27.7352	RMSE	36.5818	MAPE	28.1810
+2025-06-03 10:41:43,548 - T:6	MAE	28.9491	RMSE	38.6345	MAPE	29.8997
+2025-06-03 10:43:19,135 - T:12	MAE	31.8152	RMSE	43.1008	MAPE	33.9716
+2025-06-03 10:43:19,135 - T:Avg	MAE	29.3794	RMSE	39.1719	MAPE	30.4187
+2025-06-03 10:43:19,143 - Finished optimization, total time:175.02 s, best model:log/GBA/trafficstream-42/2020/27.6704.pkl
+2025-06-03 10:43:19,178 - 
+
+
+2025-06-03 10:43:19,178 - 3   	 MAE	     24.02	     24.14	     21.71	     27.74		   24.40
+2025-06-03 10:43:19,178 - 3   	RMSE	     35.66	     37.48	     33.33	     36.58		   35.76
+2025-06-03 10:43:19,178 - 3   	MAPE	     18.01	     19.83	     15.08	     28.18		   20.28
+2025-06-03 10:43:19,178 - 6   	 MAE	     25.45	     26.27	     23.73	     28.95		   26.10
+2025-06-03 10:43:19,178 - 6   	RMSE	     38.38	     40.78	     36.81	     38.63		   38.65
+2025-06-03 10:43:19,178 - 6   	MAPE	     18.86	     22.06	     16.80	     29.90		   21.91
+2025-06-03 10:43:19,178 - 12  	 MAE	     29.49	     30.63	     28.01	     31.82		   29.98
+2025-06-03 10:43:19,178 - 12  	RMSE	     45.02	     47.16	     43.52	     43.10		   44.70
+2025-06-03 10:43:19,178 - 12  	MAPE	     21.84	     27.05	     20.95	     33.97		   25.95
+2025-06-03 10:43:19,179 - Avg 	 MAE	     26.00	     26.64	     24.12	     29.38		   26.53
+2025-06-03 10:43:19,179 - Avg 	RMSE	     39.13	     41.24	     37.30	     39.17		   39.21
+2025-06-03 10:43:19,179 - Avg 	MAPE	     19.33	     22.59	     17.29	     30.42		   22.41
+2025-06-03 10:43:19,179 - year	2017	total_time	  120.7891	average_time	   10.0658	epoch	12
+2025-06-03 10:43:19,179 - year	2018	total_time	  243.3659	average_time	   11.0621	epoch	22
+2025-06-03 10:43:19,179 - year	2019	total_time	   84.7511	average_time	   12.1073	epoch	7
+2025-06-03 10:43:19,179 - year	2020	total_time	  175.0184	average_time	   13.4630	epoch	13
+2025-06-03 10:43:19,179 - total time: 623.9245

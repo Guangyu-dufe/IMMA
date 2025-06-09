@@ -89,7 +89,7 @@ def main(args):
                     node_list.extend(list(influence_node_list))
                 
                 if args.replay:  # Get sampling node
-                    replay_node_list = replay.replay_node_selection(args, influence_node_score, args.infl_topk)  # Select the replay node
+                    replay_node_list = replay.replay_node_selection(args,influence_node_score,args.infl_topk, pre_data, cur_data, pre_graph, cur_graph )  # Select the replay node
                     node_list.extend(list(replay_node_list))
             
             
@@ -175,14 +175,14 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter)
-    parser.add_argument("--conf", type = str, default = "conf/SD/stkec.json")
+    parser.add_argument("--conf", type = str, default = "conf/CA/stkec.json")
     parser.add_argument("--seed", type = int, default = 42)
     parser.add_argument("--paral", type = int, default = 0)
-    parser.add_argument("--gpuid", type = int, default = 2)
+    parser.add_argument("--gpuid", type = int, default = 5)
     parser.add_argument("--logname", type = str, default = "info")
     parser.add_argument("--method", type = str, default = "STKEC")
-    parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
-    parser.add_argument("--first_year_model_path", type = str, default = "log/PEMS3/trafficStream-42/2011/16.6936.pkl", help='specify a pretrained model root')
+    parser.add_argument("--load_first_year", type = int, default = 1, help="0: training first year, 1: load from model path of first year")
+    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/Online_Baselines/log/CA/stkec-42/2017/28.6593.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     vars(args)["device"] = torch.device("cuda:{}".format(args.gpuid)) if torch.cuda.is_available() and args.gpuid != -1 else "cpu"
     vars(args)["methods"] = {'TrafficStream': TrafficStream_Model, 'STKEC': STKEC_Model}

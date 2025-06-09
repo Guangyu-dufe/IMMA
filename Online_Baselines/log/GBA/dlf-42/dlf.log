@@ -1,0 +1,101 @@
+2025-06-03 09:07:27,850 - logger name:log/GBA/dlf-42/dlf.log
+2025-06-03 09:07:27,851 - params : {'conf': 'conf/GBA/dlf.json', 'seed': 42, 'paral': 0, 'gpuid': 7, 'logname': 'dlf', 'method': 'DLF', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2019/34.045.pkl', 'device': device(type='cuda', index=7), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'hidden_channels': 64, 'dilation_channels': 32, 'skip_channels': 32, 'end_channels': 32, 'supports_len': 2, 'kernel_size': 2, 'blocks': 4, 'layers': 2, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/dlf-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:08:50,943 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:08:51,457 - [*] Year 2017 Dataset load!
+2025-06-03 09:08:51,469 - Total Parameters: 65356
+2025-06-03 09:08:51,469 - Trainable Parameters: 65356
+2025-06-03 09:08:51,470 - [*] Year 2017 Training start
+2025-06-03 09:08:52,576 - node number torch.Size([293632, 12])
+2025-06-03 09:35:19,264 - logger name:log/GBA/dlf-42/dlf.log
+2025-06-03 09:35:19,264 - params : {'conf': 'conf/GBA/dlf.json', 'seed': 42, 'paral': 0, 'gpuid': 7, 'logname': 'dlf', 'method': 'DLF', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=7), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'hidden_channels': 64, 'dilation_channels': 32, 'skip_channels': 32, 'end_channels': 32, 'supports_len': 2, 'kernel_size': 2, 'blocks': 4, 'layers': 2, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/dlf-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:36:13,379 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:36:13,681 - [*] Year 2017 Dataset load!
+2025-06-03 09:36:13,688 - Total Parameters: 65356
+2025-06-03 09:36:13,688 - Trainable Parameters: 65356
+2025-06-03 09:36:13,689 - [*] Year 2017 Training start
+2025-06-03 09:36:14,976 - node number torch.Size([293632, 12])
+2025-06-03 09:38:57,252 - logger name:log/GBA/dlf-42/dlf.log
+2025-06-03 09:38:57,252 - params : {'conf': 'conf/GBA/dlf.json', 'seed': 42, 'paral': 0, 'gpuid': 7, 'logname': 'dlf', 'method': 'DLF', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=7), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 32, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'hidden_channels': 64, 'dilation_channels': 32, 'skip_channels': 32, 'end_channels': 32, 'supports_len': 2, 'kernel_size': 2, 'blocks': 4, 'layers': 2, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/dlf-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:39:51,676 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:39:52,009 - [*] Year 2017 Dataset load!
+2025-06-03 09:39:52,022 - Total Parameters: 65356
+2025-06-03 09:39:52,022 - Trainable Parameters: 65356
+2025-06-03 09:39:52,022 - [*] Year 2017 Training start
+2025-06-03 09:39:52,833 - node number torch.Size([73408, 12])
+2025-06-03 09:42:04,088 - logger name:log/GBA/dlf-42/dlf.log
+2025-06-03 09:42:04,089 - params : {'conf': 'conf/GBA/dlf.json', 'seed': 42, 'paral': 0, 'gpuid': 7, 'logname': 'dlf', 'method': 'DLF', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=7), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 32, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'hidden_channels': 64, 'dilation_channels': 32, 'skip_channels': 32, 'end_channels': 32, 'supports_len': 2, 'kernel_size': 2, 'blocks': 4, 'layers': 2, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/dlf-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:43:14,917 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:43:15,207 - [*] Year 2017 Dataset load!
+2025-06-03 09:43:15,218 - Total Parameters: 65356
+2025-06-03 09:43:15,218 - Trainable Parameters: 65356
+2025-06-03 09:43:15,219 - [*] Year 2017 Training start
+2025-06-03 09:43:16,201 - node number torch.Size([73408, 12])
+2025-06-03 09:49:41,136 - epoch:0, training loss:3271.1963 validation loss:30.6859
+2025-06-03 09:56:12,417 - epoch:1, training loss:1942.2267 validation loss:38.3927
+2025-06-03 10:02:46,453 - epoch:2, training loss:1870.6932 validation loss:36.1002
+2025-06-03 13:51:06,157 - logger name:log/GBA/dlf-42/dlf.log
+2025-06-03 13:51:06,157 - params : {'conf': 'conf/GBA/dlf.json', 'seed': 42, 'paral': 0, 'gpuid': 7, 'logname': 'dlf', 'method': 'DLF', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/trafficstream-42/2017/32.2186.pkl', 'device': device(type='cuda', index=7), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 32, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'hidden_channels': 64, 'dilation_channels': 32, 'skip_channels': 32, 'end_channels': 32, 'supports_len': 2, 'kernel_size': 2, 'blocks': 4, 'layers': 2, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/dlf-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 13:51:56,341 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 13:51:56,623 - [*] Year 2017 Dataset load!
+2025-06-03 13:51:56,632 - Total Parameters: 65356
+2025-06-03 13:51:56,632 - Trainable Parameters: 65356
+2025-06-03 13:51:56,632 - [*] Year 2017 Training start
+2025-06-03 13:51:57,287 - node number torch.Size([73408, 12])
+2025-06-03 13:58:22,101 - epoch:0, training loss:3271.1963 validation loss:30.6859
+2025-06-03 14:04:47,711 - epoch:1, training loss:1942.2267 validation loss:38.3927
+2025-06-03 14:11:14,344 - epoch:2, training loss:1870.6932 validation loss:36.1002
+2025-06-03 14:17:44,029 - epoch:3, training loss:1848.2178 validation loss:31.9344
+2025-06-03 14:24:09,789 - epoch:4, training loss:1842.0700 validation loss:30.8299
+2025-06-03 14:30:36,202 - epoch:5, training loss:1807.7563 validation loss:34.1299
+2025-06-03 14:37:02,230 - epoch:6, training loss:1803.4673 validation loss:30.0695
+2025-06-03 14:43:29,048 - epoch:7, training loss:1787.4975 validation loss:30.7717
+2025-06-03 14:49:55,027 - epoch:8, training loss:1769.1633 validation loss:33.0727
+2025-06-03 14:56:20,778 - epoch:9, training loss:1768.4906 validation loss:38.3377
+2025-06-03 15:02:46,611 - epoch:10, training loss:1737.7193 validation loss:34.0865
+2025-06-03 15:09:11,854 - epoch:11, training loss:1737.8039 validation loss:32.0160
+2025-06-03 15:15:36,756 - epoch:12, training loss:1742.6991 validation loss:31.1363
+2025-06-03 15:17:35,945 - [*] loss:1922.3895
+2025-06-03 15:17:38,029 - [*] year 2017, testing
+2025-06-03 15:17:53,964 - T:3	MAE	23.8208	RMSE	35.7048	MAPE	16.7951
+2025-06-03 15:18:24,485 - T:6	MAE	25.4665	RMSE	38.2380	MAPE	17.6569
+2025-06-03 15:20:02,054 - T:12	MAE	29.0247	RMSE	43.6011	MAPE	20.0185
+2025-06-03 15:20:02,054 - T:Avg	MAE	25.7595	RMSE	38.6506	MAPE	17.9599
+2025-06-03 15:20:02,063 - Finished optimization, total time:3428.02 s, best model:log/GBA/dlf-42/2017/30.0695.pkl
+2025-06-03 15:20:51,700 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-03 15:20:51,810 - [*] load from log/GBA/dlf-42/2017/30.0695.pkl
+2025-06-04 04:44:15,202 - logger name:log/GBA/dlf-42/dlf.log
+2025-06-04 04:44:15,203 - params : {'conf': 'conf/GBA/dlf.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'dlf', 'method': 'DLF', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 32, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'hidden_channels': 64, 'dilation_channels': 32, 'skip_channels': 32, 'end_channels': 32, 'supports_len': 2, 'kernel_size': 2, 'blocks': 4, 'layers': 2, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/dlf-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-04 04:45:05,292 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-04 04:45:05,579 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl
+2025-06-04 04:46:59,296 - [*] loss:1922.3895
+2025-06-04 04:47:01,290 - [*] year 2017, testing
+2025-06-04 04:47:17,134 - T:3	MAE	23.8208	RMSE	35.7048	MAPE	16.7951
+2025-06-04 04:47:46,938 - T:6	MAE	25.4665	RMSE	38.2380	MAPE	17.6569
+2025-06-04 04:49:24,016 - T:12	MAE	29.0247	RMSE	43.6011	MAPE	20.0185
+2025-06-04 04:49:24,016 - T:Avg	MAE	25.7595	RMSE	38.6506	MAPE	17.9599
+2025-06-04 04:50:13,301 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-04 04:50:13,405 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl
+2025-06-04 04:51:08,322 - logger name:log/GBA/dlf-42/dlf.log
+2025-06-04 04:51:08,323 - params : {'conf': 'conf/GBA/dlf.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'dlf', 'method': 'DLF', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 16, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'hidden_channels': 64, 'dilation_channels': 32, 'skip_channels': 32, 'end_channels': 32, 'supports_len': 2, 'kernel_size': 2, 'blocks': 4, 'layers': 2, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/dlf-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-04 04:51:58,418 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-04 04:51:58,717 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl
+2025-06-04 04:53:52,106 - [*] loss:1923.5203
+2025-06-04 04:53:54,192 - [*] year 2017, testing
+2025-06-04 04:54:11,418 - T:3	MAE	23.8208	RMSE	35.7048	MAPE	16.7951
+2025-06-04 04:54:44,190 - T:6	MAE	25.4665	RMSE	38.2380	MAPE	17.6569
+2025-06-04 04:56:24,331 - T:12	MAE	29.0247	RMSE	43.6011	MAPE	20.0185
+2025-06-04 04:56:24,331 - T:Avg	MAE	25.7595	RMSE	38.6506	MAPE	17.9599
+2025-06-04 04:57:14,251 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-04 04:57:14,350 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl
+2025-06-04 05:01:16,946 - logger name:log/GBA/dlf-42/dlf.log
+2025-06-04 05:01:16,947 - params : {'conf': 'conf/GBA/dlf.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'dlf', 'method': 'DLF', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'EAC': <class 'src.model.model.EAC_Model'>, 'Universal': <class 'src.model.model.Universal_Model'>, 'TEAM': <class 'src.model.model.TEAM_Model'>, 'DLF': <class 'src.model.model.DLF_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 4, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 1, 'auto_test': 1, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'hidden_channels': 64, 'dilation_channels': 32, 'skip_channels': 32, 'end_channels': 32, 'supports_len': 2, 'kernel_size': 2, 'blocks': 4, 'layers': 2, 'rank': 6, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': True, 'momentum_type': 'linear', 'memory_size': 32, 'path': 'log/GBA/dlf-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-04 05:02:04,629 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-04 05:02:04,917 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl
+2025-06-04 05:03:47,320 - [*] loss:1924.0813
+2025-06-04 05:03:49,438 - [*] year 2017, testing
+2025-06-04 05:04:04,603 - T:3	MAE	23.8208	RMSE	35.7048	MAPE	16.7951
+2025-06-04 05:04:34,673 - T:6	MAE	25.4665	RMSE	38.2380	MAPE	17.6569
+2025-06-04 05:06:11,868 - T:12	MAE	29.0247	RMSE	43.6011	MAPE	20.0185
+2025-06-04 05:06:11,868 - T:Avg	MAE	25.7595	RMSE	38.6506	MAPE	17.9599
+2025-06-04 05:07:21,356 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-04 05:07:21,457 - [*] load from /home/bd2/ANATS/Online_Baselines/log/GBA/dlf-42/2017/30.0695.pkl

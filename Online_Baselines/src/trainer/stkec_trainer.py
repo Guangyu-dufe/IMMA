@@ -61,7 +61,7 @@ def train(inputs, args):
             args.logger.info("[*] EWC! lambda {:.6f}".format(args.ewc_lambda))  # Record EWC related parameters
             model = EWC(gnn_model, args.adj, args.ewc_lambda, args.ewc_strategy)  # Initialize the EWC model
             ewc_loader = DataLoader(SpatioTemporalDataset(inputs, "train"), batch_size=args.batch_size, shuffle=False, pin_memory=True, num_workers=32)
-            model.register_ewc_params_for_stkec(ewc_loader, lossfunc, args.device)  # Register EWC parameters
+            model.register_ewc_params(ewc_loader, lossfunc, args.device)  # Register EWC parameters
         else:
             model = gnn_model  # Otherwise, use the best model loaded
     else:
@@ -149,7 +149,10 @@ def train(inputs, args):
         if validation_loss <= lowest_validation_loss:
             counter = 0
             lowest_validation_loss = round(validation_loss, 4)
-            torch.save({'model_state_dict': gnn_model.state_dict()}, osp.join(path, str(round(validation_loss,4))+".pkl"))
+            if args.ewc:
+                torch.save({'model_state_dict': gnn_model.state_dict()}, osp.join(path, str(round(validation_loss,4))+".pkl"))
+            else:
+                torch.save({'model_state_dict': model.state_dict()}, osp.join(path, str(round(validation_loss,4))+".pkl"))
         else:
             counter += 1
             if counter > patience:

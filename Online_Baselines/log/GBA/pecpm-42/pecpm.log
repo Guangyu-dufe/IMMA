@@ -1,0 +1,215 @@
+2025-06-03 09:36:34,940 - logger name:log/GBA/pecpm-42/pecpm.log
+2025-06-03 09:36:34,940 - params : {'conf': 'conf/GBA/pecpm.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'pecpm', 'method': 'PECPM', 'load_first_year': 0, 'first_year_model_path': 'log/SD/pecpm-42/2017/31.5668.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'PECPM': <class 'src.model.model.PECPM_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'beita': 1.0, 'cluster': 32, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'adp_adj': False, 'skip_dim': 64, 'end_dim': 64, 'hidden_channels': 32, 'dilation_channels': 64, 'residual_channels': 64, 'input_dim': 1, 'output_dim': 1, 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'path': 'log/GBA/pecpm-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:36:35,076 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:41:20,093 - logger name:log/GBA/pecpm-42/pecpm.log
+2025-06-03 09:41:20,093 - params : {'conf': 'conf/GBA/pecpm.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'pecpm', 'method': 'PECPM', 'load_first_year': 0, 'first_year_model_path': 'log/SD/pecpm-42/2017/31.5668.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'PECPM': <class 'src.model.model.PECPM_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'beita': 1.0, 'cluster': 32, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'adp_adj': False, 'skip_dim': 64, 'end_dim': 64, 'hidden_channels': 32, 'dilation_channels': 64, 'residual_channels': 64, 'input_dim': 1, 'output_dim': 1, 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'path': 'log/GBA/pecpm-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:41:20,225 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 09:42:25,852 - logger name:log/GBA/pecpm-42/pecpm.log
+2025-06-03 09:42:25,853 - params : {'conf': 'conf/GBA/pecpm.json', 'seed': 42, 'paral': 0, 'gpuid': 1, 'logname': 'pecpm', 'method': 'PECPM', 'load_first_year': 0, 'first_year_model_path': 'log/SD/pecpm-42/2017/31.5668.pkl', 'device': device(type='cuda', index=1), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'PECPM': <class 'src.model.model.PECPM_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'beita': 1.0, 'cluster': 32, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'adp_adj': False, 'skip_dim': 64, 'end_dim': 64, 'hidden_channels': 32, 'dilation_channels': 64, 'residual_channels': 64, 'input_dim': 1, 'output_dim': 1, 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'path': 'log/GBA/pecpm-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 09:42:25,984 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 10:13:32,871 - logger name:log/GBA/pecpm-42/pecpm.log
+2025-06-03 10:13:32,872 - params : {'conf': 'conf/GBA/pecpm.json', 'seed': 42, 'paral': 0, 'gpuid': 2, 'logname': 'pecpm', 'method': 'PECPM', 'load_first_year': 0, 'first_year_model_path': 'log/SD/pecpm-42/2017/31.5668.pkl', 'device': device(type='cuda', index=2), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'PECPM': <class 'src.model.model.PECPM_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'beita': 1.0, 'cluster': 32, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'adp_adj': False, 'skip_dim': 64, 'end_dim': 64, 'hidden_channels': 32, 'dilation_channels': 64, 'residual_channels': 64, 'input_dim': 1, 'output_dim': 1, 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'path': 'log/GBA/pecpm-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 10:13:33,004 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 10:13:58,452 - logger name:log/GBA/pecpm-42/pecpm.log
+2025-06-03 10:13:58,452 - params : {'conf': 'conf/GBA/pecpm.json', 'seed': 42, 'paral': 0, 'gpuid': 2, 'logname': 'pecpm', 'method': 'PECPM', 'load_first_year': 0, 'first_year_model_path': 'log/SD/pecpm-42/2017/31.5668.pkl', 'device': device(type='cuda', index=2), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'PECPM': <class 'src.model.model.PECPM_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'beita': 1.0, 'cluster': 32, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'adp_adj': False, 'skip_dim': 64, 'end_dim': 64, 'hidden_channels': 32, 'dilation_channels': 64, 'residual_channels': 64, 'input_dim': 1, 'output_dim': 1, 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'path': 'log/GBA/pecpm-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 10:13:58,578 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 10:15:03,779 - [*] Year 2017 Dataset load!
+2025-06-03 10:15:03,807 - [*] Year 2017 Training start
+2025-06-03 10:15:05,561 - node number torch.Size([293632, 12])
+2025-06-03 10:15:39,073 - epoch:0, training loss:16297.9711 validation loss:47.3568
+2025-06-03 10:16:12,850 - epoch:1, training loss:2731.8491 validation loss:35.4225
+2025-06-03 10:16:44,486 - epoch:2, training loss:2192.1989 validation loss:34.1115
+2025-06-03 10:17:16,626 - epoch:3, training loss:2111.0851 validation loss:33.6715
+2025-06-03 10:17:51,439 - epoch:4, training loss:2070.7521 validation loss:32.8859
+2025-06-03 10:18:23,819 - epoch:5, training loss:2039.1799 validation loss:33.9986
+2025-06-03 10:18:56,648 - epoch:6, training loss:1991.3371 validation loss:34.0391
+2025-06-03 10:19:26,400 - epoch:7, training loss:1959.7822 validation loss:34.2119
+2025-06-03 10:19:58,958 - epoch:8, training loss:1942.9786 validation loss:32.5714
+2025-06-03 10:20:27,801 - epoch:9, training loss:1929.5139 validation loss:33.4588
+2025-06-03 10:20:51,692 - epoch:10, training loss:1923.0684 validation loss:32.9024
+2025-06-03 10:21:15,821 - epoch:11, training loss:1917.5733 validation loss:33.2847
+2025-06-03 10:21:39,819 - epoch:12, training loss:1910.2363 validation loss:33.9718
+2025-06-03 10:22:03,866 - epoch:13, training loss:1916.4586 validation loss:31.5250
+2025-06-03 10:22:28,872 - epoch:14, training loss:1905.3863 validation loss:33.3967
+2025-06-03 10:22:53,287 - epoch:15, training loss:1904.5709 validation loss:33.7890
+2025-06-03 10:23:18,149 - epoch:16, training loss:1896.9191 validation loss:31.7083
+2025-06-03 10:23:42,293 - epoch:17, training loss:1885.1481 validation loss:33.0564
+2025-06-03 10:24:06,075 - epoch:18, training loss:1889.5045 validation loss:32.0698
+2025-06-03 10:24:30,608 - epoch:19, training loss:1880.0384 validation loss:36.1060
+2025-06-03 10:24:39,545 - [*] loss:1930.4246
+2025-06-03 10:24:41,390 - [*] year 2017, testing
+2025-06-03 10:24:58,507 - T:3	MAE	23.0697	RMSE	34.4113	MAPE	15.5372
+2025-06-03 10:25:33,074 - T:6	MAE	24.8948	RMSE	37.4570	MAPE	16.8814
+2025-06-03 10:27:14,178 - T:12	MAE	28.8689	RMSE	43.7158	MAPE	21.0003
+2025-06-03 10:27:14,178 - T:Avg	MAE	25.2560	RMSE	37.9761	MAPE	17.5003
+2025-06-03 10:27:14,187 - Finished optimization, total time:296.95 s, best model:log/GBA/pecpm-42/2017/31.525.pkl
+2025-06-03 10:27:14,510 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-03 10:27:14,575 - [*] load from log/GBA/pecpm-42/2017/31.525.pkl
+2025-06-03 10:27:14,625 - [*] detect strategy feature
+2025-06-03 10:27:20,457 - number of increase nodes:252, nodes after 2 hop:torch.Size([2012]), total nodes this year 2321
+2025-06-03 10:30:12,454 - [*] Year 2018 Dataset load!
+2025-06-03 10:30:12,454 - [*] load from log/GBA/pecpm-42/2017/31.525.pkl
+2025-06-03 10:30:12,459 - [*] EWC! lambda 0.000100
+2025-06-03 10:30:36,207 - [*] Year 2018 Training start
+2025-06-03 10:30:41,993 - node number torch.Size([257536, 12])
+2025-06-03 10:54:02,632 - logger name:log/GBA/pecpm-42/pecpm.log
+2025-06-03 10:54:02,632 - params : {'conf': 'conf/GBA/pecpm.json', 'seed': 42, 'paral': 0, 'gpuid': 2, 'logname': 'pecpm', 'method': 'PECPM', 'load_first_year': 0, 'first_year_model_path': 'log/SD/pecpm-42/2017/31.5668.pkl', 'device': device(type='cuda', index=2), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'PECPM': <class 'src.model.model.PECPM_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 1, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'beita': 1.0, 'cluster': 32, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'adp_adj': False, 'skip_dim': 64, 'end_dim': 64, 'hidden_channels': 32, 'dilation_channels': 64, 'residual_channels': 64, 'input_dim': 1, 'output_dim': 1, 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'path': 'log/GBA/pecpm-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 10:54:02,756 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 10:55:20,743 - [*] Year 2017 Dataset load!
+2025-06-03 10:55:20,778 - [*] Year 2017 Training start
+2025-06-03 10:55:23,234 - node number torch.Size([293632, 12])
+2025-06-03 10:55:45,079 - epoch:0, training loss:16297.9711 validation loss:47.3568
+2025-06-03 10:55:52,933 - [*] loss:3577.0593
+2025-06-03 10:55:54,172 - [*] year 2017, testing
+2025-06-03 10:56:10,134 - T:3	MAE	39.3386	RMSE	49.6124	MAPE	76.9798
+2025-06-03 10:56:40,732 - T:6	MAE	40.6814	RMSE	52.0530	MAPE	77.1443
+2025-06-03 10:58:19,126 - T:12	MAE	44.1521	RMSE	58.0240	MAPE	77.9503
+2025-06-03 10:58:19,127 - T:Avg	MAE	41.0999	RMSE	52.7318	MAPE	77.2635
+2025-06-03 10:58:19,135 - Finished optimization, total time:12.93 s, best model:log/GBA/pecpm-42/2017/47.3568.pkl
+2025-06-03 10:58:19,449 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-03 10:58:19,515 - [*] load from log/GBA/pecpm-42/2017/31.525.pkl
+2025-06-03 10:58:19,562 - [*] detect strategy feature
+2025-06-03 10:58:25,303 - number of increase nodes:252, nodes after 2 hop:torch.Size([2012]), total nodes this year 2321
+2025-06-03 11:02:48,330 - [*] Year 2018 Dataset load!
+2025-06-03 11:02:48,330 - [*] load from log/GBA/pecpm-42/2017/31.525.pkl
+2025-06-03 11:02:48,334 - [*] EWC! lambda 0.000100
+2025-06-03 11:03:18,708 - [*] Year 2018 Training start
+2025-06-03 11:03:26,239 - node number torch.Size([257536, 12])
+2025-06-03 11:03:49,086 - epoch:0, training loss:2039.4240 validation loss:30.2158
+2025-06-03 11:04:23,261 - logger name:log/GBA/pecpm-42/pecpm.log
+2025-06-03 11:04:23,261 - params : {'conf': 'conf/GBA/pecpm.json', 'seed': 42, 'paral': 0, 'gpuid': 2, 'logname': 'pecpm', 'method': 'PECPM', 'load_first_year': 0, 'first_year_model_path': 'log/SD/pecpm-42/2017/31.5668.pkl', 'device': device(type='cuda', index=2), 'methods': {'TrafficStream': <class 'src.model.model.TrafficStream_Model'>, 'STKEC': <class 'src.model.model.STKEC_Model'>, 'PECPM': <class 'src.model.model.PECPM_Model'>}, 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'beita': 1.0, 'cluster': 32, 'raw_data_path': 'data/GBA/finaldata/', 'save_data_path': 'data/GBA/FastData/', 'graph_path': 'data/GBA/graph/', 'model_path': 'log/GBA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'train': 1, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'adp_adj': False, 'skip_dim': 64, 'end_dim': 64, 'hidden_channels': 32, 'dilation_channels': 64, 'residual_channels': 64, 'input_dim': 1, 'output_dim': 1, 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'path': 'log/GBA/pecpm-42', 'logger': <Logger utils.initialize (INFO)>}
+2025-06-03 11:04:23,432 - [*] Year 2017 load from data/GBA/FastData/2017.npz
+2025-06-03 11:05:38,065 - [*] Year 2017 Dataset load!
+2025-06-03 11:05:38,088 - [*] Year 2017 Training start
+2025-06-03 11:05:39,708 - node number torch.Size([293632, 12])
+2025-06-03 11:06:03,045 - epoch:0, training loss:16297.9711 validation loss:47.3568
+2025-06-03 11:06:32,059 - epoch:1, training loss:2731.8491 validation loss:35.4225
+2025-06-03 11:07:00,001 - epoch:2, training loss:2192.1989 validation loss:34.1115
+2025-06-03 11:07:23,377 - epoch:3, training loss:2111.0851 validation loss:33.6715
+2025-06-03 11:07:47,716 - epoch:4, training loss:2070.7521 validation loss:32.8859
+2025-06-03 11:08:11,426 - epoch:5, training loss:2039.1799 validation loss:33.9986
+2025-06-03 11:08:35,060 - epoch:6, training loss:1991.3371 validation loss:34.0391
+2025-06-03 11:08:58,672 - epoch:7, training loss:1959.7822 validation loss:34.2119
+2025-06-03 11:09:22,831 - epoch:8, training loss:1942.9786 validation loss:32.5714
+2025-06-03 11:09:46,710 - epoch:9, training loss:1929.5139 validation loss:33.4588
+2025-06-03 11:10:09,866 - epoch:10, training loss:1923.0684 validation loss:32.9024
+2025-06-03 11:10:32,766 - epoch:11, training loss:1917.5733 validation loss:33.2847
+2025-06-03 11:10:55,643 - epoch:12, training loss:1910.2363 validation loss:33.9718
+2025-06-03 11:11:18,664 - epoch:13, training loss:1916.4586 validation loss:31.5250
+2025-06-03 11:11:47,447 - epoch:14, training loss:1905.3863 validation loss:33.3967
+2025-06-03 11:12:14,945 - epoch:15, training loss:1904.5709 validation loss:33.7890
+2025-06-03 11:12:37,965 - epoch:16, training loss:1896.9191 validation loss:31.7083
+2025-06-03 11:13:01,157 - epoch:17, training loss:1885.1481 validation loss:33.0564
+2025-06-03 11:13:24,057 - epoch:18, training loss:1889.5045 validation loss:32.0698
+2025-06-03 11:13:47,053 - epoch:19, training loss:1880.0384 validation loss:36.1060
+2025-06-03 11:13:55,447 - [*] loss:1930.4246
+2025-06-03 11:13:56,672 - [*] year 2017, testing
+2025-06-03 11:14:12,632 - T:3	MAE	23.0697	RMSE	34.4113	MAPE	15.5372
+2025-06-03 11:14:43,053 - T:6	MAE	24.8948	RMSE	37.4570	MAPE	16.8814
+2025-06-03 11:16:20,701 - T:12	MAE	28.8689	RMSE	43.7158	MAPE	21.0003
+2025-06-03 11:16:20,702 - T:Avg	MAE	25.2560	RMSE	37.9761	MAPE	17.5003
+2025-06-03 11:16:20,710 - Finished optimization, total time:255.48 s, best model:log/GBA/pecpm-42/2017/31.525.pkl
+2025-06-03 11:16:20,999 - [*] Year 2018 load from data/GBA/FastData/2018.npz
+2025-06-03 11:16:21,064 - [*] load from log/GBA/pecpm-42/2017/31.525.pkl
+2025-06-03 11:16:21,113 - [*] detect strategy feature
+2025-06-03 11:16:26,884 - number of increase nodes:252, nodes after 2 hop:torch.Size([2012]), total nodes this year 2321
+2025-06-03 11:21:00,459 - [*] Year 2018 Dataset load!
+2025-06-03 11:21:00,460 - [*] load from log/GBA/pecpm-42/2017/31.525.pkl
+2025-06-03 11:21:00,464 - [*] EWC! lambda 0.000100
+2025-06-03 11:21:32,767 - [*] Year 2018 Training start
+2025-06-03 11:21:39,622 - node number torch.Size([257536, 12])
+2025-06-03 11:22:00,474 - epoch:0, training loss:2039.7569 validation loss:29.4180
+2025-06-03 11:22:30,470 - epoch:1, training loss:2006.2362 validation loss:33.2591
+2025-06-03 11:22:54,825 - epoch:2, training loss:2017.0454 validation loss:29.8663
+2025-06-03 11:23:17,869 - epoch:3, training loss:2015.2480 validation loss:29.7486
+2025-06-03 11:23:40,801 - epoch:4, training loss:2006.1188 validation loss:28.6042
+2025-06-03 11:24:03,618 - epoch:5, training loss:1996.6691 validation loss:29.1250
+2025-06-03 11:24:31,261 - epoch:6, training loss:1993.8103 validation loss:29.1416
+2025-06-03 11:25:01,075 - epoch:7, training loss:1985.0958 validation loss:29.9206
+2025-06-03 11:25:39,533 - epoch:8, training loss:1976.1074 validation loss:31.3242
+2025-06-03 11:26:07,191 - epoch:9, training loss:1980.4205 validation loss:28.8727
+2025-06-03 11:26:34,765 - epoch:10, training loss:1964.0160 validation loss:30.1243
+2025-06-03 11:26:45,805 - [*] loss:2337.5889
+2025-06-03 11:26:46,753 - [*] year 2018, testing
+2025-06-03 11:26:51,005 - T:3	MAE	23.9071	RMSE	36.6925	MAPE	16.5566
+2025-06-03 11:27:01,708 - T:6	MAE	25.8711	RMSE	39.7350	MAPE	19.0586
+2025-06-03 11:27:27,448 - T:12	MAE	29.9725	RMSE	45.7670	MAPE	24.4936
+2025-06-03 11:27:27,449 - T:Avg	MAE	26.2364	RMSE	40.1986	MAPE	19.6138
+2025-06-03 11:27:27,452 - Finished optimization, total time:177.11 s, best model:log/GBA/pecpm-42/2018/28.6042.pkl
+2025-06-03 11:27:28,174 - [*] Year 2019 load from data/GBA/FastData/2019.npz
+2025-06-03 11:27:28,251 - [*] load from log/GBA/pecpm-42/2018/28.6042.pkl
+2025-06-03 11:27:28,315 - [*] detect strategy feature
+2025-06-03 11:27:34,961 - number of increase nodes:263, nodes after 2 hop:torch.Size([2050]), total nodes this year 2352
+2025-06-03 11:30:35,783 - [*] Year 2019 Dataset load!
+2025-06-03 11:30:35,783 - [*] load from log/GBA/pecpm-42/2018/28.6042.pkl
+2025-06-03 11:30:35,790 - [*] EWC! lambda 0.000100
+2025-06-03 11:31:04,256 - [*] Year 2019 Training start
+2025-06-03 11:31:09,561 - node number torch.Size([262400, 12])
+2025-06-03 11:31:29,474 - epoch:0, training loss:1882.0405 validation loss:30.9588
+2025-06-03 11:31:54,198 - epoch:1, training loss:1853.4477 validation loss:28.9594
+2025-06-03 11:32:19,051 - epoch:2, training loss:1852.9950 validation loss:30.1564
+2025-06-03 11:32:43,387 - epoch:3, training loss:1852.5880 validation loss:29.5315
+2025-06-03 11:33:06,826 - epoch:4, training loss:1857.4321 validation loss:30.3760
+2025-06-03 11:33:37,031 - epoch:5, training loss:1852.6690 validation loss:29.3976
+2025-06-03 11:34:11,918 - epoch:6, training loss:1854.5979 validation loss:28.5630
+2025-06-03 11:34:45,181 - epoch:7, training loss:1859.5369 validation loss:30.8510
+2025-06-03 11:35:17,166 - epoch:8, training loss:1859.3141 validation loss:30.2310
+2025-06-03 11:35:50,149 - epoch:9, training loss:1876.9220 validation loss:29.1179
+2025-06-03 11:36:24,809 - epoch:10, training loss:1864.3837 validation loss:32.1251
+2025-06-03 11:36:58,903 - epoch:11, training loss:1851.6412 validation loss:31.4541
+2025-06-03 11:37:31,203 - epoch:12, training loss:1854.8269 validation loss:28.9389
+2025-06-03 11:37:44,864 - [*] loss:1892.8137
+2025-06-03 11:37:45,080 - [*] year 2019, testing
+2025-06-03 11:37:47,003 - T:3	MAE	20.2537	RMSE	31.0426	MAPE	14.9916
+2025-06-03 11:37:50,567 - T:6	MAE	22.1416	RMSE	34.1881	MAPE	16.0410
+2025-06-03 11:38:02,232 - T:12	MAE	25.8562	RMSE	39.9664	MAPE	19.4777
+2025-06-03 11:38:02,232 - T:Avg	MAE	22.4123	RMSE	34.5327	MAPE	16.5722
+2025-06-03 11:38:02,234 - Finished optimization, total time:235.43 s, best model:log/GBA/pecpm-42/2019/28.563.pkl
+2025-06-03 11:38:02,922 - [*] Year 2020 load from data/GBA/FastData/2020.npz
+2025-06-03 11:38:02,985 - [*] load from log/GBA/pecpm-42/2019/28.563.pkl
+2025-06-03 11:38:03,123 - [*] detect strategy feature
+2025-06-03 11:38:10,751 - number of increase nodes:235, nodes after 2 hop:torch.Size([1938]), total nodes this year 2352
+2025-06-03 11:41:07,275 - [*] Year 2020 Dataset load!
+2025-06-03 11:41:07,275 - [*] load from log/GBA/pecpm-42/2019/28.563.pkl
+2025-06-03 11:41:07,279 - [*] EWC! lambda 0.000100
+2025-06-03 11:41:28,715 - [*] Year 2020 Training start
+2025-06-03 11:41:33,587 - node number torch.Size([248064, 12])
+2025-06-03 11:41:52,146 - epoch:0, training loss:1806.4919 validation loss:32.7448
+2025-06-03 11:42:15,296 - epoch:1, training loss:1756.9437 validation loss:29.6809
+2025-06-03 11:42:38,323 - epoch:2, training loss:1758.8096 validation loss:30.9596
+2025-06-03 11:43:02,297 - epoch:3, training loss:1754.5228 validation loss:28.4737
+2025-06-03 11:43:24,960 - epoch:4, training loss:1749.5293 validation loss:29.9244
+2025-06-03 11:43:47,509 - epoch:5, training loss:1749.5319 validation loss:27.6538
+2025-06-03 11:44:10,490 - epoch:6, training loss:1751.3989 validation loss:34.2465
+2025-06-03 11:44:34,401 - epoch:7, training loss:1746.5062 validation loss:30.1435
+2025-06-03 11:45:07,768 - epoch:8, training loss:1749.5795 validation loss:32.0037
+2025-06-03 11:45:40,293 - epoch:9, training loss:1746.6232 validation loss:31.5597
+2025-06-03 11:46:13,605 - epoch:10, training loss:1743.1865 validation loss:33.6154
+2025-06-03 11:46:43,118 - epoch:11, training loss:1758.1516 validation loss:35.0852
+2025-06-03 11:46:56,520 - [*] loss:1710.8350
+2025-06-03 11:46:56,731 - [*] year 2020, testing
+2025-06-03 11:46:58,283 - T:3	MAE	27.4154	RMSE	35.5226	MAPE	25.2627
+2025-06-03 11:47:01,330 - T:6	MAE	28.1107	RMSE	37.1240	MAPE	26.3734
+2025-06-03 11:47:12,096 - T:12	MAE	29.6860	RMSE	40.3475	MAPE	28.7578
+2025-06-03 11:47:12,097 - T:Avg	MAE	28.2900	RMSE	37.3927	MAPE	26.6122
+2025-06-03 11:47:12,098 - Finished optimization, total time:190.70 s, best model:log/GBA/pecpm-42/2020/27.6538.pkl
+2025-06-03 11:47:12,558 - 
+
+
+2025-06-03 11:47:12,559 - 3   	 MAE	     23.07	     23.91	     20.25	     27.42		   23.66
+2025-06-03 11:47:12,559 - 3   	RMSE	     34.41	     36.69	     31.04	     35.52		   34.42
+2025-06-03 11:47:12,559 - 3   	MAPE	     15.54	     16.56	     14.99	     25.26		   18.09
+2025-06-03 11:47:12,559 - 6   	 MAE	     24.89	     25.87	     22.14	     28.11		   25.25
+2025-06-03 11:47:12,559 - 6   	RMSE	     37.46	     39.74	     34.19	     37.12		   37.13
+2025-06-03 11:47:12,559 - 6   	MAPE	     16.88	     19.06	     16.04	     26.37		   19.59
+2025-06-03 11:47:12,559 - 12  	 MAE	     28.87	     29.97	     25.86	     29.69		   28.60
+2025-06-03 11:47:12,559 - 12  	RMSE	     43.72	     45.77	     39.97	     40.35		   42.45
+2025-06-03 11:47:12,559 - 12  	MAPE	     21.00	     24.49	     19.48	     28.76		   23.43
+2025-06-03 11:47:12,559 - Avg 	 MAE	     25.26	     26.24	     22.41	     28.29		   25.55
+2025-06-03 11:47:12,559 - Avg 	RMSE	     37.98	     40.20	     34.53	     37.39		   37.53
+2025-06-03 11:47:12,559 - Avg 	MAPE	     17.50	     19.61	     16.57	     26.61		   20.07
+2025-06-03 11:47:12,559 - year	2017	total_time	  255.4833	average_time	   12.7742	epoch	20
+2025-06-03 11:47:12,559 - year	2018	total_time	  177.1131	average_time	   16.1012	epoch	11
+2025-06-03 11:47:12,559 - year	2019	total_time	  235.4266	average_time	   18.1098	epoch	13
+2025-06-03 11:47:12,559 - year	2020	total_time	  190.7005	average_time	   15.8917	epoch	12
+2025-06-03 11:47:12,559 - total time: 858.7235

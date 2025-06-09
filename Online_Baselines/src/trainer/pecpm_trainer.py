@@ -31,7 +31,7 @@ def train(inputs, args):
     N = inputs['train_x'].shape[-1]
     
     # 加载attention数据
-    pathatt = 'data/SD/attetion/' + str(args.year) + '_attention.npy'
+    pathatt = f'data/CA/attetion/' + str(args.year) + '_attention.npy'
     attention = np.load(pathatt)
     C = attention.shape[-1]
     attention = attention.reshape(-1, N, C)

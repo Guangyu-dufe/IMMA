@@ -41,3 +41,7 @@ Offline_Baselines/logs/*
 ./.git.bak
 
 ./.idea
+
+Data_alignment_GBA_GLA/
+
+Data_alignment_CA/

@@ -19,6 +19,9 @@ class EWC(nn.Module):
         self.ewc_lambda = ewc_lambda
         self.ewc_type = ewc_type
         self.adj = adj
+        # Initialize fisher_information and parameter_means to avoid AttributeError
+        self.fisher_information = {}
+        self.parameter_means = {}
 
     def state_dict(self, destination=None, prefix='', keep_vars=False):
         state_dict = super().state_dict(destination=destination, prefix=prefix, keep_vars=keep_vars)
@@ -70,7 +73,14 @@ class EWC(nn.Module):
             self.model.zero_grad()
             data = data.to(device)
             output = self.model(data, self.adj)
-            loss = lossfunc(output, data.y)
+            
+            # Handle models that return tuples (e.g., STKEC returns pred, attention)
+            if isinstance(output, tuple):
+                pred = output[0]  # Use the first element as prediction
+            else:
+                pred = output
+                
+            loss = lossfunc(pred, data.y)
             log_likelihood = -loss
 
             grad_log_liklihood = autograd.grad(log_likelihood, self.model.parameters(), allow_unused=True)
@@ -87,30 +97,68 @@ class EWC(nn.Module):
             self.parameter_means[n] = p.clone().detach()
 
     def _update_fisher_params_for_stkec(self, loader, lossfunc, device):
-        _buff_param_names = [param[0].replace('.', '__') for param in self.model.named_parameters()]
-        est_fisher_info = {name: 0.0 for name in _buff_param_names}
+        # Initialize fisher information for most recent task (STKEC version)
+        self.fisher_information = {}
+        # Initialize precision matrices
+        precision_matrices = {}
+        
+        # Initialize fisher information for each parameter
+        for n, p in self.model.named_parameters():
+            precision_matrices[n] = p.clone().detach().fill_(0).to(device)
+        
+        self.model.eval()
         for i, data in enumerate(loader):
+            self.model.zero_grad()
             data = data.to(device, non_blocking=True)
-            pred, _ = self.model.forward(data, self.adj)
+            output = self.model.forward(data, self.adj)
+            
+            # Handle models that return tuples (e.g., STKEC returns pred, attention)
+            if isinstance(output, tuple):
+                pred = output[0]  # Use the first element as prediction
+            else:
+                pred = output
+                
             log_likelihood = lossfunc(data.y, pred, reduction='mean')
-            grad_log_liklihood = autograd.grad(log_likelihood, self.model.parameters())
-            for name, grad in zip(_buff_param_names, grad_log_liklihood):
-                est_fisher_info[name] += grad.data.clone() ** 2
-        for name in _buff_param_names:
-            self.register_buffer(name + '_estimated_fisher', est_fisher_info[name])
+            grad_log_liklihood = autograd.grad(log_likelihood, self.model.parameters(), allow_unused=True)
+            
+            for (n, p), g in zip(self.model.named_parameters(), grad_log_liklihood):
+                if g is not None:  # Only update precision matrix if gradient exists
+                    precision_matrices[n].data += g.data ** 2
+        
+        # Set fisher_information for compute_consolidation_loss to use
+        self.fisher_information = precision_matrices
 
     def _update_fisher_params_for_pecpm(self, loader, lossfunc, device):
-        _buff_param_names = [param[0].replace('.', '__') for param in self.model.named_parameters()]
-        est_fisher_info = {name: 0.0 for name in _buff_param_names}
+        # Initialize fisher information for most recent task (PECPM version)
+        self.fisher_information = {}
+        # Initialize precision matrices
+        precision_matrices = {}
+        
+        # Initialize fisher information for each parameter
+        for n, p in self.model.named_parameters():
+            precision_matrices[n] = p.clone().detach().fill_(0).to(device)
+        
+        self.model.eval()
         for i, data in enumerate(loader):
+            self.model.zero_grad()
             data = data.to(device, non_blocking=True)
-            pred, _ = self.model.forward(data, self.adj)
+            output = self.model.forward(data, self.adj)
+            
+            # Handle models that return tuples (e.g., PECPM returns pred, attention)
+            if isinstance(output, tuple):
+                pred = output[0]  # Use the first element as prediction
+            else:
+                pred = output
+                
             log_likelihood = lossfunc(data.y, pred, reduction='mean')
-            grad_log_liklihood = autograd.grad(log_likelihood, self.model.parameters())
-            for name, grad in zip(_buff_param_names, grad_log_liklihood):
-                est_fisher_info[name] += grad.data.clone() ** 2
-        for name in _buff_param_names:
-            self.register_buffer(name + '_estimated_fisher', est_fisher_info[name])
+            grad_log_liklihood = autograd.grad(log_likelihood, self.model.parameters(), allow_unused=True)
+            
+            for (n, p), g in zip(self.model.named_parameters(), grad_log_liklihood):
+                if g is not None:  # Only update precision matrix if gradient exists
+                    precision_matrices[n].data += g.data ** 2
+        
+        # Set fisher_information for compute_consolidation_loss to use
+        self.fisher_information = precision_matrices
 
     def register_ewc_params(self, loader, lossfunc, device):
         self._update_fisher_params(loader, lossfunc, device)
@@ -126,6 +174,13 @@ class EWC(nn.Module):
         self._update_mean_params()
 
     def compute_consolidation_loss(self):
+        # Check if fisher_information and parameter_means have been initialized
+        if not hasattr(self, 'fisher_information') or not hasattr(self, 'parameter_means'):
+            return torch.tensor(0.0, device=next(self.model.parameters()).device)
+        
+        if not self.fisher_information or not self.parameter_means:
+            return torch.tensor(0.0, device=next(self.model.parameters()).device)
+            
         losses = []
         for n, p in self.model.named_parameters():
             if n in self.fisher_information and n in self.parameter_means:
