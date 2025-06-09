@@ -12,9 +12,11 @@ import os.path as osp
 # scipy.stats.entropy(x, y) 
 
 
+
+
 def get_feature(data, graph, args, model, adj):
     node_size = data.shape[1]
-    data = np.reshape(data[-288*7-1:-1,:], (-1, args.x_len, node_size))
+    data = np.reshape(data[-288*7-1:-1,:], (-1, args.x_len*2, node_size))
     dataloader = DataLoader(continue_learning_Dataset(data), batch_size=data.shape[0], shuffle=False, pin_memory=True, num_workers=3)
     # feature shape [T', feature_dim, N]
     for data in dataloader:
@@ -26,6 +28,7 @@ def get_feature(data, graph, args, model, adj):
 
         # [N, T', feature_dim]
         return feature.cpu().detach().numpy()
+
 
 
 def get_adj(year, args):
@@ -103,17 +106,37 @@ def influence_node_selection(model, args, pre_data, cur_data, pre_graph, cur_gra
         # print(pre_data)
         # print(pre_data.shape)
         # print(cur_data.shape)
-        for i in range(pre_data.shape[0]):
+        # 确保两个数据集的维度一致
+        min_nodes = min(pre_data.shape[0], cur_data.shape[0])
+        pre_data = pre_data[:min_nodes, :, :]
+        cur_data = cur_data[:min_nodes, :, :]
+        
+        for i in range(min_nodes):
             score_ = 0.0
             for j in range(pre_data.shape[2]):
-                # if max(pre_data[i,:,j]) - min(pre_data[i,:,j]) == 0 and max(cur_data[i,:,j]) - min(cur_data[i,:,j]) == 0: continue
-                pre_data[i,:,j] = (pre_data[i,:,j] - min(pre_data[i,:,j]))/(max(pre_data[i,:,j]) - min(pre_data[i,:,j]))
-                cur_data[i,:,j] = (cur_data[i,:,j] - min(cur_data[i,:,j]))/(max(cur_data[i,:,j]) - min(cur_data[i,:,j]))
+                # 处理除零错误
+                pre_range = max(pre_data[i,:,j]) - min(pre_data[i,:,j])
+                cur_range = max(cur_data[i,:,j]) - min(cur_data[i,:,j])
                 
-                pre_prob, _ = np.histogram(pre_data[i,:,j], bins=10, range=(0, 1))
-                pre_prob = pre_prob *1.0 / sum(pre_prob)
-                cur_prob, _ = np.histogram(cur_data[i,:,j], bins=10, range=(0, 1))
-                cur_prob = cur_prob * 1.0 /sum(cur_prob)
+                if pre_range == 0:
+                    pre_data_norm = np.zeros_like(pre_data[i,:,j])
+                else:
+                    pre_data_norm = (pre_data[i,:,j] - min(pre_data[i,:,j])) / pre_range
+                
+                if cur_range == 0:
+                    cur_data_norm = np.zeros_like(cur_data[i,:,j])
+                else:
+                    cur_data_norm = (cur_data[i,:,j] - min(cur_data[i,:,j])) / cur_range
+                
+                pre_prob, _ = np.histogram(pre_data_norm, bins=10, range=(0, 1))
+                pre_prob = pre_prob * 1.0 / (sum(pre_prob) + 1e-10)  # 添加小常数避免除零
+                cur_prob, _ = np.histogram(cur_data_norm, bins=10, range=(0, 1))
+                cur_prob = cur_prob * 1.0 / (sum(cur_prob) + 1e-10)  # 添加小常数避免除零
+                
+                # 确保概率不为0，避免JS散度计算错误
+                pre_prob = np.maximum(pre_prob, 1e-10)
+                cur_prob = np.maximum(cur_prob, 1e-10)
+                
                 score_ += distance.jensenshannon(pre_prob, cur_prob)
             score.append(score_)
         # print(sorted(score))

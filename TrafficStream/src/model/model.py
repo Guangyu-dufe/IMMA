@@ -96,9 +96,9 @@ class Basic_Model_org(nn.Module):
             
         return x
 
-class Basic_Model(nn.Module):
+class GWNET_Model(nn.Module):
     def __init__(self, args):
-        super(Basic_Model, self).__init__()
+        super(GWNET_Model, self).__init__()
         self.args = args
         self.gwnet = GWNET(device=args.device)
         
@@ -123,8 +123,8 @@ class TrafficEvent(nn.Module):
         self.args = args
         
         self.extra_feature = args.extra_feature
-        self.basic_model = Basic_Model_org(args)
-        # self.event_model = Basic_Model(args)
+        # self.basic_model = Basic_Model_org(args)
+        self.basic_model = GWNET_Model(args)
         
         self.memory_size = args.memory_size
         self.memory_dim = args.gcn["in_channel"]
@@ -277,15 +277,21 @@ class TrafficEvent(nn.Module):
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))  # [bs, N, feature*2]
         else:
             x = data.x.reshape((batch_size, N, self.args.gcn["in_channel"]*2))[:, :, :self.args.gcn["in_channel"]]  # [bs, N, feature]
-    
-        similarity, logits, node_memory_features = self.query_memory(x, adj)
         
+        similarity, logits, node_memory_features = self.query_memory(x, adj)
+        similarity = similarity.mean()
+
+
         from types import SimpleNamespace
         basic_data = SimpleNamespace()
         if self.args.expand:
             basic_data.x = torch.cat([data.x.reshape(-1, self.args.gcn["in_channel"]*2)[..., :self.args.gcn["in_channel"]], node_memory_features.reshape(-1,self.args.gcn["in_channel"])], dim=-1)
         else:
             basic_data.x = data.x.reshape(-1, self.args.gcn["in_channel"]*2)[:, :self.args.gcn["in_channel"]]
-        return self.basic_model.feature(basic_data, adj)
+
+
+        basic_features = self.basic_model(basic_data, adj)
+
+        return basic_features
 
     

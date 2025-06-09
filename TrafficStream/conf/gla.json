@@ -14,10 +14,10 @@
     "x_len": 12,
     "data_process": 0,
     "auto_test": 1,
-    "raw_data_path": "data/SD/finaldata/",
-    "save_data_path": "data/SD/FastData/",
-    "graph_path": "data/SD/graph/",
-    "model_path": "res/SD/",
+    "raw_data_path": "data/GLA/finaldata/",
+    "save_data_path": "data/GLA/FastData/",
+    "graph_path": "data/GLA/graph/",
+    "model_path": "res/GLA/",
     "gcn":{
         "in_channel": 12,
         "out_channel": 12,
@@ -36,7 +36,7 @@
     },
 
 
-    "logname": "all-com1",
+    "logname": "gla",
 
 
     "strategy": "incremental",
@@ -44,7 +44,7 @@
     "increase": true,
     "num_hops": 2,
 
-    "detect": false,
+    "detect": true,
     "detect_strategy": "feature",
 
     "ewc": true,
@@ -55,11 +55,11 @@
     "replay_strategy": "random",
     "replay_num_samples": 300,
 
-    "extra_feature": true,
+    "extra_feature": false,
 
     "moco": true,
     "momentum_type": "linear",
-    "memory_size": 32,
+    "memory_size":128,
 
     "expand": true
 

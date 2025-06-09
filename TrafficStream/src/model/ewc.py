@@ -47,10 +47,10 @@ class EWC(nn.Module):
                 basic_data.x = data.x.reshape(-1, self.model.args.gcn["in_channel"]*2)[:, :self.model.args.gcn["in_channel"]]
             basic_data.batch = data.batch
 
-            if self.model.args.expand:
-                basic_features = self.model.feature(basic_data, self.adj)
-            else:
-                basic_features = self.model.basic_model.feature(basic_data, self.adj)
+            # if self.model.args.expand:
+            #     basic_features = self.model.feature(basic_data, self.adj)
+            # else:
+            basic_features = self.model.basic_model.feature(basic_data, self.adj)
             log_likelihood = lossfunc(data.y, basic_features, reduction='mean')
             
             grad_log_liklihood = autograd.grad(log_likelihood, trainable_params, 

@@ -9,7 +9,7 @@ import math
 import os.path as osp
 import networkx as nx
 import pdb
-
+import gc  
 from torch.optim.lr_scheduler import ReduceLROnPlateau, OneCycleLR
 import torch
 import torch.nn as nn
@@ -30,8 +30,8 @@ from src.model import replay
 import torch.nn.functional as F
 
 result = {3:{"mae":{}, "mape":{}, "rmse":{}}, 6:{"mae":{}, "mape":{}, "rmse":{}}, 12:{"mae":{}, "mape":{}, "rmse":{}}}
-pin_memory = True
-n_work = 16 
+pin_memory = False
+n_work = 4
 
 def update(src, tmp):
     for key in tmp:
@@ -107,6 +107,20 @@ def seed_set(seed=0):
     torch.backends.cudnn.deterministic = True
 
 
+def get_memory_usage():
+    """获取当前内存使用情况"""
+    if torch.cuda.is_available():
+        return torch.cuda.memory_allocated() / 1024**3  # GB
+    else:
+        import psutil
+        return psutil.virtual_memory().used / 1024**3  # GB
+
+def clear_memory():
+    """清理内存"""
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
 def train(inputs, args):
     # Model Setting
     global result
@@ -116,12 +130,20 @@ def train(inputs, args):
     if args.loss == "mse": lossfunc = func.mse_loss
     elif args.loss == "huber": lossfunc = func.smooth_l1_loss
 
-    # Dataset Definition
+    # 根据数据大小动态调整batch size
+    data_size = inputs["train_x"].shape[0] if hasattr(inputs["train_x"], 'shape') else len(inputs["train_x"])
+    if data_size > 10000:  # 如果数据很大，减小batch size
+        dynamic_batch_size = max(16, args.batch_size // 2)
+        args.logger.info(f"[*] Large dataset detected ({data_size} samples), reducing batch size from {args.batch_size} to {dynamic_batch_size}")
+    else:
+        dynamic_batch_size = args.batch_size
+
+    # Dataset Definition - 使用动态batch size
     if args.strategy == 'incremental' and args.year > args.begin_year:
         train_loader = DataLoader(TrafficDataset("", "", x=inputs["train_x"][:, :, args.subgraph.numpy()], y=inputs["train_y"][:, :, args.subgraph.numpy()], \
-            edge_index="", mode="subgraph"), batch_size=args.batch_size, shuffle=True, pin_memory=pin_memory, num_workers=n_work)
+            edge_index="", mode="subgraph"), batch_size=dynamic_batch_size, shuffle=True, pin_memory=False, num_workers=4)
         val_loader = DataLoader(TrafficDataset("", "", x=inputs["val_x"][:, :, args.subgraph.numpy()], y=inputs["val_y"][:, :, args.subgraph.numpy()], \
-            edge_index="", mode="subgraph"), batch_size=args.batch_size, shuffle=False, pin_memory=pin_memory, num_workers=n_work) 
+            edge_index="", mode="subgraph"), batch_size=dynamic_batch_size, shuffle=False, pin_memory=False, num_workers=4) 
         graph = nx.Graph()
         graph.add_nodes_from(range(args.subgraph.size(0)))
         graph.add_edges_from(args.subgraph_edge_index.numpy().T)
@@ -129,12 +151,13 @@ def train(inputs, args):
         adj = adj / (np.sum(adj, 1, keepdims=True) + 1e-6)
         vars(args)["sub_adj"] = torch.from_numpy(adj).to(torch.float).to(args.device)
     else:
-        train_loader = DataLoader(TrafficDataset(inputs, "train"), batch_size=args.batch_size, shuffle=True, pin_memory=pin_memory, num_workers=n_work)
-        val_loader = DataLoader(TrafficDataset(inputs, "val"), batch_size=args.batch_size, shuffle=False, pin_memory=pin_memory, num_workers=n_work)
+        train_loader = DataLoader(TrafficDataset(inputs, "train"), batch_size=dynamic_batch_size, shuffle=True, pin_memory=False, num_workers=4)
+        val_loader = DataLoader(TrafficDataset(inputs, "val"), batch_size=dynamic_batch_size, shuffle=False, pin_memory=False, num_workers=4)
         vars(args)["sub_adj"] = vars(args)["adj"]
-    test_loader = DataLoader(TrafficDataset(inputs, "test"), batch_size=args.batch_size, shuffle=False, pin_memory=pin_memory, num_workers=n_work)
+    test_loader = DataLoader(TrafficDataset(inputs, "test"), batch_size=dynamic_batch_size, shuffle=False, pin_memory=False, num_workers=4)
 
     args.logger.info("[*] Year " + str(args.year) + " Dataset load!")
+    args.logger.info(f"[*] Initial memory usage: {get_memory_usage():.2f} GB")
 
     # Model Definition
     if args.init == True and args.year > args.begin_year:
@@ -142,7 +165,7 @@ def train(inputs, args):
         if args.ewc:
             args.logger.info("[*] EWC! lambda {:.6f}".format(args.ewc_lambda))
             model = EWC(gnn_model, args.adj, args.ewc_lambda, args.ewc_strategy)
-            ewc_loader = DataLoader(TrafficDataset(inputs, "train"), batch_size=args.batch_size, shuffle=False, pin_memory=pin_memory, num_workers=n_work)
+            ewc_loader = DataLoader(TrafficDataset(inputs, "train"), batch_size=args.batch_size, shuffle=False, pin_memory=False, num_workers=4)
             model.register_ewc_params(ewc_loader, lossfunc, device)
         else:
             model = gnn_model
@@ -178,12 +201,19 @@ def train(inputs, args):
         training_loss = 0.0
         start_time = datetime.now()
         similaritys = []
+        moco_loss_sum = 0.0
         # Train Model
         cn = 0
+        
+        # 每10个epoch清理一次内存
+        if epoch % 10 == 0:
+            clear_memory()
+            args.logger.info(f"[*] Epoch {epoch}, memory usage: {get_memory_usage():.2f} GB")
+        
         for batch_idx, data in enumerate(train_loader):
             if epoch == 0 and batch_idx == 0:
                 args.logger.info("node number {}".format(data.x.shape))
-            data = data.to(device, non_blocking=pin_memory)
+            data = data.to(device, non_blocking=False)
             
             optimizer.zero_grad()
 
@@ -214,12 +244,7 @@ def train(inputs, args):
 
             loss_basic_m = lossfunc(basic_features, basic_features_m, reduction="mean")
 
-            loss = loss_basic.mean() + loss_basic_m*0.3 
-
-
-
-
-
+            loss = loss_basic.mean() + loss_basic_m*0.2
 
             if args.ewc and args.year > args.begin_year:
                 loss += model.compute_consolidation_loss()
@@ -227,11 +252,23 @@ def train(inputs, args):
             classification_loss += float(loss_classification)
             basic_loss += float(loss_basic[predictions==0].mean())
             event_loss += float(loss_basic[predictions==1].mean())
+            
+            # 保存moco loss用于记录
+            moco_loss_value = float(loss_basic_m.mean())
+            moco_loss_sum += moco_loss_value
+            
             loss.backward()
             # args.logger.info('run first item successfully')
 
 
             optimizer.step()
+            
+            # 定期清理中间变量
+            del loss_basic, loss_classification, loss_basic_m, loss, predictions
+            
+            # 每50个batch清理一次GPU缓存
+            if batch_idx % 50 == 0:
+                torch.cuda.empty_cache() if torch.cuda.is_available() else None
             
             cn += 1
 
@@ -244,15 +281,17 @@ def train(inputs, args):
         basic_loss = basic_loss/cn
         event_loss = event_loss/cn
         classification_loss = classification_loss/cn
+        moco_loss_avg = moco_loss_sum/cn
 
         # Validate Model
         validation_loss = 0.0
         validation_basic_loss = 0.0
         validation_event_loss = 0.0
         cn = 0
+        model.eval()  # 确保模型在验证模式
         with torch.no_grad():
             for batch_idx, data in enumerate(val_loader):
-                data = data.to(device,non_blocking=pin_memory)
+                data = data.to(device,non_blocking=False)  # 关闭non_blocking
                 basic_features, basic_features_m, memory_features, logits = model(data, args.sub_adj)
 
                 # only need for number of node is not same
@@ -273,8 +312,14 @@ def train(inputs, args):
                     validation_basic_loss += float(loss_basic[predictions==0].mean())
                 if len(loss_basic[predictions==1]) > 0:
                     validation_event_loss += float(loss_basic[predictions==1].mean())
+                
+                # 显式释放内存
+                del basic_features, basic_features_m, data, loss_basic
+                torch.cuda.empty_cache() if torch.cuda.is_available() else None
+                
                 cn += 1
         
+        model.train()  # 恢复训练模式
         validation_loss = float(validation_loss/cn)
         validation_basic_loss = validation_basic_loss/cn
         validation_event_loss = validation_event_loss/cn
@@ -283,17 +328,23 @@ def train(inputs, args):
         # args.logger.info("[*]Validation--basic_loss:{:.4f}, event_loss:{:.4f}".format(validation_basic_loss, validation_event_loss))
 
         # args.logger.info(f"epoch:{epoch}, training loss:{training_loss:.4f} validation loss:{validation_loss:.4f}, similarity:{similaritys[:5]}")
-        args.logger.info(f"epoch:{epoch}, training loss:{training_loss:.4f} validation loss:{validation_loss:.4f}, moco loss:{loss_basic_m.mean():.4f}")
+        args.logger.info(f"epoch:{epoch}, training loss:{training_loss:.4f} validation loss:{validation_loss:.4f}, moco loss:{moco_loss_avg:.4f}")
 
         # Early Stop
         if validation_loss <= lowest_validation_loss:
             counter = 0
             lowest_validation_loss = round(validation_loss, 4)
             torch.save({'model_state_dict': gnn_model.state_dict()}, osp.join(path, str(round(validation_loss,4))+".pkl"))
+            # 保存后清理缓存
+            clear_memory()
         else:
             counter += 1
             if counter > patience:
                 break
+
+    # 训练结束后清理内存
+    clear_memory()
+    args.logger.info(f"[*] Training completed, memory usage: {get_memory_usage():.2f} GB")
 
     best_model_path = osp.join(path, str(lowest_validation_loss)+".pkl")
     best_model = TrafficEvent(args)
@@ -309,21 +360,19 @@ def train(inputs, args):
 
 def test_model(model, args, testset, pin_memory):
     model.eval()
-    pred_ = []
-    truth_ = []
+    # 移除全局列表，改用在线计算
     test_loss = 0.0
     test_basic_loss = 0.0
     test_event_loss = 0.0
-    test_classification_loss = 0.0
+    
+    # 用于累积度量计算的变量
+    total_samples = 0
+    mae_sum = {3: 0.0, 6: 0.0, 12: 0.0}
+    rmse_sum = {3: 0.0, 6: 0.0, 12: 0.0}
+    mape_sum = {3: 0.0, 6: 0.0, 12: 0.0}
+    
     with torch.no_grad():
         cn = 0
-        pred_basic = []
-        truth_basic = []
-        pred_event = []
-        truth_event = []
-        import pandas as pd
-        test_results = []
-        
         for data in testset:
             data = data.to(args.device, non_blocking=pin_memory)
             basic_features, basic_features_m, similarity, logits = model(data, args.adj)
@@ -343,51 +392,40 @@ def test_model(model, args, testset, pin_memory):
     
             test_loss += float(loss_basic.mean())
 
-            # mae = masked_mae_np(data.y.cpu().data.numpy(), basic_features.cpu().data.numpy(), 0)
-            # rmse = masked_mse_np(data.y.cpu().data.numpy(), basic_features.cpu().data.numpy(), 0) ** 0.5
-            # mape = masked_mape_np(data.y.cpu().data.numpy(), basic_features.cpu().data.numpy(), 0)
-
-            # y_true = data.y.cpu().data.numpy()
-            # y_pred = basic_features.cpu().data.numpy()
-            # smape = np.mean(2.0 * np.abs(y_pred - y_true) / (np.abs(y_pred) + np.abs(y_true) + 1e-10)) * 100
-            # test_results.append({
-            #     'similarity': similarity.item(),
-            #     'mae': mae,
-            #     'rmse': rmse, 
-            #     'mape': mape,
-            #     'wmape': smape
-            # })
-            
-
             if len(loss_basic[predictions==0]) > 0:
                 test_basic_loss += float(loss_basic[predictions==0].mean())
             if len(loss_basic[predictions==1]) > 0:
                 test_event_loss += float(loss_basic[predictions==1].mean())
-                
             
-            # Save samples with prediction=0 and prediction=1 separately
-            basic_mask = predictions == 0
-            event_mask = predictions == 1
+            # 在线计算度量而不是累积数据
+            batch_size = basic_features.shape[0]
+            nodes_per_batch = int(batch_size // len(predictions))
             
-            # Get number of nodes per batch
-            nodes_per_batch = int(basic_features.shape[0] // len(predictions))
+            # 重塑数据进行度量计算
+            pred_reshaped = basic_features.reshape(len(predictions), nodes_per_batch, -1)
+            truth_reshaped = data.y.reshape(len(predictions), nodes_per_batch, -1)
             
-            # Reshape features and labels for batch grouping
-            features_reshaped = basic_features.reshape(len(predictions), nodes_per_batch, -1)
-            labels_reshaped = data.y.reshape(len(predictions), nodes_per_batch, -1)
+            # 转换为numpy进行度量计算
+            pred_np = pred_reshaped.cpu().data.numpy()
+            truth_np = truth_reshaped.cpu().data.numpy()
             
-            # Save predictions and ground truth for basic traffic and event traffic separately
-            if torch.any(basic_mask):
-                pred_basic.append(features_reshaped[basic_mask].cpu().data.numpy())
-                truth_basic.append(labels_reshaped[basic_mask].cpu().data.numpy())
+            # 在线累积度量值
+            batch_samples = pred_np.shape[0]
+            total_samples += batch_samples
             
-            if torch.any(event_mask):
-                pred_event.append(features_reshaped[event_mask].cpu().data.numpy())
-                truth_event.append(labels_reshaped[event_mask].cpu().data.numpy())
+            for i in [3, 6, 12]:
+                if pred_np.shape[2] >= i:
+                    mae = masked_mae_np(truth_np[:, :, :i], pred_np[:, :, :i], 0)
+                    rmse = masked_mse_np(truth_np[:, :, :i], pred_np[:, :, :i], 0) ** 0.5
+                    mape = masked_mape_np(truth_np[:, :, :i], pred_np[:, :, :i], 0)
+                    
+                    mae_sum[i] += mae * batch_samples
+                    rmse_sum[i] += rmse * batch_samples
+                    mape_sum[i] += mape * batch_samples
             
-            # Save all samples for overall evaluation
-            pred_.append(basic_features.cpu().data.numpy())
-            truth_.append(data.y.cpu().data.numpy())
+            # 显式删除大的tensor以释放内存
+            del basic_features, basic_features_m, data, pred_reshaped, truth_reshaped, pred_np, truth_np
+            torch.cuda.empty_cache() if torch.cuda.is_available() else None
             
             cn += 1
         
@@ -395,38 +433,23 @@ def test_model(model, args, testset, pin_memory):
         test_basic_loss = test_basic_loss/cn
         test_event_loss = test_event_loss/cn
 
-        # # '''only for debug, remember to delete'''
-        # test_df = pd.DataFrame(test_results)
-        # test_df.to_csv(osp.join(args.path, f'test_results_{args.year}.csv'), index=False)
-
-
         args.logger.info("[*]Test--basic_loss:{:.4f}, event_loss:{:.4f}, test_loss:{:.4f}".format(
             test_basic_loss, test_event_loss, test_loss))
         
-        # Process all samples for evaluation
-        pred_ = np.concatenate(pred_, 0)
-        truth_ = np.concatenate(truth_, 0)
-        nodes_per_batch = int(basic_features.shape[0] // len(predictions))
-        pred_ = pred_.reshape(-1, nodes_per_batch, pred_.shape[1])
-        truth_ = truth_.reshape(-1, nodes_per_batch, truth_.shape[1])
-        
-        # Evaluate all samples
+        # 计算平均度量值
         args.logger.info("[*] Evaluating all samples:")
-        mae_all = metric(True, truth_, pred_, args)
-        
-        # Evaluate basic traffic samples
-        if pred_basic:
-            pred_basic = np.concatenate(pred_basic, 0)
-            truth_basic = np.concatenate(truth_basic, 0)
-            args.logger.info("[*] Evaluating basic traffic samples (prediction=0):")
-            mae_basic = metric(False, truth_basic, pred_basic, args)
-        
-        # Evaluate event traffic samples
-        if pred_event:
-            pred_event = np.concatenate(pred_event, 0)
-            truth_event = np.concatenate(truth_event, 0)
-            args.logger.info("[*] Evaluating event traffic samples (prediction=1):")
-            mae_event = metric(False, truth_event, pred_event, args)
+        for i in [3, 6, 12]:
+            if total_samples > 0:
+                mae_avg = mae_sum[i] / total_samples
+                rmse_avg = rmse_sum[i] / total_samples  
+                mape_avg = mape_sum[i] / total_samples
+                
+                args.logger.info("T:{:d}\tMAE\t{:.4f}\tRMSE\t{:.4f}\tMAPE\t{:.4f}".format(i,mae_avg,rmse_avg,mape_avg))
+                
+                # 存储到全局结果
+                result[i]["mae"][args.year] = mae_avg
+                result[i]["mape"][args.year] = mape_avg
+                result[i]["rmse"][args.year] = rmse_avg
         
         return test_loss
 
@@ -453,21 +476,39 @@ def main(args):
     ct.mkdirs(args.save_data_path)
 
     for year in range(args.begin_year, args.end_year+1):
+        # 显式垃圾回收
+        import gc
+        gc.collect()
+        torch.cuda.empty_cache() if torch.cuda.is_available() else None
+        
         # Load Data 
-        graph = nx.from_numpy_array(np.load(osp.join(args.graph_path, str(year)+"_adj.npz"))["x"])
+        args.logger.info(f"[*] Loading data for year {year}, current memory usage: {get_memory_usage():.2f} GB")
+        
+        # 加载图数据
+        adj_data = np.load(osp.join(args.graph_path, str(year)+"_adj.npz"))["x"]
+        graph = nx.from_numpy_array(adj_data)
         vars(args)["graph_size"] = graph.number_of_nodes()
         vars(args)["year"] = year
-        inputs = generate_samples(31, osp.join(args.save_data_path, str(year)+'_30day'), 
-                                  np.load(osp.join(args.raw_data_path, str(year)+".npz"))["x"],
-                                  np.load(osp.join(args.raw_data_path, str(year)+".npz"))["event_type_code"],
-                                  graph, val_test_mix=True) \
-            if args.data_process else np.load(osp.join(args.save_data_path, str(year)+"_30day.npz"), allow_pickle=True)
+        
+        # 优化数据生成/加载过程
+        if args.data_process:
+            # 分步加载大数据文件
+            raw_data = np.load(osp.join(args.raw_data_path, str(year)+".npz"))
+            data_array = raw_data["x"]
+            event_array = raw_data["event_type_code"]
+            inputs = generate_samples(31, osp.join(args.save_data_path, str(year)+'_30day'), 
+                                      data_array, event_array, graph, val_test_mix=True)
+            # 立即删除原始数据以释放内存
+            del raw_data, data_array, event_array
+        else:
+            inputs = np.load(osp.join(args.save_data_path, str(year)+"_30day.npz"), allow_pickle=True)
 
-        args.logger.info("[*] Year {} load from {}_30day.npz".format(args.year, osp.join(args.save_data_path, str(year)))) 
+        args.logger.info("[*] Year {} load from {}_30day.npz, memory usage: {:.2f} GB".format(args.year, osp.join(args.save_data_path, str(year)), get_memory_usage())) 
 
-        adj = np.load(osp.join(args.graph_path, str(args.year)+"_adj.npz"))["x"]
-        adj = adj / (np.sum(adj, 1, keepdims=True) + 1e-6)
+        # 处理邻接矩阵
+        adj = adj_data / (np.sum(adj_data, 1, keepdims=True) + 1e-6)
         vars(args)["adj"] = torch.from_numpy(adj).to(torch.float).to(args.device)
+        del adj_data  # 删除原始邻接矩阵数据
 
         if year == args.begin_year and args.load_first_year:
             # Skip the first year, model has been trained and retrain is not needed
@@ -475,10 +516,14 @@ def main(args):
             adj = adj / (np.sum(adj, 1, keepdims=True) + 1e-6)
             vars(args)["sub_adj"] = torch.from_numpy(adj).to(torch.float).to(args.device)
             model, _ = load_best_model(args)
-            test_loader = DataLoader(TrafficDataset(inputs, "test"), batch_size=args.batch_size, shuffle=False, pin_memory=pin_memory, num_workers=n_work)
+            test_loader = DataLoader(TrafficDataset(inputs, "test"), batch_size=max(16, args.batch_size//2), shuffle=False, pin_memory=False, num_workers=4)
 
             # only for no debug
-            test_model(model, args, test_loader, pin_memory=True)
+            test_model(model, args, test_loader, pin_memory=False)
+            
+            # 释放内存
+            del model, inputs, adj, graph, test_loader
+            clear_memory()
             continue
 
         
@@ -501,21 +546,32 @@ def main(args):
                 pre_graph = np.array(list(nx.from_numpy_array(np.load(osp.join(args.graph_path, str(year-1)+"_adj.npz"))["x"]).edges)).T
                 cur_graph = np.array(list(nx.from_numpy_array(np.load(osp.join(args.graph_path, str(year)+"_adj.npz"))["x"]).edges)).T
                 # 20% of current graph size will be sampled
-                vars(args)["topk"] = int(0.01*args.graph_size) 
+                if args.logname == "gba":
+                    vars(args)["topk"] = 10
+                else:
+                    vars(args)["topk"] = int(0.01*args.graph_size) 
                 influence_node_list = detect.influence_node_selection(model, args, pre_data, cur_data, pre_graph, cur_graph)
                 node_list.extend(list(influence_node_list))
 
             # Obtain sample nodes
             if args.replay:
-                vars(args)["replay_num_samples"] = int(0.09*args.graph_size) #int(0.2*args.graph_size)- len(node_list)
+                # vars(args)["replay_num_samples"] = int(0.09*args.graph_size) #int(0.2*args.graph_size)- len(node_list)
                 args.logger.info("[*] replay node number {}".format(args.replay_num_samples))
                 replay_node_list = replay.replay_node_selection(args, inputs, model)
                 node_list.extend(list(replay_node_list))
             
             node_list = list(set(node_list))
-            if len(node_list) > int(0.1*args.graph_size):
-                node_list = random.sample(node_list, int(0.1*args.graph_size))
+            # if len(node_list) > int(0.1*args.graph_size):
+            #     node_list = random.sample(node_list, int(0.1*args.graph_size))
             
+           
+            if args.logname == "gba":
+                if len(node_list) < int(0.1*args.graph_size):
+                    res=int(0.1 * args.graph_size)-len(node_list)
+                    res_node = [a for a in range(cur_node_size) if a not in node_list]
+                    expand_node_list = random.sample(res_node, res)
+                    node_list.extend(list(expand_node_list))
+                
             # Obtain subgraph of node list
             cur_graph = torch.LongTensor(np.array(list(nx.from_numpy_array(np.load(osp.join(args.graph_path, str(year)+"_adj.npz"))["x"]).edges)).T)
             edge_list = list(nx.from_numpy_array(np.load(osp.join(args.graph_path, str(year)+"_adj.npz"))["x"]).edges)
@@ -524,8 +580,8 @@ def main(args):
                 graph_node_from_edge.add(u)
                 graph_node_from_edge.add(v)
             node_list = list(set(node_list) & graph_node_from_edge)
-                
-           
+            
+
             if len(node_list) != 0 :
                 subgraph, subgraph_edge_index, mapping, _ = k_hop_subgraph(node_list, num_hops=args.num_hops, edge_index=cur_graph, relabel_nodes=True)
                 vars(args)["subgraph"] = subgraph
@@ -552,9 +608,20 @@ def main(args):
         else:
             if args.auto_test:
                 model, _ = load_best_model(args)
-                test_loader = DataLoader(TrafficDataset(inputs, "test"), batch_size=args.batch_size, shuffle=False, pin_memory=pin_memory, num_workers=n_work)
-                test_model(model, args, test_loader, pin_memory=True)
-
+                test_loader = DataLoader(TrafficDataset(inputs, "test"), batch_size=max(16, args.batch_size//2), shuffle=False, pin_memory=False, num_workers=4)
+                test_model(model, args, test_loader, pin_memory=False)
+                del test_loader
+        
+        # 每年结束后清理内存
+        del inputs
+        if 'model' in locals():
+            del model
+        if 'adj' in locals():
+            del adj
+        if 'graph' in locals():
+            del graph
+        clear_memory()
+        args.logger.info(f"[*] Year {year} completed, memory usage: {get_memory_usage():.2f} GB")
 
     for i in [3, 6, 12]:
         for j in ['mae', 'rmse', 'mape']:
@@ -574,15 +641,15 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class = argparse.RawTextHelpFormatter)
-    parser.add_argument("--conf", type = str, default = "conf/all-com.json")
+    parser.add_argument("--conf", type = str, default = "conf/ca.json")
     parser.add_argument("--paral", type = int, default = 0)
-    parser.add_argument("--gpuid", type = int, default = 3)
+    parser.add_argument("--gpuid", type = int, default = 7)
     parser.add_argument("--logname", type = str, default = "info")
-    parser.add_argument("--load_first_year", type = int, default = 1, help="0: training first year, 1: load from model path of first year")
-    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/SD/all-com2025-05-26-12:20:16.113789/2017/25.9924.pkl", help='specify a pretrained model root')
+    parser.add_argument("--load_first_year", type = int, default = 0, help="0: training first year, 1: load from model path of first year")
+    parser.add_argument("--first_year_model_path", type = str, default = "/home/bd2/ANATS/TrafficStream/res/CA/ca2025-06-08-11:35:41.262744/2019/24.8698.pkl", help='specify a pretrained model root')
     args = parser.parse_args()
     init(args)
-    seed_set(13)
+    seed_set(42)
 
     device = torch.device("cuda:{}".format(args.gpuid)) if torch.cuda.is_available() and args.gpuid != -1 else "cpu"
     vars(args)["device"] = device

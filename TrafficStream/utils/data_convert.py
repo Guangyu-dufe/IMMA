@@ -53,13 +53,6 @@ def generate_samples(days, savepath, data, event, graph, train_rate=0.6, val_rat
 
     
 
-    # if val_test_mix:
-    #     val_test_x = np.concatenate((val_x, test_x), 0)
-    #     val_test_y = np.concatenate((val_y, test_y), 0)
-    #     val_test_idx = np.arange(val_x.shape[0]+test_x.shape[0])
-    #     np.random.shuffle(val_test_idx)
-    #     val_x, val_y = val_test_x[val_test_idx[:int(t*val_rate)]], val_test_y[val_test_idx[:int(t*val_rate)]]
-    #     test_x, test_y = val_test_x[val_test_idx[int(t*val_rate):]], val_test_y[val_test_idx[int(t*val_rate):]]
 
     train_x = z_score(train_x)
     val_x = z_score(val_x)
@@ -69,8 +62,16 @@ def generate_samples(days, savepath, data, event, graph, train_rate=0.6, val_rat
     val_x = np.concatenate((val_x, val_event), axis=1)
     test_x = np.concatenate((test_x, test_event), axis=1)
 
+    if val_test_mix:
+        val_test_x = np.concatenate((val_x, test_x), 0)
+        val_test_y = np.concatenate((val_y, test_y), 0)
+        val_test_idx = np.arange(val_x.shape[0]+test_x.shape[0])
+        np.random.shuffle(val_test_idx)
+        val_x, val_y = val_test_x[val_test_idx[:int(t*val_rate)]], val_test_y[val_test_idx[:int(t*val_rate)]]
+        test_x, test_y = val_test_x[val_test_idx[int(t*val_rate):]], val_test_y[val_test_idx[int(t*val_rate):]]
+
     
-    np.savez(savepath, train_x=train_x, train_y=train_y, val_x=val_x, val_y=val_y, test_x=test_x, test_y=test_y, edge_index=edge_index)
+    # np.savez(savepath, train_x=train_x, train_y=train_y, val_x=val_x, val_y=val_y, test_x=test_x, test_y=test_y, edge_index=edge_index)
     data = {"train_x":train_x, "train_y":train_y, "val_x":val_x, "val_y":val_y, "test_x":test_x, "test_y":test_y, "edge_index":edge_index}
     return data
 
