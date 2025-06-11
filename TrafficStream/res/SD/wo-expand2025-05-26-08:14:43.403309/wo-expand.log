@@ -1,0 +1,177 @@
+2025-05-26 08:14:43,404 - logger name:res/SD/wo-expand2025-05-26-08:14:43.403309/wo-expand.log
+2025-05-26 08:14:43,404 - params : {'conf': 'conf/wo-expand.json', 'paral': 0, 'gpuid': 3, 'logname': 'wo-expand', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/trafficStream2025-05-13-07:40:17.495815/2017/25.0437.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/SD/finaldata/', 'save_data_path': 'data/SD/FastData/', 'graph_path': 'data/SD/graph/', 'model_path': 'res/SD/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'classifier': {'hidden_dim': 128}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'repaly_num_samples': 300, 'extra_feature': True, 'moco': True, 'momentum_type': 'linear', 'memory_size': 32, 'time': '2025-05-26-08:14:43.403309', 'path': 'res/SD/wo-expand2025-05-26-08:14:43.403309', 'device': device(type='cuda', index=3), 'logger': <Logger __main__ (INFO)>}
+2025-05-26 08:14:43,435 - [*] Year 2017 load from data/SD/FastData/2017_30day.npz
+2025-05-26 08:14:57,110 - [*] Year 2017 Dataset load!
+2025-05-26 08:14:57,114 - [*] Model parameter count: 8998
+2025-05-26 08:14:57,114 - [*] Year 2017 Training start
+2025-05-26 08:14:57,436 - node number torch.Size([90240, 24])
+2025-05-26 08:15:09,583 - epoch:0, training loss:12033.8387 validation loss:30.6276, moco loss:52.3118
+2025-05-26 08:15:22,038 - epoch:1, training loss:2049.1683 validation loss:28.2492, moco loss:48.4902
+2025-05-26 08:15:34,275 - epoch:2, training loss:1938.7650 validation loss:28.0997, moco loss:23.9843
+2025-05-26 08:15:46,769 - epoch:3, training loss:1911.7716 validation loss:29.5643, moco loss:9.9246
+2025-05-26 08:15:58,614 - epoch:4, training loss:1899.9697 validation loss:28.0908, moco loss:9.6965
+2025-05-26 08:16:10,663 - epoch:5, training loss:1896.0246 validation loss:28.4925, moco loss:25.8964
+2025-05-26 08:16:22,856 - epoch:6, training loss:1883.6843 validation loss:28.2314, moco loss:14.7886
+2025-05-26 08:16:35,451 - epoch:7, training loss:1878.9801 validation loss:28.9474, moco loss:20.1706
+2025-05-26 08:16:47,988 - epoch:8, training loss:1874.5530 validation loss:27.8811, moco loss:5.0892
+2025-05-26 08:17:00,699 - epoch:9, training loss:1817.4356 validation loss:27.4200, moco loss:4.6038
+2025-05-26 08:17:13,650 - epoch:10, training loss:1781.4160 validation loss:27.7971, moco loss:2.1156
+2025-05-26 08:17:26,573 - epoch:11, training loss:1767.5685 validation loss:28.4980, moco loss:41.5330
+2025-05-26 08:17:39,388 - epoch:12, training loss:1758.5125 validation loss:27.0233, moco loss:11.6317
+2025-05-26 08:17:52,229 - epoch:13, training loss:1745.2999 validation loss:26.7612, moco loss:3.0300
+2025-05-26 08:18:04,996 - epoch:14, training loss:1744.5402 validation loss:27.2390, moco loss:16.9148
+2025-05-26 08:18:17,829 - epoch:15, training loss:1737.9546 validation loss:27.2504, moco loss:53.2475
+2025-05-26 08:18:30,814 - epoch:16, training loss:1726.5177 validation loss:27.2511, moco loss:7.1815
+2025-05-26 08:18:43,613 - epoch:17, training loss:1723.5863 validation loss:26.8111, moco loss:13.2745
+2025-05-26 08:18:56,369 - epoch:18, training loss:1726.4268 validation loss:27.6932, moco loss:1.4904
+2025-05-26 08:19:09,130 - epoch:19, training loss:1718.3533 validation loss:27.3997, moco loss:37.8575
+2025-05-26 08:19:12,444 - [*]Test--basic_loss:959.3624, event_loss:2007.0932, test_loss:1661.1375
+2025-05-26 08:19:12,816 - [*] Evaluating all samples:
+2025-05-26 08:19:12,816 - [*] year 2017, testing
+2025-05-26 08:19:15,044 - T:3	MAE	20.1931	RMSE	30.0701	MAPE	13.5928
+2025-05-26 08:19:18,594 - T:6	MAE	22.3705	RMSE	33.6537	MAPE	15.1717
+2025-05-26 08:19:23,995 - T:12	MAE	26.4688	RMSE	40.2488	MAPE	18.5699
+2025-05-26 08:19:24,232 - [*] Evaluating basic traffic samples (prediction=0):
+2025-05-26 08:19:24,232 - [*] year 2017, testing
+2025-05-26 08:19:25,006 - T:3	MAE	12.8691	RMSE	20.3082	MAPE	21.5647
+2025-05-26 08:19:26,265 - T:6	MAE	14.7608	RMSE	24.0761	MAPE	24.4264
+2025-05-26 08:19:28,264 - T:12	MAE	18.7142	RMSE	31.9167	MAPE	30.7281
+2025-05-26 08:19:28,663 - [*] Evaluating event traffic samples (prediction=1):
+2025-05-26 08:19:28,664 - [*] year 2017, testing
+2025-05-26 08:19:29,813 - T:3	MAE	24.4845	RMSE	34.5307	MAPE	8.9217
+2025-05-26 08:19:31,486 - T:6	MAE	26.8308	RMSE	38.1656	MAPE	9.7498
+2025-05-26 08:19:34,130 - T:12	MAE	31.0138	RMSE	44.4114	MAPE	11.4467
+2025-05-26 08:19:34,136 - Finished optimization, total time:174.13 s, best model:res/SD/wo-expand2025-05-26-08:14:43.403309/2017/26.7612.pkl
+2025-05-26 08:19:34,205 - [*] Year 2018 load from data/SD/FastData/2018_30day.npz
+2025-05-26 08:19:34,233 - Secure SignIn[*] load from res/SD/wo-expand2025-05-26-08:14:43.403309/2017/26.7612.pkl
+2025-05-26 08:19:34,264 - [*] replay node number 63
+2025-05-26 08:19:39,650 - number of increase nodes:63, nodes after 2 hop:torch.Size([524]), total nodes this year 708
+2025-05-26 08:20:02,117 - [*] Year 2018 Dataset load!
+2025-05-26 08:20:02,118 - Secure SignIn[*] load from res/SD/wo-expand2025-05-26-08:14:43.403309/2017/26.7612.pkl
+2025-05-26 08:20:02,143 - [*] EWC! lambda 0.000100
+2025-05-26 08:20:16,581 - [*] Model parameter count: 8998
+2025-05-26 08:20:16,582 - [*] Year 2018 Training start
+2025-05-26 08:20:17,688 - node number torch.Size([67072, 24])
+2025-05-26 08:20:31,025 - epoch:0, training loss:1841.0024 validation loss:26.5873, moco loss:45.8642
+2025-05-26 08:20:45,182 - epoch:1, training loss:1820.1804 validation loss:27.1442, moco loss:7.3961
+2025-05-26 08:20:58,251 - epoch:2, training loss:1819.9213 validation loss:26.4227, moco loss:6.1410
+2025-05-26 08:21:13,033 - epoch:3, training loss:1818.5758 validation loss:26.7481, moco loss:1.3004
+2025-05-26 08:21:27,544 - epoch:4, training loss:1826.1653 validation loss:26.6748, moco loss:3.6191
+2025-05-26 08:21:39,785 - epoch:5, training loss:1820.3575 validation loss:26.7369, moco loss:4.3995
+2025-05-26 08:21:53,628 - epoch:6, training loss:1821.1195 validation loss:26.5579, moco loss:2.7329
+2025-05-26 08:22:08,329 - epoch:7, training loss:1824.0574 validation loss:26.5767, moco loss:4.7153
+2025-05-26 08:22:22,284 - epoch:8, training loss:1815.7740 validation loss:27.2331, moco loss:12.1973
+2025-05-26 08:22:25,509 - [*]Test--basic_loss:1080.8104, event_loss:2322.3035, test_loss:1784.9068
+2025-05-26 08:22:25,568 - [*] Evaluating all samples:
+2025-05-26 08:22:25,569 - [*] year 2018, testing
+2025-05-26 08:22:25,629 - T:3	MAE	24.7278	RMSE	36.2756	MAPE	25.5379
+2025-05-26 08:22:25,704 - T:6	MAE	25.9056	RMSE	38.3857	MAPE	26.8296
+2025-05-26 08:22:25,810 - T:12	MAE	26.4629	RMSE	39.7828	MAPE	29.9246
+2025-05-26 08:22:25,817 - [*] Evaluating basic traffic samples (prediction=0):
+2025-05-26 08:22:25,817 - [*] year 2018, testing
+2025-05-26 08:22:25,819 - T:3	MAE	15.9680	RMSE	21.1175	MAPE	16.0652
+2025-05-26 08:22:25,821 - T:6	MAE	18.0280	RMSE	24.1836	MAPE	17.9413
+2025-05-26 08:22:25,823 - T:12	MAE	22.7756	RMSE	31.7084	MAPE	22.3224
+2025-05-26 08:22:25,858 - [*] Evaluating event traffic samples (prediction=1):
+2025-05-26 08:22:25,858 - [*] year 2018, testing
+2025-05-26 08:22:25,860 - T:3	MAE	17.6048	RMSE	22.5986	MAPE	14.0834
+2025-05-26 08:22:25,863 - T:6	MAE	18.4794	RMSE	23.7267	MAPE	14.8777
+2025-05-26 08:22:25,866 - T:12	MAE	21.0272	RMSE	27.1248	MAPE	17.4173
+2025-05-26 08:22:25,866 - Finished optimization, total time:102.18 s, best model:res/SD/wo-expand2025-05-26-08:14:43.403309/2018/26.4227.pkl
+2025-05-26 08:22:25,944 - [*] Year 2019 load from data/SD/FastData/2019_30day.npz
+2025-05-26 08:22:25,948 - Secure SignIn[*] load from res/SD/wo-expand2025-05-26-08:14:43.403309/2018/26.4227.pkl
+2025-05-26 08:22:25,978 - [*] replay node number 64
+2025-05-26 08:22:31,307 - number of increase nodes:67, nodes after 2 hop:torch.Size([533]), total nodes this year 716
+2025-05-26 08:22:54,353 - [*] Year 2019 Dataset load!
+2025-05-26 08:22:54,354 - Secure SignIn[*] load from res/SD/wo-expand2025-05-26-08:14:43.403309/2018/26.4227.pkl
+2025-05-26 08:22:54,379 - [*] EWC! lambda 0.000100
+2025-05-26 08:23:08,692 - [*] Model parameter count: 8998
+2025-05-26 08:23:08,693 - [*] Year 2019 Training start
+2025-05-26 08:23:09,777 - node number torch.Size([68224, 24])
+2025-05-26 08:23:23,326 - epoch:0, training loss:1527.2775 validation loss:25.6098, moco loss:8.3690
+2025-05-26 08:23:38,201 - epoch:1, training loss:1487.7622 validation loss:25.6374, moco loss:17.6961
+2025-05-26 08:23:52,136 - epoch:2, training loss:1495.7549 validation loss:26.0364, moco loss:20.5553
+2025-05-26 08:24:08,310 - epoch:3, training loss:1494.5697 validation loss:25.9142, moco loss:10.4316
+2025-05-26 08:24:23,343 - epoch:4, training loss:1494.2295 validation loss:25.5743, moco loss:1.7085
+2025-05-26 08:24:37,999 - epoch:5, training loss:1493.0301 validation loss:25.5302, moco loss:4.4561
+2025-05-26 08:24:52,057 - epoch:6, training loss:1495.0146 validation loss:25.5341, moco loss:0.7044
+2025-05-26 08:25:06,510 - epoch:7, training loss:1494.6015 validation loss:25.5101, moco loss:13.2233
+2025-05-26 08:25:23,833 - epoch:8, training loss:1491.1165 validation loss:25.5372, moco loss:2.3006
+2025-05-26 08:25:38,907 - epoch:9, training loss:1494.1663 validation loss:25.9684, moco loss:2.0671
+2025-05-26 08:25:55,062 - epoch:10, training loss:1493.4972 validation loss:26.5498, moco loss:22.9366
+2025-05-26 08:26:09,102 - epoch:11, training loss:1492.4943 validation loss:25.8921, moco loss:20.7467
+2025-05-26 08:26:22,991 - epoch:12, training loss:1492.3851 validation loss:25.4931, moco loss:0.8968
+2025-05-26 08:26:36,803 - epoch:13, training loss:1489.1036 validation loss:25.6283, moco loss:4.2465
+2025-05-26 08:26:50,920 - epoch:14, training loss:1493.7630 validation loss:25.5518, moco loss:24.6567
+2025-05-26 08:27:06,491 - epoch:15, training loss:1488.6698 validation loss:25.6902, moco loss:2.2380
+2025-05-26 08:27:21,082 - epoch:16, training loss:1490.1284 validation loss:25.5378, moco loss:6.8532
+2025-05-26 08:27:36,287 - epoch:17, training loss:1490.2581 validation loss:25.7328, moco loss:4.0255
+2025-05-26 08:27:50,078 - epoch:18, training loss:1493.6191 validation loss:26.0144, moco loss:7.1687
+2025-05-26 08:27:53,327 - [*]Test--basic_loss:1472.4938, event_loss:1875.4654, test_loss:1682.9843
+2025-05-26 08:27:53,392 - [*] Evaluating all samples:
+2025-05-26 08:27:53,392 - [*] year 2019, testing
+2025-05-26 08:27:53,453 - T:3	MAE	29.5930	RMSE	41.1788	MAPE	19.8075
+2025-05-26 08:27:53,527 - T:6	MAE	29.1180	RMSE	40.9700	MAPE	20.6494
+2025-05-26 08:27:53,632 - T:12	MAE	28.2377	RMSE	40.0329	MAPE	22.5768
+2025-05-26 08:27:53,658 - [*] Evaluating basic traffic samples (prediction=0):
+2025-05-26 08:27:53,658 - [*] year 2019, testing
+2025-05-26 08:27:53,661 - T:3	MAE	23.6941	RMSE	32.1788	MAPE	13.2375
+2025-05-26 08:27:53,664 - T:6	MAE	24.7470	RMSE	34.1524	MAPE	13.5777
+2025-05-26 08:27:53,668 - T:12	MAE	27.6270	RMSE	39.3566	MAPE	14.8381
+2025-05-26 08:27:53,685 - [*] Evaluating event traffic samples (prediction=1):
+2025-05-26 08:27:53,685 - [*] year 2019, testing
+2025-05-26 08:27:53,686 - T:3	MAE	32.0210	RMSE	41.0886	MAPE	8.5664
+2025-05-26 08:27:53,687 - T:6	MAE	33.4629	RMSE	43.3593	MAPE	9.0221
+2025-05-26 08:27:53,689 - T:12	MAE	35.5526	RMSE	46.5574	MAPE	9.6535
+2025-05-26 08:27:53,689 - Finished optimization, total time:230.40 s, best model:res/SD/wo-expand2025-05-26-08:14:43.403309/2019/25.4931.pkl
+2025-05-26 08:27:53,769 - [*] Year 2020 load from data/SD/FastData/2020_30day.npz
+2025-05-26 08:27:53,775 - Secure SignIn[*] load from res/SD/wo-expand2025-05-26-08:14:43.403309/2019/25.4931.pkl
+2025-05-26 08:27:53,802 - [*] replay node number 62
+2025-05-26 08:27:59,040 - number of increase nodes:59, nodes after 2 hop:torch.Size([567]), total nodes this year 697
+2025-05-26 08:28:22,119 - [*] Year 2020 Dataset load!
+2025-05-26 08:28:22,120 - Secure SignIn[*] load from res/SD/wo-expand2025-05-26-08:14:43.403309/2019/25.4931.pkl
+2025-05-26 08:28:22,146 - [*] EWC! lambda 0.000100
+2025-05-26 08:28:36,175 - [*] Model parameter count: 8998
+2025-05-26 08:28:36,175 - [*] Year 2020 Training start
+2025-05-26 08:28:37,351 - node number torch.Size([72576, 24])
+2025-05-26 08:28:52,534 - epoch:0, training loss:1294.8913 validation loss:27.8983, moco loss:15.6990
+2025-05-26 08:29:07,094 - epoch:1, training loss:1252.8676 validation loss:26.3289, moco loss:2.1681
+2025-05-26 08:29:21,579 - epoch:2, training loss:1251.7230 validation loss:28.5243, moco loss:4.3258
+2025-05-26 08:29:36,059 - epoch:3, training loss:1250.1632 validation loss:26.8101, moco loss:0.3859
+2025-05-26 08:29:50,474 - epoch:4, training loss:1258.4306 validation loss:26.1048, moco loss:66.1099
+2025-05-26 08:30:04,210 - epoch:5, training loss:1250.0495 validation loss:28.5916, moco loss:1.5818
+2025-05-26 08:30:18,092 - epoch:6, training loss:1250.1872 validation loss:27.0203, moco loss:0.7053
+2025-05-26 08:30:32,371 - epoch:7, training loss:1250.2017 validation loss:26.9509, moco loss:7.5459
+2025-05-26 08:30:47,790 - epoch:8, training loss:1256.4184 validation loss:27.0052, moco loss:1.5823
+2025-05-26 08:31:01,807 - epoch:9, training loss:1246.7796 validation loss:26.5122, moco loss:0.2243
+2025-05-26 08:31:16,553 - epoch:10, training loss:1246.8093 validation loss:27.8164, moco loss:2.7123
+2025-05-26 08:31:19,747 - [*]Test--basic_loss:910.5115, event_loss:1346.7817, test_loss:1102.5107
+2025-05-26 08:31:19,805 - [*] Evaluating all samples:
+2025-05-26 08:31:19,805 - [*] year 2020, testing
+2025-05-26 08:31:19,869 - T:3	MAE	23.2152	RMSE	34.6848	MAPE	30.5227
+2025-05-26 08:31:19,944 - T:6	MAE	23.5049	RMSE	35.5278	MAPE	26.0109
+2025-05-26 08:31:20,050 - T:12	MAE	22.5490	RMSE	34.7409	MAPE	27.7251
+2025-05-26 08:31:20,087 - [*] Evaluating basic traffic samples (prediction=0):
+2025-05-26 08:31:20,087 - [*] year 2020, testing
+2025-05-26 08:31:20,091 - T:3	MAE	7.8448	RMSE	11.3314	MAPE	35.8188
+2025-05-26 08:31:20,094 - T:6	MAE	8.7449	RMSE	12.4830	MAPE	49.6380
+2025-05-26 08:31:20,099 - T:12	MAE	11.3202	RMSE	16.0377	MAPE	84.9743
+2025-05-26 08:31:20,102 - [*] Evaluating event traffic samples (prediction=1):
+2025-05-26 08:31:20,102 - [*] year 2020, testing
+2025-05-26 08:31:20,103 - T:3	MAE	17.1739	RMSE	21.7887	MAPE	12.2756
+2025-05-26 08:31:20,104 - T:6	MAE	18.3051	RMSE	23.5485	MAPE	13.5795
+2025-05-26 08:31:20,105 - T:12	MAE	21.5098	RMSE	28.5784	MAPE	16.9695
+2025-05-26 08:31:20,105 - Finished optimization, total time:130.71 s, best model:res/SD/wo-expand2025-05-26-08:14:43.403309/2020/26.1048.pkl
+2025-05-26 08:31:20,159 - 3	mae	20.19	24.73	29.59	23.22	
+2025-05-26 08:31:20,159 - 3	rmse	30.07	36.28	41.18	34.68	
+2025-05-26 08:31:20,159 - 3	mape	13.59	25.54	19.81	30.52	
+2025-05-26 08:31:20,159 - 6	mae	22.37	25.91	29.12	23.50	
+2025-05-26 08:31:20,159 - 6	rmse	33.65	38.39	40.97	35.53	
+2025-05-26 08:31:20,159 - 6	mape	15.17	26.83	20.65	26.01	
+2025-05-26 08:31:20,159 - 12	mae	26.47	26.46	28.24	22.55	
+2025-05-26 08:31:20,159 - 12	rmse	40.25	39.78	40.03	34.74	
+2025-05-26 08:31:20,159 - 12	mape	18.57	29.92	22.58	27.73	
+2025-05-26 08:31:20,159 - year	2017	total_time	174.12636299999997	average_time	8.70632795	epoch	20
+2025-05-26 08:31:20,160 - year	2018	total_time	102.18180699999999	average_time	11.353551222222222	epoch	9
+2025-05-26 08:31:20,160 - year	2019	total_time	230.39974	average_time	12.12631857894737	epoch	19
+2025-05-26 08:31:20,160 - year	2020	total_time	130.712011	average_time	11.882924454545453	epoch	11
