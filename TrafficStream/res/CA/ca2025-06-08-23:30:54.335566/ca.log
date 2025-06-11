@@ -1,0 +1,53 @@
+2025-06-08 23:30:54,336 - logger name:res/CA/ca2025-06-08-23:30:54.335566/ca.log
+2025-06-08 23:30:54,336 - params : {'conf': 'conf/ca.json', 'paral': 0, 'gpuid': 7, 'logname': 'ca', 'load_first_year': 1, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/CA/ca2025-06-08-11:35:41.262744/2019/24.8698.pkl', 'begin_year': 2019, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/CA/finaldata/', 'save_data_path': 'data/CA/FastData/', 'graph_path': 'data/CA/graph/', 'model_path': 'res/CA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'classifier': {'hidden_dim': 128}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': False, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': False, 'moco': True, 'momentum_type': 'linear', 'memory_size': 32, 'expand': True, 'time': '2025-06-08-23:30:54.335566', 'path': 'res/CA/ca2025-06-08-23:30:54.335566', 'device': device(type='cuda', index=7), 'logger': <Logger __main__ (INFO)>}
+2025-06-08 23:30:54,407 - [*] Loading data for year 2019, current memory usage: 0.00 GB
+2025-06-08 23:30:55,433 - [*] Year 2019 load from data/CA/FastData/2019_30day.npz, memory usage: 0.00 GB
+2025-06-08 23:30:56,631 - Secure SignIn[*] load from /home/bd2/ANATS/TrafficStream/res/CA/ca2025-06-08-11:35:41.262744/2019/24.8698.pkl
+2025-06-08 23:35:16,045 - [*]Test--basic_loss:1584.9707, event_loss:0.0000, test_loss:1584.9707
+2025-06-08 23:35:16,045 - [*] Evaluating all samples:
+2025-06-08 23:35:16,045 - T:3	MAE	19.1422	RMSE	30.0521	MAPE	13.2114
+2025-06-08 23:35:16,045 - T:6	MAE	21.0605	RMSE	33.1860	MAPE	15.1646
+2025-06-08 23:35:16,045 - T:12	MAE	24.6084	RMSE	38.9656	MAPE	18.9818
+2025-06-08 23:35:16,361 - [*] Loading data for year 2020, current memory usage: 0.00 GB
+2025-06-08 23:35:17,544 - [*] Year 2020 load from data/CA/FastData/2020_30day.npz, memory usage: 0.00 GB
+2025-06-08 23:35:17,801 - Secure SignIn[*] load from /home/bd2/ANATS/TrafficStream/res/CA/ca2025-06-08-11:35:41.262744/2019/24.8698.pkl
+2025-06-08 23:35:19,158 - [*] replay node number 300
+2025-06-08 23:37:47,685 - number of increase nodes:296, nodes after 2 hop:torch.Size([4439]), total nodes this year 8561
+2025-06-08 23:41:36,632 - [*] Large dataset detected (63220 samples), reducing batch size from 128 to 64
+2025-06-08 23:49:55,676 - [*] Year 2020 Dataset load!
+2025-06-08 23:49:55,677 - [*] Initial memory usage: 0.00 GB
+2025-06-08 23:49:55,677 - Secure SignIn[*] load from /home/bd2/ANATS/TrafficStream/res/CA/ca2025-06-08-11:35:41.262744/2019/24.8698.pkl
+2025-06-08 23:49:56,290 - [*] EWC! lambda 0.000100
+2025-06-08 23:59:45,443 - [*] Model parameter count: 8842
+2025-06-08 23:59:45,458 - [*] Year 2020 Training start
+2025-06-08 23:59:49,269 - [*] Epoch 0, memory usage: 0.00 GB
+2025-06-08 23:59:50,049 - node number torch.Size([284096, 24])
+2025-06-09 00:03:09,542 - epoch:0, training loss:1159.4248 validation loss:22.0565, moco loss:11.9379
+2025-06-09 00:06:33,023 - epoch:1, training loss:1145.4763 validation loss:21.3722, moco loss:6.3446
+2025-06-09 00:09:57,382 - epoch:2, training loss:1149.1392 validation loss:21.7541, moco loss:7.9283
+2025-06-09 00:13:20,955 - epoch:3, training loss:1145.6154 validation loss:22.1907, moco loss:6.8173
+2025-06-09 00:16:43,688 - epoch:4, training loss:1146.7235 validation loss:21.4288, moco loss:7.3702
+2025-06-09 00:20:04,307 - epoch:5, training loss:1146.3984 validation loss:21.8074, moco loss:6.9789
+2025-06-09 00:23:25,168 - epoch:6, training loss:1144.8185 validation loss:21.5016, moco loss:7.0020
+2025-06-09 00:26:44,946 - epoch:7, training loss:1144.4827 validation loss:22.7799, moco loss:6.8741
+2025-06-09 00:26:45,074 - [*] Training completed, memory usage: 0.00 GB
+2025-06-09 00:28:41,585 - [*]Test--basic_loss:988.3640, event_loss:0.0000, test_loss:988.3640
+2025-06-09 00:28:41,585 - [*] Evaluating all samples:
+2025-06-09 00:28:41,586 - T:3	MAE	18.6767	RMSE	25.4899	MAPE	11.9142
+2025-06-09 00:28:41,586 - T:6	MAE	19.3769	RMSE	26.6599	MAPE	12.1754
+2025-06-09 00:28:41,586 - T:12	MAE	21.3781	RMSE	29.5208	MAPE	13.3399
+2025-06-09 00:28:41,586 - Finished optimization, total time:1343.75 s, best model:res/CA/ca2025-06-08-23:30:54.335566/2020/21.3722.pkl
+2025-06-09 00:28:42,375 - [*] Year 2020 completed, memory usage: 0.00 GB
+2025-06-09 00:28:42,375 - 3	mae	24.32	16.20	19.14	18.68	
+2025-06-09 00:28:42,375 - 3	rmse	37.71	22.71	30.05	25.49	
+2025-06-09 00:28:42,375 - 3	mape	10.29	14.34	13.21	11.91	
+2025-06-09 00:28:42,375 - 6	mae	26.29	17.32	21.06	19.38	
+2025-06-09 00:28:42,375 - 6	rmse	40.92	25.07	33.19	26.66	
+2025-06-09 00:28:42,375 - 6	mape	11.18	15.06	15.16	12.18	
+2025-06-09 00:28:42,375 - 12	mae	28.17	19.65	24.61	21.38	
+2025-06-09 00:28:42,375 - 12	rmse	42.45	30.29	38.97	29.52	
+2025-06-09 00:28:42,375 - 12	mape	11.15	16.56	18.98	13.34	
+2025-06-04 08:48:36,529 - year	2017	total_time	1341.5774059999999	average_time	44.71926293333333	epoch	30
+2025-06-04 08:48:36,529 - year	2018	total_time	343.98068600000005	average_time	42.997602625	epoch	8
+2025-06-04 08:48:36,529 - year	2019	total_time	568.1039089999999	average_time	43.70031438461539	epoch	13
+2025-06-04 08:48:36,529 - year	2020	total_time	735.1733649999999	average_time	43.245507352941175	epoch	17

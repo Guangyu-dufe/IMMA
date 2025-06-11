@@ -1,0 +1,144 @@
+2025-06-09 03:02:49,067 - logger name:res/GLA/gla2025-06-09-03:02:49.066181/gla.log
+2025-06-09 03:02:49,068 - params : {'conf': 'conf/gla.json', 'paral': 0, 'gpuid': 4, 'logname': 'gla', 'load_first_year': 0, 'first_year_model_path': '/home/bd2/ANATS/TrafficStream/res/SD/all-com2025-05-26-12:20:16.113789/2017/25.9924.pkl', 'begin_year': 2017, 'end_year': 2020, 'dropout': 0.0, 'lr': 0.01, 'batch_size': 128, 'epoch': 100, 'loss': 'mse', 'activation': 'relu', 'scheduler': 'epo', 'train': 1, 'y_len': 12, 'x_len': 12, 'data_process': 0, 'auto_test': 1, 'raw_data_path': 'data/GLA/finaldata/', 'save_data_path': 'data/GLA/FastData/', 'graph_path': 'data/GLA/graph/', 'model_path': 'res/GLA/', 'gcn': {'in_channel': 12, 'out_channel': 12, 'hidden_channel': 64}, 'tcn': {'in_channel': 1, 'out_channel': 1, 'kernel_size': 3, 'dilation': 1}, 'classifier': {'hidden_dim': 128}, 'strategy': 'incremental', 'init': True, 'increase': True, 'num_hops': 2, 'detect': True, 'detect_strategy': 'feature', 'ewc': True, 'ewc_strategy': 'ewc', 'ewc_lambda': 0.0001, 'replay': True, 'replay_strategy': 'random', 'replay_num_samples': 300, 'extra_feature': False, 'moco': True, 'momentum_type': 'linear', 'memory_size': 16, 'expand': True, 'time': '2025-06-09-03:02:49.066181', 'path': 'res/GLA/gla2025-06-09-03:02:49.066181', 'device': device(type='cuda', index=4), 'logger': <Logger __main__ (INFO)>}
+2025-06-09 03:02:49,185 - [*] Year 2017 load from data/GLA/FastData/2017_30day.npz
+2025-06-09 03:04:30,050 - [*] Year 2017 Dataset load!
+2025-06-09 03:04:30,062 - [*] Model parameter count: 8650
+2025-06-09 03:04:30,062 - [*] Year 2017 Training start
+2025-06-09 03:04:30,797 - node number torch.Size([232960, 24])
+2025-06-09 03:05:11,721 - epoch:0, training loss:14095.2283 validation loss:32.6761, moco loss:1.0629
+2025-06-09 03:05:52,929 - epoch:1, training loss:2569.2416 validation loss:30.4217, moco loss:1.7367
+2025-06-09 03:06:34,134 - epoch:2, training loss:2441.1164 validation loss:30.0905, moco loss:1.0502
+2025-06-09 03:07:14,770 - epoch:3, training loss:2415.8169 validation loss:30.0611, moco loss:2.3600
+2025-06-09 03:07:56,593 - epoch:4, training loss:2376.9442 validation loss:29.9730, moco loss:9.8423
+2025-06-09 03:08:37,408 - epoch:5, training loss:2362.0657 validation loss:30.0681, moco loss:5.9057
+2025-06-09 03:09:18,301 - epoch:6, training loss:2346.4945 validation loss:29.4939, moco loss:2.3627
+2025-06-09 03:09:59,453 - epoch:7, training loss:2337.2680 validation loss:29.2592, moco loss:7.5139
+2025-06-09 03:10:40,303 - epoch:8, training loss:2329.9677 validation loss:29.2156, moco loss:16.0392
+2025-06-09 03:11:22,208 - epoch:9, training loss:2326.9046 validation loss:29.3778, moco loss:10.4796
+2025-06-09 03:12:02,630 - epoch:10, training loss:2318.7303 validation loss:29.4211, moco loss:17.3878
+2025-06-09 03:12:43,602 - epoch:11, training loss:2318.1061 validation loss:29.1143, moco loss:10.7085
+2025-06-09 03:13:24,616 - epoch:12, training loss:2315.1918 validation loss:29.1780, moco loss:22.6126
+2025-06-09 03:14:05,548 - epoch:13, training loss:2309.8699 validation loss:29.1524, moco loss:4.2872
+2025-06-09 03:14:46,500 - epoch:14, training loss:2305.5138 validation loss:29.0941, moco loss:19.1582
+2025-06-09 03:15:27,516 - epoch:15, training loss:2306.6282 validation loss:29.7194, moco loss:16.8566
+2025-06-09 03:16:08,252 - epoch:16, training loss:2263.2957 validation loss:28.9149, moco loss:6.0476
+2025-06-09 03:16:49,514 - epoch:17, training loss:2232.9180 validation loss:28.5973, moco loss:9.2362
+2025-06-09 03:17:30,633 - epoch:18, training loss:2211.7701 validation loss:28.7159, moco loss:15.5849
+2025-06-09 03:18:10,994 - epoch:19, training loss:2203.0385 validation loss:28.4861, moco loss:10.6435
+2025-06-09 03:18:52,318 - epoch:20, training loss:2181.9556 validation loss:28.4728, moco loss:3.1633
+2025-06-09 03:19:33,300 - epoch:21, training loss:2180.5957 validation loss:28.3469, moco loss:7.6012
+2025-06-09 03:20:13,955 - epoch:22, training loss:2174.5586 validation loss:28.6524, moco loss:15.8406
+2025-06-09 03:20:54,576 - epoch:23, training loss:2163.8592 validation loss:28.3092, moco loss:6.7263
+2025-06-09 03:21:35,802 - epoch:24, training loss:2159.9308 validation loss:28.3190, moco loss:15.1683
+2025-06-09 03:22:17,057 - epoch:25, training loss:2150.4814 validation loss:28.3360, moco loss:1.2096
+2025-06-09 03:22:58,895 - epoch:26, training loss:2146.1989 validation loss:28.2555, moco loss:6.0392
+2025-06-09 03:23:40,146 - epoch:27, training loss:2140.6198 validation loss:28.3491, moco loss:20.1179
+2025-06-09 03:24:23,146 - epoch:28, training loss:2142.0204 validation loss:28.3149, moco loss:8.7665
+2025-06-09 03:25:04,222 - epoch:29, training loss:2135.9351 validation loss:28.3359, moco loss:18.0254
+2025-06-09 03:25:45,459 - epoch:30, training loss:2140.2669 validation loss:29.1288, moco loss:59.7633
+2025-06-09 03:26:26,330 - epoch:31, training loss:2138.8413 validation loss:28.2732, moco loss:7.3500
+2025-06-09 03:27:07,010 - epoch:32, training loss:2134.5409 validation loss:30.8117, moco loss:40.4345
+2025-06-09 03:27:17,293 - [*]Test--basic_loss:0.0000, event_loss:2140.5560, test_loss:2140.5560
+2025-06-09 03:27:21,837 - [*] Evaluating all samples:
+2025-06-09 03:27:21,837 - [*] year 2017, testing
+2025-06-09 03:27:35,348 - T:3	MAE	22.1857	RMSE	35.2254	MAPE	9.5359
+2025-06-09 03:27:47,288 - T:6	MAE	24.3217	RMSE	38.3300	MAPE	10.4534
+2025-06-09 03:28:02,009 - T:12	MAE	28.1241	RMSE	43.6265	MAPE	12.3983
+2025-06-09 03:28:02,019 - Finished optimization, total time:1068.78 s, best model:res/GLA/gla2025-06-09-03:02:49.066181/2017/28.2555.pkl
+2025-06-09 03:28:02,270 - [*] Year 2018 load from data/GLA/FastData/2018_30day.npz
+2025-06-09 03:28:02,301 - Secure SignIn[*] load from res/GLA/gla2025-06-09-03:02:49.066181/2017/28.2555.pkl
+2025-06-09 03:28:02,389 - [*] detect strategy feature
+2025-06-09 03:28:11,802 - [*] replay node number 165
+2025-06-09 03:28:42,313 - number of increase nodes:184, nodes after 2 hop:torch.Size([1486]), total nodes this year 1843
+2025-06-09 03:30:20,512 - [*] Year 2018 Dataset load!
+2025-06-09 03:30:20,512 - Secure SignIn[*] load from res/GLA/gla2025-06-09-03:02:49.066181/2017/28.2555.pkl
+2025-06-09 03:30:20,578 - [*] EWC! lambda 0.000100
+2025-06-09 03:31:04,135 - [*] Model parameter count: 8650
+2025-06-09 03:31:04,136 - [*] Year 2018 Training start
+2025-06-09 03:31:05,827 - node number torch.Size([190208, 24])
+2025-06-09 03:31:38,815 - epoch:0, training loss:2167.6271 validation loss:28.7432, moco loss:32.1006
+2025-06-09 03:32:12,328 - epoch:1, training loss:2141.7601 validation loss:28.8310, moco loss:1.6253
+2025-06-09 03:32:45,498 - epoch:2, training loss:2146.2751 validation loss:29.6492, moco loss:30.4535
+2025-06-09 03:33:19,028 - epoch:3, training loss:2143.0114 validation loss:29.5890, moco loss:5.9284
+2025-06-09 03:33:52,398 - epoch:4, training loss:2139.7209 validation loss:29.6152, moco loss:41.5776
+2025-06-09 03:34:26,724 - epoch:5, training loss:2146.4564 validation loss:29.4190, moco loss:9.0542
+2025-06-09 03:35:00,899 - epoch:6, training loss:2138.9302 validation loss:29.1593, moco loss:4.6430
+2025-06-09 03:35:08,910 - [*]Test--basic_loss:0.0000, event_loss:1811.8301, test_loss:1811.8301
+2025-06-09 03:35:09,213 - [*] Evaluating all samples:
+2025-06-09 03:35:09,213 - [*] year 2018, testing
+2025-06-09 03:35:09,333 - T:3	MAE	30.6033	RMSE	44.1528	MAPE	11.5271
+2025-06-09 03:35:09,531 - T:6	MAE	30.2079	RMSE	43.8027	MAPE	11.8864
+2025-06-09 03:35:09,684 - T:12	MAE	29.7083	RMSE	43.4004	MAPE	12.6523
+2025-06-09 03:35:09,685 - Finished optimization, total time:192.17 s, best model:res/GLA/gla2025-06-09-03:02:49.066181/2018/28.7432.pkl
+2025-06-09 03:35:09,957 - [*] Year 2019 load from data/GLA/FastData/2019_30day.npz
+2025-06-09 03:35:09,991 - Secure SignIn[*] load from res/GLA/gla2025-06-09-03:02:49.066181/2018/28.7432.pkl
+2025-06-09 03:35:10,082 - [*] detect strategy feature
+2025-06-09 03:35:18,643 - [*] replay node number 167
+2025-06-09 03:35:48,637 - number of increase nodes:185, nodes after 2 hop:torch.Size([1517]), total nodes this year 1859
+2025-06-09 03:38:08,328 - [*] Year 2019 Dataset load!
+2025-06-09 03:38:08,329 - Secure SignIn[*] load from res/GLA/gla2025-06-09-03:02:49.066181/2018/28.7432.pkl
+2025-06-09 03:38:08,400 - [*] EWC! lambda 0.000100
+2025-06-09 03:39:12,561 - [*] Model parameter count: 8650
+2025-06-09 03:39:12,563 - [*] Year 2019 Training start
+2025-06-09 03:39:14,760 - node number torch.Size([194176, 24])
+2025-06-09 03:39:47,345 - epoch:0, training loss:1990.4087 validation loss:29.0477, moco loss:9.9233
+2025-06-09 03:40:22,021 - epoch:1, training loss:1970.7315 validation loss:28.5616, moco loss:2.9511
+2025-06-09 03:40:56,143 - epoch:2, training loss:1965.3626 validation loss:28.5830, moco loss:4.7684
+2025-06-09 03:41:30,007 - epoch:3, training loss:1966.0779 validation loss:28.3262, moco loss:15.5686
+2025-06-09 03:42:04,042 - epoch:4, training loss:1972.8802 validation loss:28.6920, moco loss:23.7601
+2025-06-09 03:42:39,850 - epoch:5, training loss:1970.0952 validation loss:28.4429, moco loss:29.1363
+2025-06-09 03:43:14,464 - epoch:6, training loss:1968.1727 validation loss:28.5386, moco loss:18.4022
+2025-06-09 03:43:48,596 - epoch:7, training loss:1967.7347 validation loss:28.3747, moco loss:16.4520
+2025-06-09 03:44:23,081 - epoch:8, training loss:1970.0708 validation loss:28.9155, moco loss:3.3569
+2025-06-09 03:44:57,624 - epoch:9, training loss:1966.3022 validation loss:28.4386, moco loss:3.7179
+2025-06-09 03:45:06,416 - [*]Test--basic_loss:0.0000, event_loss:1663.3606, test_loss:1663.3606
+2025-06-09 03:45:06,836 - [*] Evaluating all samples:
+2025-06-09 03:45:06,836 - [*] year 2019, testing
+2025-06-09 03:45:06,909 - T:3	MAE	26.7188	RMSE	39.7178	MAPE	10.8143
+2025-06-09 03:45:07,000 - T:6	MAE	26.7234	RMSE	40.0549	MAPE	11.2399
+2025-06-09 03:45:07,144 - T:12	MAE	26.8294	RMSE	40.5263	MAPE	11.2925
+2025-06-09 03:45:07,145 - Finished optimization, total time:281.74 s, best model:res/GLA/gla2025-06-09-03:02:49.066181/2019/28.3262.pkl
+2025-06-09 03:45:07,456 - [*] Year 2020 load from data/GLA/FastData/2020_30day.npz
+2025-06-09 03:45:07,479 - Secure SignIn[*] load from res/GLA/gla2025-06-09-03:02:49.066181/2019/28.3262.pkl
+2025-06-09 03:45:07,564 - [*] detect strategy feature
+2025-06-09 03:45:17,995 - [*] replay node number 167
+2025-06-09 03:45:53,602 - number of increase nodes:176, nodes after 2 hop:torch.Size([1583]), total nodes this year 1859
+2025-06-09 03:47:25,269 - [*] Year 2020 Dataset load!
+2025-06-09 03:47:25,270 - Secure SignIn[*] load from res/GLA/gla2025-06-09-03:02:49.066181/2019/28.3262.pkl
+2025-06-09 03:47:25,335 - [*] EWC! lambda 0.000100
+2025-06-09 03:48:09,226 - [*] Model parameter count: 8650
+2025-06-09 03:48:09,227 - [*] Year 2020 Training start
+2025-06-09 03:48:11,246 - node number torch.Size([202624, 24])
+2025-06-09 03:48:46,740 - epoch:0, training loss:1622.8745 validation loss:26.9312, moco loss:6.9034
+2025-06-09 03:49:23,321 - epoch:1, training loss:1591.9497 validation loss:25.7360, moco loss:3.6799
+2025-06-09 03:50:00,614 - epoch:2, training loss:1595.1963 validation loss:26.7997, moco loss:6.4629
+2025-06-09 03:50:36,645 - epoch:3, training loss:1590.0433 validation loss:25.7688, moco loss:1.4437
+2025-06-09 03:51:14,639 - epoch:4, training loss:1586.1334 validation loss:25.8125, moco loss:5.9824
+2025-06-09 03:51:51,961 - epoch:5, training loss:1589.9279 validation loss:27.7486, moco loss:21.3680
+2025-06-09 03:52:28,636 - epoch:6, training loss:1593.3861 validation loss:25.5191, moco loss:3.4250
+2025-06-09 03:53:05,768 - epoch:7, training loss:1585.2073 validation loss:27.7363, moco loss:11.9299
+2025-06-09 03:53:43,514 - epoch:8, training loss:1591.6878 validation loss:26.2870, moco loss:5.2435
+2025-06-09 03:54:20,517 - epoch:9, training loss:1586.1042 validation loss:26.8468, moco loss:1.4788
+2025-06-09 03:54:58,838 - epoch:10, training loss:1591.7427 validation loss:25.5754, moco loss:1.8498
+2025-06-09 03:55:36,204 - epoch:11, training loss:1585.6971 validation loss:27.0373, moco loss:2.1589
+2025-06-09 03:56:13,534 - epoch:12, training loss:1585.9883 validation loss:26.3163, moco loss:6.0749
+2025-06-09 03:56:21,724 - [*]Test--basic_loss:0.0000, event_loss:1613.7865, test_loss:1613.7865
+2025-06-09 03:56:21,938 - [*] Evaluating all samples:
+2025-06-09 03:56:21,938 - [*] year 2020, testing
+2025-06-09 03:56:22,000 - T:3	MAE	23.6824	RMSE	36.6817	MAPE	13.2772
+2025-06-09 03:56:22,067 - T:6	MAE	23.7683	RMSE	36.4238	MAPE	13.2512
+2025-06-09 03:56:22,193 - T:12	MAE	24.0994	RMSE	36.5865	MAPE	13.0731
+2025-06-09 03:56:22,194 - Finished optimization, total time:393.16 s, best model:res/GLA/gla2025-06-09-03:02:49.066181/2020/25.5191.pkl
+2025-06-09 03:56:22,377 - 3	mae	22.19	30.60	26.72	23.68	
+2025-06-09 03:56:22,378 - 3	rmse	35.23	44.15	39.72	36.68	
+2025-06-09 03:56:22,378 - 3	mape	9.54	11.53	10.81	13.28	
+2025-06-09 03:56:22,378 - 6	mae	24.32	30.21	26.72	23.77	
+2025-06-09 03:56:22,378 - 6	rmse	38.33	43.80	40.05	36.42	
+2025-06-09 03:56:22,378 - 6	mape	10.45	11.89	11.24	13.25	
+2025-06-09 03:56:22,378 - 12	mae	28.12	29.71	26.83	24.10	
+2025-06-09 03:56:22,378 - 12	rmse	43.63	43.40	40.53	36.59	
+2025-06-09 03:56:22,378 - 12	mape	12.40	12.65	11.29	13.07	
+2025-06-09 03:56:22,378 - year	2017	total_time	1068.7799499999999	average_time	32.38728266666667	epoch	33
+2025-06-09 03:56:22,378 - year	2018	total_time	192.17006600000002	average_time	27.45288114285714	epoch	7
+2025-06-09 03:56:22,378 - year	2019	total_time	281.74276	average_time	28.1742888	epoch	10
+2025-06-09 03:56:22,378 - year	2020	total_time	393.157165	average_time	30.242872153846154	epoch	13
