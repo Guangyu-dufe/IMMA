@@ -18,11 +18,11 @@ Data_alignment_SD/non_highway_and_sensors_map.html
 Data_alignment_SD/highway_and_sensors_map.html
 
 # data
-TrafficStream/data/*
+IMMA/data/*
 
 # logs
-TrafficStream/res/*
-TrafficStream/compute_loss.ipynb
+IMMA/res/*
+IMMA/compute_loss.ipynb
 
 # data
 Online_Baselines/data/*

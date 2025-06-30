@@ -1,0 +1,66 @@
+    {
+        "begin_year": 2017,
+        "end_year": 2020,
+        "dropout": 0.0,
+        "lr": 0.001,
+        "batch_size": 4,
+        "epoch": 20,
+        "gpuid": 1,
+        "loss": "mse",
+        "activation": "relu",
+        "scheduler": "epo",
+        "train": 1,
+        "y_len": 12,
+        "x_len": 12,
+        "data_process": 1,
+        "auto_test": 1,
+        "raw_data_path": "data/CA/finaldata/",
+        "save_data_path": "data/CA/FastData/",
+        "graph_path": "data/CA/graph/",
+        "model_path": "res/CA/",
+        "gcn":{
+            "in_channel": 12,
+            "out_channel": 12,
+            "hidden_channel": 64
+        },
+
+        "tcn":{
+            "in_channel": 1,
+            "out_channel": 1,
+            "kernel_size": 3,
+            "dilation": 1
+        },
+
+        "classifier":{
+            "hidden_dim": 128
+        },
+
+
+        "logname": "ca-STAEformer",
+
+
+        "strategy": "incremental",
+        "init": true,
+        "increase": true,
+        "num_hops": 2,
+
+        "detect": false,
+        "detect_strategy": "feature",
+
+        "ewc": false,
+        "ewc_strategy": "ewc",
+        "ewc_lambda": 0.0001,
+
+        "replay": true,
+        "replay_strategy": "random",
+        "replay_num_samples": 300,
+
+        "extra_feature": false,
+
+        "moco": true,
+        "momentum_type": "linear",
+        "memory_size": 32,
+
+        "expand": true
+
+    }
